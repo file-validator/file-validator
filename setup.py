@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', 'filetype>=1.1.0']
+requirements = ['Click>=7.0', 'filetype>=1.1.0', 'termcolor>=1.1.0', 'python-magic>=0.4.27']
 
 test_requirements = ['pytest>=3', ]
 
@@ -44,6 +44,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/rzashakeri/file_validator',
-    version='0.0.1',
+    version='0.0.3',
     zip_safe=False,
 )
