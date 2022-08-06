@@ -1,23 +1,31 @@
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import TemporaryUploadedFile
+from django.utils.deconstruct import deconstructible
+from django.conf import settings
 from filetype import (
     get_type,
     is_extension_supported,
     guess,
 )
-from django.core.files.uploadedfile import TemporaryUploadedFile
-from django.utils.deconstruct import deconstructible
+from termcolor import colored
+import magic
 
 
 @deconstructible
-class FileValidator:
-    """ """
-
+class FileValidatorWithFileType:
     def __init__(self, *args):
         """
         :param args: You can choose different types and pass it as a string and be sure to separate the types with commas, example : FileValidator("mp3", "avi")
 
         :raises ValueError: If the type you enter is not supported, it will cause this value error, please check that there are no typos, and you can check the list of supported types from the documentation.
         """
+        if not all(args):
+            error_message = """
+            \n---------------------------------------------------------------
+            \nThe args value is empty, please pass the value (file extension).\nHow to fix this error? FileValidator("file type or extension")\nYou can read the documentation for the full list of supported types
+            \n---------------------------------------------------------------
+            """
+            raise ValueError(colored(error_message, "red"))
         selected_types = {}
         for selected_file_type in args:
             if is_extension_supported(selected_file_type):
@@ -28,8 +36,11 @@ class FileValidator:
                     }
                 )
             else:
+                error_message = f"""
+                \n({selected_file_type}) Is Not Valid, Please Visit Documentation And Enter Valid Type\nHow to fix this error? FileValidator("file type or extension")
+                """
                 raise ValueError(
-                    f"{selected_file_type} Is Not Valid, Please Visit Documentation And Enter Valid Type"
+                    colored(error_message, "red")
                 )
         self.selected_types = selected_types
 
@@ -47,15 +58,15 @@ class FileValidator:
         the filetype library, we will create a validation error.
         """
         if current_file is not None:
-            for file_extension, temporary_file in self.selected_types.items():
+            for file_extension, file_object in self.selected_types.items():
                 if (
-                    current_file.EXTENSION != file_extension
-                    and current_file.MIME != temporary_file.MIME
+                        current_file.EXTENSION != file_extension
+                        and current_file.MIME != file_object.MIME
                 ):
                     result_validation.append(True)
                 elif (
-                    current_file.EXTENSION == file_extension
-                    and current_file.MIME == temporary_file.MIME
+                        current_file.EXTENSION == file_extension
+                        and current_file.MIME == file_object.MIME
                 ):
                     result_validation.append(False)
         else:
@@ -77,3 +88,32 @@ class FileValidator:
             raise ValidationError(
                 f"{current_file.extension} File Is Not Valid, Please Upload a valid Type"
             )
+
+
+@deconstructible
+class FileValidatorWithPythonMagic:
+    def __init__(self, *args):
+        """
+        :param args:  You can choose different mime and pass it as a string and be sure to separate the types with commas, example : FileValidator("image/png", "image/webp", "video/mp4")
+        """
+        if not all(args):
+            error_message = """
+                \n---------------------------------------------------------------
+                \nThe args value is empty, please pass the value (file MIME).\nHow to fix this error? FileValidator("file MIME")\nYou can read the documentation for the full list of supported MIMES
+                \n---------------------------------------------------------------
+                """
+            raise ValueError(colored(error_message, "red"))
+        selected_mimes = []
+        for mime in args:
+            selected_mimes.append(mime)
+        self.selected_mimes = selected_mimes
+
+    def __call__(self, value):
+        """
+        :param value: Here, value means the file that is received by the user and must be validated
+        """
+        file = value.file
+        file_path = TemporaryUploadedFile.temporary_file_path(file)
+        file_mime = magic.from_buffer(open(file_path, "rb").read(2048), mime=True)
+        if file_mime not in self.selected_mimes:
+            raise ValidationError(f"file is not valid")
