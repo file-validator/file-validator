@@ -22,3 +22,14 @@ History
 0.0.4 (2022-08-07)
 ------------------
 * Added File Validator
+
+0.0.5 (2022-08-08)
+------------------
+* Added **validator for pure python** project
+* Added **get_mime_type_with_python_magic** function
+* Added **get_extension_with_filetype_lib** function
+* Added **get_mime_type_with_filetype_lib** function
+* Added **file_validator_with_filetype_lib** function
+
+
+
