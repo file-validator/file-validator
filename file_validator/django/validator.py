@@ -5,7 +5,8 @@ from django.conf import settings
 from filetype import (
     get_type,
     is_extension_supported,
-    guess,
+    is_mime_supported,
+    guess
 )
 from termcolor import colored
 import magic
@@ -15,7 +16,7 @@ import magic
 class FileValidatorWithFileType:
     def __init__(self, *args):
         """
-        :param args: You can choose different types and pass it as a string and be sure to separate the types with commas, example : FileValidator("mp3", "avi")
+        :param args: You can choose different types and pass it as a string and be sure to separate the types with commas, example: FileValidatorWithFileType("mp3", "avi")
 
         :raises ValueError: If the type you enter is not supported, it will cause this value error, please check that there are no typos, and you can check the list of supported types from the documentation.
         """
@@ -60,13 +61,13 @@ class FileValidatorWithFileType:
         if current_file is not None:
             for file_extension, file_object in self.selected_types.items():
                 if (
-                        current_file.EXTENSION != file_extension
-                        and current_file.MIME != file_object.MIME
+                    current_file.EXTENSION != file_extension
+                    and current_file.MIME != file_object.MIME
                 ):
                     result_validation.append(True)
                 elif (
-                        current_file.EXTENSION == file_extension
-                        and current_file.MIME == file_object.MIME
+                    current_file.EXTENSION == file_extension
+                    and current_file.MIME == file_object.MIME
                 ):
                     result_validation.append(False)
         else:
@@ -94,7 +95,7 @@ class FileValidatorWithFileType:
 class FileValidatorWithPythonMagic:
     def __init__(self, *args):
         """
-        :param args:  You can choose different mime and pass it as a string and be sure to separate the types with commas, example : FileValidator("image/png", "image/webp", "video/mp4")
+        :param args:  You can choose different mime and pass it as a string and be sure to separate the types with commas, example: FileValidatorWithPythonMagic("image/png", "image/webp", "video/mp4")
         """
         if not all(args):
             error_message = """
@@ -116,4 +117,35 @@ class FileValidatorWithPythonMagic:
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         file_mime = magic.from_buffer(open(file_path, "rb").read(2048), mime=True)
         if file_mime not in self.selected_mimes:
-            raise ValidationError(f"file is not valid")
+            raise ValidationError(f"{file_mime} file is not valid")
+
+
+@deconstructible
+class FileValidator:
+    def __init__(self, *args):
+        """
+        :param args: You can choose different mime and pass it as a string and be sure to separate the types with commas, example : FileValidator("image/png", "image/webp", "video/mp4")
+        """
+        selected_mimes = []
+        for mime in args:
+            if is_mime_supported(mime):
+                file_object = get_type(mime=mime)
+                selected_mimes.append(file_object.MIME)
+            else:
+                error_message = f"""
+                ----------------------------------------------------------------------
+                => {mime} is not supported, Read the documentation for supported mimes
+                ----------------------------------------------------------------------
+                """
+                raise ValueError(colored(error_message, "red"))
+        self.selected_mimes = selected_mimes
+
+    def __call__(self, value):
+        file = value.file
+        file_path = TemporaryUploadedFile.temporary_file_path(file)
+        file_mime_with_python_magic = magic.from_buffer(open(file_path, "rb").read(2048), mime=True)  # get file mime use python magic library
+        file_mime_with_filetype_lib = guess(file_path).MIME   # get file mime use filetype library
+        if file_mime_with_filetype_lib and file_mime_with_python_magic not in self.selected_mimes:
+            raise ValidationError(
+                f"{file_mime_with_python_magic} is not valid"
+            )
