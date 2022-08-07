@@ -4,46 +4,54 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open("README.rst") as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
+with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', 'filetype>=1.1.0', 'termcolor>=1.1.0', 'python-magic>=0.4.27']
+requirements = [
+    "Click>=7.0",
+    "filetype>=1.1.0",
+    "termcolor>=1.1.0",
+    "python-magic>=0.4.27",
+    "python-magic-bin>=0.4.14",
+]
 
-test_requirements = ['pytest>=3', ]
+test_requirements = [
+    "pytest>=3",
+]
 
 setup(
     author="Reza Shakeri",
-    author_email='rzashakeri@outlook.com',
-    python_requires='>=3.6',
+    author_email="rzashakeri@outlook.com",
+    python_requires=">=3.6",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        "Development Status :: 2 - Pre-Alpha",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     description="A library for validating files in Python",
     entry_points={
-        'console_scripts': [
-            'file_validator=file_validator.cli:main',
+        "console_scripts": [
+            "file_validator=file_validator.cli:main",
         ],
     },
     install_requires=requirements,
     license="MIT license",
-    long_description=readme + '\n\n' + history,
+    long_description=readme + "\n\n" + history,
     include_package_data=True,
-    keywords='file_validator',
-    name='file_validator',
-    packages=find_packages(include=['file_validator', 'file_validator.*']),
-    test_suite='tests',
+    keywords="file_validator",
+    name="file_validator",
+    packages=find_packages(include=["file_validator", "file_validator.*"]),
+    test_suite="tests",
     tests_require=test_requirements,
-    url='https://github.com/rzashakeri/file_validator',
-    version='0.0.3',
+    url="https://github.com/rzashakeri/file_validator",
+    version="0.0.3",
     zip_safe=False,
 )
