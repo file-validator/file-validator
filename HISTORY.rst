@@ -18,3 +18,7 @@ History
 ------------------
 * Added File Validator With File Type Library
 * Added File Validator With Python Magic Library
+
+0.0.4 (2022-08-07)
+------------------
+* Added File Validator
