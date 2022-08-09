@@ -3,8 +3,10 @@ import magic
 from mimetypes import guess_type, guess_extension
 from termcolor import colored
 
+from file_validator.tests.fixtures import BAD_MIME, text_file
 
-def get_mime_type_with_python_magic(file_path):
+
+def get_mime_by_python_magic(file_path):
     """
     :type file_path: string
     :param file_path: The path of the file you want to get MIME use python magic library
@@ -14,7 +16,7 @@ def get_mime_type_with_python_magic(file_path):
     return file_mime
 
 
-def get_mime_type_with_filetype_lib(file_path):
+def get_mime_by_filetype(file_path):
     """
     :type file_path: string
     :param file_path: The path of the file you want to get MIME use filetype library
@@ -24,12 +26,17 @@ def get_mime_type_with_filetype_lib(file_path):
     return file_mime
 
 
-def get_mime_type_with_mimetypes_lib(file_path):
+def get_mime_by_mimetypes(file_path):
+    """
+    :type file_path: string
+    :param file_path: The path of the file you want to get MIME use mim library (native library)
+    :return: return extension of file you gave it
+    """
     file_mime = guess_type(file_path)[0]
     return file_mime
 
 
-def get_extension_with_filetype_lib(file_path):
+def get_extension_by_filetype(file_path):
     """
     :type file_path: string
     :param file_path: The path of the file you want to get the extension use filetype library
@@ -39,35 +46,31 @@ def get_extension_with_filetype_lib(file_path):
     return file_extension
 
 
-def file_validation_with_filetype_lib(*args, file_path):
+def file_validation_by_filetype(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :param args: The extension of the files you want to validate based on them, example : mp3, png, mp4 ...
+    :param args: The mime of the files you want to validate based on them, example : mp3, png, mp4 ...
     """
-    file_mime = get_mime_type_with_filetype_lib(file_path)
-    file_extension = get_extension_with_filetype_lib(file_path)
+    file_mime = get_mime_by_filetype(file_path)
+    file_extension = get_extension_by_filetype(file_path)
     if is_extension_supported(file_extension):
         if file_mime not in list(args):
-            error_message = f"""
-            {file_mime} is not valid
-            """
+            error_message = f"{file_mime} is not valid"
             raise ValueError(colored(error_message, "red"))
 
     else:
-        error_message = f"""
-        {file_extension} is not supported
-        """
+        error_message = f"{file_extension} is not supported"
         raise ValueError(colored(error_message, "red"))
 
 
-def file_validation_with_python_magic(*args, file_path):
+def file_validation_by_python_magic(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
     :param args: The mime of the files you want to validate based on them, example: image/png, video/mp4
     """
-    file_mime = get_mime_type_with_python_magic(file_path)
+    file_mime = get_mime_by_python_magic(file_path)
     if file_mime not in list(args):
         error_message = f"""
         {file_mime} is not valid
@@ -75,13 +78,13 @@ def file_validation_with_python_magic(*args, file_path):
         raise ValueError(colored(error_message, "red"))
 
 
-def file_validation_with_mimetypes_lib(*args, file_path):
+def file_validation_by_mimetypes(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
     :param args: The mime of the files you want to validate based on them, example: image/png, video/mp4
     """
-    file_mime = get_mime_type_with_mimetypes_lib(file_path)
+    file_mime = get_mime_by_mimetypes(file_path)
     if file_mime not in list(args):
         error_message = f"""
         {file_mime} is not valid
@@ -95,6 +98,7 @@ def file_validator(*args, file_path):
     :param file_path: The path to the file you want to validate
     :param args: The mime of the files you want to validate based on them, example: image/png, video/mp4
     """
-    file_validation_with_filetype_lib(*args, file_path=file_path)
-    file_validation_with_python_magic(*args, file_path=file_path)
-    file_validation_with_mimetypes_lib(*args, file_path=file_path)
+    file_validation_by_filetype(*args, file_path=file_path)
+    file_validation_by_python_magic(*args, file_path=file_path)
+    file_validation_by_mimetypes(*args, file_path=file_path)
+
