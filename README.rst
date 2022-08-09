@@ -11,8 +11,12 @@ File Validator
         :alt: Documentation Status
 .. image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
         :target: https://python.org
+        :alt: made with python
 .. image:: https://badgen.net/pypi/license/pip/
+        :target: https://badgen.net/pypi/license/pip/
 .. image:: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
+        :target: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
+
 
 
 
