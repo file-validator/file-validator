@@ -31,5 +31,6 @@ History
 * Added **get_mime_type_with_filetype_lib** function
 * Added **file_validator_with_filetype_lib** function
 
-
-
+0.0.6 (2022-08-10)
+------------------
+* Refactoring project files
