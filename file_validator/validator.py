@@ -39,7 +39,7 @@ def get_extension_with_filetype_lib(file_path):
     return file_extension
 
 
-def file_validator_with_filetype_lib(*args, file_path):
+def file_validation_with_filetype_lib(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
@@ -61,7 +61,7 @@ def file_validator_with_filetype_lib(*args, file_path):
         raise ValueError(colored(error_message, "red"))
 
 
-def file_validator_with_python_magic(*args, file_path):
+def file_validation_with_python_magic(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
@@ -75,7 +75,7 @@ def file_validator_with_python_magic(*args, file_path):
         raise ValueError(colored(error_message, "red"))
 
 
-def file_validator_with_mimetypes_lib(*args, file_path):
+def file_validation_with_mimetypes_lib(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
@@ -87,3 +87,14 @@ def file_validator_with_mimetypes_lib(*args, file_path):
         {file_mime} is not valid
         """
         raise ValueError(colored(error_message, "red"))
+
+
+def file_validator(*args, file_path):
+    """
+    :type file_path: string
+    :param file_path: The path to the file you want to validate
+    :param args: The mime of the files you want to validate based on them, example: image/png, video/mp4
+    """
+    file_validation_with_filetype_lib(*args, file_path=file_path)
+    file_validation_with_python_magic(*args, file_path=file_path)
+    file_validation_with_mimetypes_lib(*args, file_path=file_path)
