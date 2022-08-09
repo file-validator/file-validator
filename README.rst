@@ -21,8 +21,24 @@ File Validator
 
 Features
 --------
+If you are looking for a safe way to validate your files, the file validator library will do this for you, this library also supports Django.
 
+* File validation using the `filetype`_ library
+.. _filetype: https://domain.invalid/
 
+* File validation using the `python-magic`_ library
+.. _python-magic: https://domain.invalid/
+
+* File validation using the `mimetypes`_ library
+.. _mimetypes: https://docs.python.org/3/library/mimetypes.html
+
+* File validation simultaneously with all three libraries
+..
+
+* Supporting for all `mimes`_
+.. _mimes: https://www.iana.org/assignments/media-types/media-types.xhtml
+
+* Functions to get mimes and file extensions
 
 Credits
 -------
