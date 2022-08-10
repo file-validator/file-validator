@@ -34,3 +34,10 @@ History
 0.0.6 (2022-08-10)
 ------------------
 * Refactoring project files
+
+0.0.7 (2022-08-10)
+------------------
+* Adding Test To Project (file validator for pure python)
+* Deleting **get_mime_type_with_python_magic**
+* Deleting **get_extension_with_filetype_lib**
+* Deleting **get_mime_type_with_filetype_lib**
