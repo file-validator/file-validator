@@ -19,6 +19,9 @@ File Validator
 .. image:: https://codecov.io/gh/rzashakeri/file_validator/branch/master/graph/badge.svg?token=13ZVSJWH8M
         :target: https://codecov.io/gh/rzashakeri/file_validator
 .. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
+        :target: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
+
+
 
 Features
 --------
