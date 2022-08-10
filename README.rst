@@ -17,6 +17,7 @@ File Validator
 .. image:: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
         :target: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
 .. image:: https://codecov.io/gh/rzashakeri/file_validator/branch/master/graph/badge.svg?token=13ZVSJWH8M
+        :target: https://codecov.io/gh/rzashakeri/file_validator
 .. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
 
 Features
