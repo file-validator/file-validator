@@ -3,7 +3,7 @@ import magic
 from mimetypes import guess_type, guess_extension
 from termcolor import colored
 
-from file_validator.tests.fixtures import BAD_MIME, text_file
+from file_validator.tests.fixtures import BAD_MIME, text_file, PNG_MIME, jpeg_file
 
 
 def get_mime_by_python_magic(file_path):
@@ -53,14 +53,8 @@ def file_validation_by_filetype(*args, file_path):
     :param args: The mime of the files you want to validate based on them, example : mp3, png, mp4 ...
     """
     file_mime = get_mime_by_filetype(file_path)
-    file_extension = get_extension_by_filetype(file_path)
-    if is_extension_supported(file_extension):
-        if file_mime not in list(args):
-            error_message = f"{file_mime} is not valid"
-            raise ValueError(colored(error_message, "red"))
-
-    else:
-        error_message = f"{file_extension} is not supported"
+    if file_mime not in list(args):
+        error_message = f"{file_mime} is not valid"
         raise ValueError(colored(error_message, "red"))
 
 
@@ -92,7 +86,7 @@ def file_validation_by_mimetypes(*args, file_path):
         raise ValueError(colored(error_message, "red"))
 
 
-def file_validator(*args, file_path):
+def file_validation(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
