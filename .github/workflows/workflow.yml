@@ -15,15 +15,10 @@ jobs:
       uses: actions/setup-python@master
       with:
         python-version: 3.8
-    - name: Generate coverage report
-      run: |
-        pip install pytest
-        pip install pytest-cov
-        pip install filetype>=1.1.0
-        pip install termcolor>=1.1.0
-        pip install python-magic>=0.4.27
-        pip install python-magic-bin>=0.4.14
-        pytest --cov=./ --cov-report=xml
+    - name: Install requirements
+      run: pip install -r requirements.txt
+    - name: Run tests and collect coverage
+      run: pytest --cov .
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
