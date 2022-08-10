@@ -22,7 +22,7 @@ jobs:
         pip install filetype>=1.1.0
         pip install termcolor>=1.1.0
         pip install python-magic>=0.4.27
-        pip install python-magic-bin>=0.4.14
+        pip install python-magic-bin==0.4.14
         pytest --cov=./ --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
