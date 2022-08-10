@@ -1,5 +1,6 @@
 pytest>=3
-pytest-cov
+coverage>=4.5.4
 filetype>=1.1.0
 termcolor>=1.1.0
 python-magic>=0.4.27
+python-magic-bin>=0.4.14
