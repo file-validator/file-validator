@@ -1,5 +1,15 @@
 import os
 import pytest
+from django.db import models
+from file_validator.file_validator.django.validator import FileValidator
+
+BAD_MIME = "mime/bad"
+JPEG_MIME = "image/jpeg"
+MP3_MIME = "audio/mpeg"
+PNG_MIME = "image/png"
+JPEG_EXTENSION = "jpg"
+MP3_EXTENSION = "mp3"
+PNG_EXTENSION = "png"
 
 
 def get_test_file(file_name):
@@ -24,12 +34,3 @@ def mp3_file():
 def text_file():
     file = get_test_file(file_name="test.txt")
     return file
-
-
-BAD_MIME = "mime/bad"
-JPEG_MIME = "image/jpeg"
-MP3_MIME = "audio/mpeg"
-PNG_MIME = "image/png"
-JPEG_EXTENSION = "jpg"
-MP3_EXTENSION = "mp3"
-PNG_EXTENSION = "png"
