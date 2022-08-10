@@ -29,5 +29,7 @@ def text_file():
 BAD_MIME = "mime/bad"
 JPEG_MIME = "image/jpeg"
 MP3_MIME = "audio/mpeg"
+PNG_MIME = "image/png"
 JPEG_EXTENSION = "jpg"
 MP3_EXTENSION = "mp3"
+PNG_EXTENSION = "png"
