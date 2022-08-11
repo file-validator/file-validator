@@ -1,12 +1,13 @@
+from mimetypes import guess_extension, guess_type
+
+import magic
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.utils.deconstruct import deconstructible
-from django.conf import settings
-from filetype import get_type, is_extension_supported, is_mime_supported, guess
+from filetype import get_type, guess, is_mime_supported
 from termcolor import colored
-import magic
-from mimetypes import guess_type, guess_extension
-from ..constants import error_message, ERROR_MESSAGE
+
+from .constants import error_message
 
 
 @deconstructible
@@ -34,7 +35,7 @@ class FileValidatorByPythonMagic:
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         file_mime = magic.from_buffer(open(file_path, "rb").read(2048), mime=True)
         if file_mime not in self.selected_mimes:
-            raise ValidationError(error_message(file=file, message=ERROR_MESSAGE, mimes=self.selected_mimes))
+            raise ValidationError(error_message(file=file, mimes=self.selected_mimes))
 
 
 @deconstructible
@@ -59,7 +60,7 @@ class FileValidatorByMimeTypes:
             file_mime not in self.selected_mimes
             and file_extension not in self.selected_extensions
         ):
-            raise ValidationError(error_message(file=file, message=ERROR_MESSAGE, mimes=self.selected_mimes))
+            raise ValidationError(error_message(file=file, mimes=self.selected_mimes))
 
 
 @deconstructible
@@ -107,7 +108,7 @@ class FileValidatorByFileType:
             current_file.EXTENSION not in self.selected_extensions
             and current_file.MIME not in self.selected_mimes
         ):
-            raise ValidationError(error_message(file=file, message=ERROR_MESSAGE, mimes=self.selected_mimes))
+            raise ValidationError(error_message(file=file, mimes=self.selected_mimes))
 
 
 @deconstructible
@@ -150,11 +151,11 @@ class FileValidator:
                 and file_mime_with_mimetypes_lib
                 and file_mime_with_python_magic not in self.selected_mimes
             ):
-                raise ValidationError(error_message(file=file, message=ERROR_MESSAGE, mimes=self.selected_mimes))
+                raise ValidationError(error_message(file=file, mimes=self.selected_mimes))
 
         else:
             if (
                 file_mime_with_filetype_lib not in self.selected_mimes
                 or file_mime_with_mimetypes_lib not in self.selected_mimes
             ):
-                raise ValidationError(error_message(file=file, message=ERROR_MESSAGE, mimes=self.selected_mimes))
+                raise ValidationError(error_message(file=file, mimes=self.selected_mimes))

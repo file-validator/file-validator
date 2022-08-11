@@ -51,3 +51,7 @@ History
 0.0.9 (2022-08-11)
 ------------------
 * Refactoring error message function
+
+0.1.0 (2022-08-12)
+------------------
+* Fixing Minor Bug

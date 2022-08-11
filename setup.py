@@ -46,12 +46,20 @@ setup(
     license="MIT license",
     long_description=readme + "\n\n" + history,
     include_package_data=True,
-    keywords="file_validator",
+    keywords=[
+        "file_validator",
+        "file",
+        "validator",
+        "image_validator",
+        "audio_validator",
+        "video_validator",
+        "django"
+    ],
     name="file_validator",
     packages=find_packages(include=["file_validator", "file_validator.*"]),
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/rzashakeri/file_validator",
-    version="0.0.9",
+    version="0.1.0",
     zip_safe=False,
 )

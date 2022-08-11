@@ -1,7 +1,5 @@
 import os
 import pytest
-from django.db import models
-from file_validator.file_validator.django.validator import FileValidator
 
 BAD_MIME = "mime/bad"
 JPEG_MIME = "image/jpeg"
