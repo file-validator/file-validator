@@ -41,3 +41,13 @@ History
 * Deleting **get_mime_type_with_python_magic**
 * Deleting **get_extension_with_filetype_lib**
 * Deleting **get_mime_type_with_filetype_lib**
+
+0.0.8 (2022-08-11)
+------------------
+* Adding error message function for customization error messages
+* Adding constants.py
+
+
+0.0.9 (2022-08-11)
+------------------
+* Refactoring error message function
