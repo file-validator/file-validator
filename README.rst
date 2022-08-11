@@ -74,6 +74,6 @@ Documentation
 Credits
 -------
 
-This package was created with RezaShakeri_
+This package was created By RezaShakeri_
 
 .. _RezaShakeri: https://github.com/rzashakeri
