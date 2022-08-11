@@ -28,27 +28,33 @@ Features
 If you are looking for a safe way to validate your files, the file validator library will do this for you, this library also supports Django.
 
 * File validation using the `filetype`_ library
+
 .. _filetype: https://github.com/h2non/filetype.py
 
 * File validation using the `python-magic`_ library
+
 .. _python-magic: https://github.com/ahupp/python-magic
 
 * File validation using the `mimetypes`_ library
+
 .. _mimetypes: https://docs.python.org/3/library/mimetypes.html
 
 * File validation simultaneously with all three libraries
-..
+
+.. | This is a line |
 
 * Supporting for all `mimes`_
+
 .. _mimes: https://www.iana.org/assignments/media-types/media-types.xhtml
 
 * Functions to get mimes and file extensions
 
 Documentation
--------
+--------------
 
-* Read the `documentation`_ for more information
-.. _documentation: https://file-validator.readthedocs.io
+* Read the `document`_ for more information
+
+.. _document: https://file-validator.readthedocs.io
 
 Credits
 -------
