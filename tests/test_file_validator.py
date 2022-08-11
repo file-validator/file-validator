@@ -1,21 +1,11 @@
-import pytest
-from file_validator import file_validator
-import os
-import magic
-from filetype import guess, is_mime_supported, is_extension_supported
 from .fixtures import (
-    MP3_EXTENSION,
     MP3_MIME,
-    JPEG_EXTENSION,
     JPEG_MIME,
-    BAD_MIME,
-    jpeg_file,
-    mp3_file,
-    text_file,
     PNG_MIME,
+    jpeg_file,
+    mp3_file
 )
-from ..file_validator.django.validator import FileValidator
-from ..file_validator.validator import (
+from file_validator.file_validator.validator import (
     file_validator_by_python_magic,
     file_validator_by_mimetypes,
     file_validator_by_filetype,
