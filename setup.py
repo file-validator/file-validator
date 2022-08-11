@@ -35,6 +35,12 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Topic :: File Validator",
+        "Topic :: File",
+        "Topic :: Validator",
+        "Topic :: Audio Validator",
+        "Topic :: Image Validator",
+        "Topic :: Video Validator",
     ],
     description="A library for validating files in Python",
     entry_points={
