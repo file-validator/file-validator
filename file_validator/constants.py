@@ -1,15 +1,39 @@
+from django.conf import settings
 from termcolor import colored
 
-ERROR_MESSAGE = "file is not valid"
+FILE_VALIDATOR_ERROR_MESSAGE = settings.FILE_VALIDATOR_ERROR_MESSAGE
+FILE_VALIDATOR_SHOW_MESSAGE_ONLY = settings.FILE_VALIDATOR_SHOW_MESSAGE_ONLY
+FILE_VALIDATOR_SHOW_FILE_NAME = settings.FILE_VALIDATOR_SHOW_FILE_NAME
+FILE_VALIDATOR_SHOW_MIME_TYPE = settings.FILE_VALIDATOR_SHOW_MIME_TYPE
+
+if FILE_VALIDATOR_SHOW_MIME_TYPE:
+    SHOW_MIME_TYPE = True
+else:
+    SHOW_MIME_TYPE = False
+
+if FILE_VALIDATOR_SHOW_FILE_NAME:
+    SHOW_FILE_NAME = True
+else:
+    SHOW_FILE_NAME = False
+
+if FILE_VALIDATOR_SHOW_MESSAGE_ONLY:
+    SHOW_MESSAGE_ONLY = True
+else:
+    SHOW_MESSAGE_ONLY = False
+
+if FILE_VALIDATOR_ERROR_MESSAGE:
+    ERROR_MESSAGE = FILE_VALIDATOR_ERROR_MESSAGE
+else:
+    ERROR_MESSAGE = "The file is not valid"
 
 
 def error_message(
     file,
-    message,
     mimes,
-    show_file_name=False,
-    show_mime_type=False,
-    show_message_only=False,
+    message=ERROR_MESSAGE,
+    show_file_name=SHOW_FILE_NAME,
+    show_mime_type=SHOW_MIME_TYPE,
+    show_message_only=SHOW_MESSAGE_ONLY,
 ):
     if (
         show_file_name
