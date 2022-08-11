@@ -3,21 +3,25 @@ File Validator
 ==============
 
 
-.. image:: https://img.shields.io/pypi/v/file_validator.svg
+.. image:: https://img.shields.io/pypi/v/file_validator.svg?color=light
         :target: https://pypi.python.org/pypi/file_validator
 
 .. image:: https://readthedocs.org/projects/file-validator/badge/?version=latest
         :target: https://file-validator.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
-.. image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
+.. image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg?color=light
         :target: https://python.org
         :alt: made with python
-.. image:: https://badgen.net/pypi/license/pip/
-        :target: https://badgen.net/pypi/license/pip/
-.. image:: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
-        :target: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
-.. image:: https://codecov.io/gh/rzashakeri/file_validator/branch/master/graph/badge.svg?token=13ZVSJWH8M
-        :target: https://codecov.io/gh/rzashakeri/file_validator
+.. image:: https://img.shields.io/github/license/rzashakeri/file_validator?color=light
+        :alt: GitHub
+.. image:: https://img.shields.io/appveyor/build/rzashakeri/file-validator
+        :alt: AppVeyor
+.. image:: https://img.shields.io/codecov/c/github/rzashakeri/file_validator?color=light&token=13ZVSJWH8M
+            :alt: Codecov
+.. image:: https://img.shields.io/pypi/pyversions/file-validator?color=light
+        :alt: PyPI - Python Version
+.. image:: https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads
+        :target: https://pepy.tech/project/file-validator
 .. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
         :target: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
 
