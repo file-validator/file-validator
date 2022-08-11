@@ -6,7 +6,7 @@ from filetype import get_type, is_extension_supported, is_mime_supported, guess
 from termcolor import colored
 import magic
 from mimetypes import guess_type, guess_extension
-from file_validator.file_validator.constants import error_message, ERROR_MESSAGE
+from ..constants import error_message, ERROR_MESSAGE
 
 
 @deconstructible
