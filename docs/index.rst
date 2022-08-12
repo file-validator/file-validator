@@ -8,7 +8,7 @@ Welcome to File Validator's documentation!
    readme
    installation
    usage
-   modules
+   customizing_errors
    contributing
    authors
    history
