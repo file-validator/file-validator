@@ -22,6 +22,14 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 import file_validator
+sys.path.insert(0, os.path.join(os.path.abspath('.'), '../../django_example')
+)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'django_example.django_example.settings'
+
+import django
+django.setup()
+
+
 
 # -- General configuration ---------------------------------------------
 
