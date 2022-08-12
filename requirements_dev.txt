@@ -14,5 +14,5 @@ filetype>=1.1.0
 termcolor>=1.1.0
 python-magic>=0.4.27
 Django>=4.1
-jinja2>=3.0.0
-mkdocs>=1.2.3
+jinja2
+mkdocs
