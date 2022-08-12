@@ -33,6 +33,10 @@ File Validator
 .. image:: https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads
         :target: https://pepy.tech/project/file-validator
 
+.. image:: https://www.codefactor.io/repository/github/rzashakeri/file_validator/badge
+   :target: https://www.codefactor.io/repository/github/rzashakeri/file_validator
+   :alt: CodeFactor
+
 .. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
         :target: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
 
@@ -62,7 +66,6 @@ If you are looking for a safe way to validate your files, the file validator lib
 
 .. _mimes: https://www.iana.org/assignments/media-types/media-types.xhtml
 
-* Functions to get mimes and file extensions
 
 Documentation
 --------------
