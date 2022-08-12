@@ -1,0 +1,17 @@
+name: CI
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: testspace-com/setup-testspace@v1
+        with:
+          domain: ${{ github.repository_owner }}
+      - name: Do testing stuff
+        run: your-test-framework --tests
+      - name: Push result to Testspace server
+        run: |
+          testspace ./results/*.xml coverage.xml
+        if: always()
