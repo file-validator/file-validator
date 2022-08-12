@@ -36,7 +36,7 @@ def file_validator_by_filetype(*args, file_path):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :param args: The mime of the files you want to validate based on them, example : mp3, png, mp4 ...
+    :param args: The mime of the files you want to validate based on them, example : image/png, video/mp4, audio/mpeg ...
     """
     file_mime = guess(file_path).MIME
     if file_mime not in list(args):
