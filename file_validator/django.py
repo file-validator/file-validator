@@ -12,6 +12,9 @@ from .constants import error_message
 
 @deconstructible
 class FileValidatorByPythonMagic:
+    """
+    :return: If everything goes well and is ok and the file matches the mimes you specified, it will return None, otherwise it will return a ValueError.
+    """
     def __init__(self, *args):
         """
         :param args: You can choose different mime and pass it as a string and be sure to separate the types with commas, example: FileValidatorWithPythonMagic("image/png", "image/webp", "video/mp4")
