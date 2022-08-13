@@ -55,10 +55,11 @@ file to be validated based on:
 
 3. After this step, do a new migration to apply the changes
 
-.. code-block::
+.. code-block:: console
 
         python manage.py makemigrations
         python manage.py migrate
+
 
 
 .. autoclass:: file_validator.django.FileValidatorByPythonMagic
