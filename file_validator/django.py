@@ -13,7 +13,7 @@ from .constants import error_message
 @deconstructible
 class FileValidatorByPythonMagic:
     """
-    :return: If everything goes well and is ok and the file matches the mimes you specified, it will return None, otherwise it will return a ValueError.
+    :return: If everything goes well and is ok and the file matches the mimes you specified, it will return None, otherwise it will return a ValidationError.
     """
     def __init__(self, *args):
         """
@@ -43,6 +43,9 @@ class FileValidatorByPythonMagic:
 
 @deconstructible
 class FileValidatorByMimeTypes:
+    """
+    :return: If everything goes well and is ok and the file matches the mimes you specified, it will return None, otherwise it will return a ValidationError.
+    """
     def __init__(self, *args):
         self.selected_mimes = list(args)
         self.selected_extensions = []
@@ -71,8 +74,9 @@ class FileValidatorByFileType:
     """
     This file validation is done using the filetype library
     and mime and file extension are checked in this validation
-    """
+    :return: If everything goes well and is ok and the file matches the mimes you specified, it will return None, otherwise it will return a ValidationError.
 
+    """
     def __init__(self, *args):
         """
         :param args: You can choose different types and pass it as a string and be sure to separate the types with commas, example: FileValidatorWithFileType("audio/mp3", "image/png")
@@ -102,7 +106,6 @@ class FileValidatorByFileType:
     def __call__(self, value):
         """
         :param value: Here, value means the file that is received by the user and must be validated
-        :return: If everything is ok, the permission to upload the file will be given, otherwise, a validation error will be returned
         """
         file = value.file
         file_path = TemporaryUploadedFile.temporary_file_path(file)
@@ -116,6 +119,9 @@ class FileValidatorByFileType:
 
 @deconstructible
 class FileValidator:
+    """
+    :return: If everything goes well and is ok and the file matches the mimes you specified, it will return None, otherwise it will return a ValidationError.
+    """
     def __init__(self, *args, python_magic=False):
         """
         :param args: You can choose different mime and pass it as a string and be sure to separate the types with commas, example : FileValidator("image/png", "image/webp", "video/mp4")
