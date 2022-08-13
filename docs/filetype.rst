@@ -29,7 +29,7 @@ To use this function, just call the function like the previous example and give 
 
 Django
 --------------
-In order to be able to use the file validator that uses the filetype library to validate files
+In order to be able to use the file validator that uses the `filetype <https://github.com/h2non/filetype.py>`_ library to validate files
 in `Django <https://www.djangoproject.com/>`_, you must do the following:
 
 1 .First, **import** the ``FileValidatorByFileType`` to your Django model as follows:
