@@ -5,6 +5,16 @@ python-magic is a Python interface to the libmagic file type identification
 library. libmagic identifies file types by checking their headers according
 to a predefined list of file types. This functionality is exposed to the
 command line by the Unix command file.
+
+
+.. warning::
+    Since the `python-magic <https://github.com/ahupp/python-magic>`_ library may treat audio files
+    like mp3 as programs or application/octet-stream and it's a bit
+    annoying, I suggest you use the audio files with those two
+    libraries (`filetype <https://github.com/h2non/filetype.py>`_, `MimeTypes <https://docs.python.org/3/library/mimetypes.html>`_) or use the safe mode method.
+
+
+
 If you want to use File Validators made using the `python-magic <https://github.com/ahupp/python-magic>`_ library, you should add it to your program as follows:
 
 .. code-block:: python
@@ -32,6 +42,7 @@ Django
 To validate files in Django using python-magic we use the ``FileValidatorByPythonMagic`` class
 In order to be able to use the validator written in `Django <https://www.djangoproject.com/>`_ using the
 python-magic library, you must do the following:
+
 
 1 .First, **import** the ``FileValidatorByPythonMagic`` to your Django model as follows:
 
