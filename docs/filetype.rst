@@ -10,8 +10,6 @@ we also support the `filetype <https://github.com/h2non/filetype.py>`_ library, 
 
 To use this function, just call the function like the previous example and give it the path of the file and the mimes you want the file to be validated based on.
 
-.. autofunction:: file_validator.validator.file_validator_by_filetype
-
 **Example** : 👇
 
 
@@ -20,3 +18,6 @@ To use this function, just call the function like the previous example and give 
     from file_validator.validator import file_validator_by_filetype
 
     file_validator_by_filetype('audio/mpeg', 'video/mp4', file_path='/path/to/file')
+
+
+.. autofunction:: file_validator.validator.file_validator_by_filetype
