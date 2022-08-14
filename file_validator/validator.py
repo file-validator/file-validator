@@ -1,7 +1,7 @@
-from filetype import guess
 from mimetypes import guess_type
-from termcolor import colored
 import magic
+from filetype import guess
+from termcolor import colored
 
 
 def file_validator_by_python_magic(*args, file_path):
@@ -13,9 +13,7 @@ def file_validator_by_python_magic(*args, file_path):
     """
     file_mime = magic.from_buffer(open(file_path, "rb").read(2048), mime=True)
     if file_mime not in list(args):
-        error_message = f"""
-        {file_mime} is not valid
-        """
+        error_message = f"{file_mime} is not valid"
         raise ValueError(colored(error_message, "red"))
 
 
@@ -29,9 +27,7 @@ def file_validator_by_mimetypes(*args, file_path):
     """
     file_mime = guess_type(file_path)[0]
     if file_mime not in list(args):
-        error_message = f"""
-        {file_mime} is not valid
-        """
+        error_message = f"{file_mime} is not valid"
         raise ValueError(colored(error_message, "red"))
 
 
