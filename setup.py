@@ -14,7 +14,6 @@ requirements = [
     "Click>=7.0",
     "filetype>=1.1.0",
     "termcolor>=1.1.0",
-    "python-magic-bin>=0.4.14",
     "python-magic>=0.4.27",
 ]
 
