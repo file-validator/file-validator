@@ -14,8 +14,8 @@ requirements = [
     "Click>=7.0",
     "filetype>=1.1.0",
     "termcolor>=1.1.0",
-    "python-magic>=0.4.27",
     "python-magic-bin>=0.4.14",
+    "python-magic>=0.4.27",
 ]
 
 test_requirements = [
@@ -35,12 +35,6 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Topic :: File Validator",
-        "Topic :: File",
-        "Topic :: Validator",
-        "Topic :: Audio Validator",
-        "Topic :: Image Validator",
-        "Topic :: Video Validator",
     ],
     description="A library for validating files in Python",
     entry_points={
@@ -66,6 +60,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/rzashakeri/file_validator",
-    version="0.1.0",
+    version="0.1.1",
     zip_safe=False,
 )

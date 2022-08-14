@@ -55,3 +55,8 @@ History
 0.1.0 (2022-08-12)
 ------------------
 * Fixing Minor Bug
+
+
+0.1.1 (2022-08-12)
+------------------
+* Fixing python magic installation problem
