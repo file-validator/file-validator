@@ -10,8 +10,8 @@ command line by the Unix command file.
 .. warning::
     Since the `python-magic <https://github.com/ahupp/python-magic>`_ library may treat audio files
     like mp3 as programs or application/octet-stream and it's a bit
-    annoying, I suggest you use the audio files with those two
-    libraries (`filetype <https://github.com/h2non/filetype.py>`_, `MimeTypes <https://docs.python.org/3/library/mimetypes.html>`_) or use the safe mode method.
+    annoying, I suggest when you want to validate audio files from
+    two libraries (`filetype <https://github.com/h2non/filetype.py>`_, `MimeTypes <https://docs.python.org/3/library/mimetypes.html>`_) or use the safe mode method.
 
 
 

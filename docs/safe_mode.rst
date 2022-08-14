@@ -1,8 +1,20 @@
 ====================
 Safe Mode
 ====================
-There is also a method that performs file validation using all three libraries:
+By using Safe Mode, you can perform validation
+operations using all three libraries at the same time
+To use, first import as in the example below:
 
 .. code-block:: console
 
     from file_validator.validator import file_validator
+
+Then just call the file_validator function:
+
+.. code-block:: python
+
+    from file_validator.validator import file_validator
+
+    file_validator('image/png', 'image/jpeg', file_path='/path/to/file')
+
+.. autofunction:: file_validator.validator.file_validator
