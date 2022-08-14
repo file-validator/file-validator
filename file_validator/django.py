@@ -7,7 +7,7 @@ from django.utils.deconstruct import deconstructible
 from filetype import get_type, guess, is_mime_supported
 from termcolor import colored
 
-from .constants import error_message
+from .exceptions import error_message
 
 
 @deconstructible
