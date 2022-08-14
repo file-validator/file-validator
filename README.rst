@@ -42,6 +42,56 @@ File Validator
 
 
 
+
+============
+Installation
+============
+
+
+To install File Validator, run this command in your terminal:
+
+.. code-block:: console
+
+    $ pip install file_validator
+
+
+.. warning::
+    After installing file validator, we need to install libmagic,
+    which you need to install using the following command:
+
+**for windows:** 👇
+
+.. code-block:: console
+
+    $ pip install python-magic-bin
+
+
+**for Debian/Ubuntu:**  👇
+
+.. code-block:: console
+
+    $ sudo apt-get install libmagic1
+
+**for OSX:**  👇
+
+When using Homebrew:
+
+.. code-block:: console
+
+    brew install libmagic
+
+
+When using macports:
+
+.. code-block:: console
+
+    port install file
+
+
+
+This is the preferred method to install File Validator, as it will always install the most recent stable release.
+
+
 Features
 --------
 If you are looking for a safe way to validate your files, the file validator library will do this for you, this library also supports Django.

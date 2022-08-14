@@ -14,6 +14,41 @@ To install File Validator, run this command in your terminal:
 
     $ pip install file_validator
 
+
+.. warning::
+    After installing file validator, we need to install libmagic,
+    which you need to install using the following command:
+
+**for windows:** 👇
+
+.. code-block:: console
+
+    $ pip install python-magic-bin
+
+
+**for Debian/Ubuntu:**  👇
+
+.. code-block:: console
+
+    $ sudo apt-get install libmagic1
+
+**for OSX:**  👇
+
+When using Homebrew:
+
+.. code-block:: console
+
+    brew install libmagic
+
+
+When using macports:
+
+.. code-block:: console
+
+    port install file
+
+
+
 This is the preferred method to install File Validator, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
