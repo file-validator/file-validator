@@ -62,11 +62,22 @@ History
 * Fixing python magic installation problem
 
 
-0.1.2 (2022-08-12)
+0.1.2 (2022-08-14)
 ------------------
 * Fixing installation problem
 
 
-0.1.3 (2022-08-12)
+0.1.3 (2022-08-14)
 ------------------
 * adding installation guide for lib magic
+
+0.1.4 (2022-08-15)
+------------------
+* refactoring imports
+* refactoring error message
+* adding __eq__ to class
+* refactoring docstring
+* error handling when the mime type not found
+* adding the exception module
+* adding constant error message
+* refactor error_message function
