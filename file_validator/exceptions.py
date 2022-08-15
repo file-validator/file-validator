@@ -8,6 +8,9 @@ try:
 except AttributeError:
     ERROR_MESSAGE = "{file} is not valid"
 
+ARGS_EMPTY_ERROR_MESSAGE = "The args value is empty, please pass the value (file MIME)."
+MIME_NOT_VALID_ERROR_MESSAGE = "{mime} is not a valid MIME"
+
 
 def error_message(
     file,
@@ -22,8 +25,10 @@ def error_message(
     """
     file_mimes = ""
     for mime in mimes:
-        file_mimes += str(mime)
-        file_mimes += ", "
         if mime == mimes[-1]:
             file_mimes += str(mime)
+        else:
+            file_mimes += str(mime)
+            file_mimes += ", "
+
     return message.format(file=file, mimes=file_mimes)
