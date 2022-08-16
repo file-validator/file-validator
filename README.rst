@@ -33,19 +33,17 @@ File Validator
 .. image:: https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads
         :target: https://pepy.tech/project/file-validator
 
+.. image:: https://mperlet.github.io/pybadge/badges/10.svg
+    :target: https://pypi.org/project/file-validator/
+    :alt: pylint
+
+
 .. image:: https://www.codefactor.io/repository/github/rzashakeri/file_validator/badge
    :target: https://www.codefactor.io/repository/github/rzashakeri/file_validator
    :alt: CodeFactor
 
 .. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
         :target: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
-
-
-
-
-============
-Installation
-============
 
 
 To install File Validator, run this command in your terminal:
