@@ -81,3 +81,4 @@ History
 * adding the exception module
 * adding constant error message
 * refactor error_message function
+* fix get the extension problem with the mimetypes library
