@@ -28,7 +28,7 @@ class FileValidatorByPythonMagic:
 
     def __init__(self, mimes: list):
         """
-        :param mimes: The memes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on
         """
         if not all(mimes):
             message = ARGS_EMPTY_ERROR_MESSAGE
@@ -63,7 +63,7 @@ class FileValidatorByMimeTypes:
 
     def __init__(self, mimes: list):
         """
-        :param mimes: The memes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on
         """
         self.selected_mimes = mimes
         self.selected_extensions = []
@@ -112,7 +112,7 @@ class FileValidatorByFileType:
 
     def __init__(self, mimes: list):
         """
-        :param mimes: The memes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on
         :raises ValueError: If the type you enter is not supported, it will cause this value error
         """
         if not all(mimes):
@@ -165,7 +165,7 @@ class FileValidator:
 
     def __init__(self, mimes: list, python_magic: bool = False):
         """
-        :param mimes: The memes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on
         :param python_magic: If it is equal to True, the file will be checked with python-magic
         """
         selected_mimes = []
