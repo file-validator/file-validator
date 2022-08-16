@@ -7,11 +7,12 @@ validation operations using all three libraries It is called safe mode
 
 from mimetypes import guess_extension, guess_type
 import magic
+from filetype import get_type, guess, is_mime_supported
+from termcolor import colored
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.utils.deconstruct import deconstructible
-from filetype import get_type, guess, is_mime_supported
-from termcolor import colored
+
 
 from .exceptions import (
     error_message,
