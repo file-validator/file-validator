@@ -84,10 +84,10 @@ class FileValidatorByMimeTypes:
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         try:
             file_mime = guess_type(file_path)[0]
-            file_extension = guess_extension(file_mime)[0]
+            file_extension = guess_extension(file_mime)
             if (
                 file_mime not in self.selected_mimes
-                and file_extension not in self.selected_extensions
+                or file_extension not in self.selected_extensions
             ):
                 raise ValidationError(
                     error_message(file=file, mimes=self.selected_mimes)
