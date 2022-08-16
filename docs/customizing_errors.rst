@@ -40,4 +40,4 @@ for example : 👇
 
 
 
-.. autofunction:: file_validator.exception.error_message
+.. autofunction:: file_validator.exceptions.error_message
