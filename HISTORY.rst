@@ -69,16 +69,23 @@ History
 
 0.1.3 (2022-08-14)
 ------------------
-* adding installation guide for lib magic
+* Adding installation guide for lib magic
 
 0.1.4 (2022-08-15)
 ------------------
-* refactoring imports
-* refactoring error message
-* adding __eq__ to class
-* refactoring docstring
-* error handling when the mime type not found
-* adding the exception module
-* adding constant error message
-* refactor error_message function
-* fix get the extension problem with the mimetypes library
+* Refactoring imports
+* Refactoring error message
+* Adding __eq__ to class
+* Refactoring docstring
+* Error handling when the mime type not found
+* Adding the exception module
+* Adding constant error message
+* Refactor error_message function
+* Fix get the extension problem with the mimetypes library
+
+
+0.1.5 (2022-08-18)
+------------------
+* Adding File Size Validation
+* Adding File Validation using Pure Magic Library
+* Fix Minor Problem
