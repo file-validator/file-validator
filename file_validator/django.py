@@ -31,7 +31,7 @@ class FileValidatorByPythonMagic:
 
     def __init__(self, mimes: list, file_size: int = None):
         """
-        :type mimes: list, optional
+        :type mimes: list
         :param mimes: The mimes you want the file to be checked based on, example: image/png
         :type file_size: int, optional
         :param file_size: If you want the file size to be checked, the file size must be in bytes,
@@ -94,7 +94,7 @@ class FileValidatorByMimeTypes:
 
     def __init__(self, mimes: list, file_size: int = None):
         """
-        :type mimes: list, optional
+        :type mimes: list
         :param mimes: The mimes you want the file to be checked based on, example: image/png
         :type file_size: int, optional
         :param file_size: If you want the file size to be checked, the file size must be in bytes,
@@ -173,7 +173,7 @@ class FileValidatorByFileType:
 
     def __init__(self, mimes: list, file_size: int = None):
         """
-        :type mimes: list, optional
+        :type mimes: list
         :param mimes: The mimes you want the file to be checked based on, example: image/png
         :type file_size: int, optional
         :param file_size: If you want the file size to be checked, the file size must be in bytes,
@@ -256,7 +256,7 @@ class FileValidator:
 
     def __init__(self, mimes: list, python_magic: bool = False, file_size: int = None):
         """
-        :type mimes: list, optional
+        :type mimes: list
         :param mimes: The mimes you want the file to be checked based on, example: image/png
         :type file_size: int, optional
         :param file_size: If you want the file size to be checked, the file size must be in bytes,
