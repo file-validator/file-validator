@@ -22,7 +22,7 @@ File Validator
         :alt: AppVeyor
         :target: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
 
-.. image:: https://img.shields.io/codecov/c/github/rzashakeri/file_validator?color=light&token=13ZVSJWH8M
+.. image:: https://img.shields.io/codecov/c/github/rzashakeri/file_validator?token=13ZVSJWH8M
         :alt: Codecov
         :target: https://codecov.io/gh/rzashakeri/file_validator
 
@@ -44,6 +44,51 @@ File Validator
 
 .. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
         :target: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
+
+
+Features
+--------
+If you are looking for a safe way to validate your files,
+the file validator library will do this for you, this
+library also supports `Django <https://www.djangoproject.com/>`_.With this library you can
+validate files based on extension, size, mimes and magic numbers
+
+* File validation using the `filetype`_ library
+
+.. _filetype: https://github.com/h2non/filetype.py
+
+* File validation using the `python-magic`_ library
+
+.. _python-magic: https://github.com/ahupp/python-magic
+
+* File validation using the `mimetypes`_ library
+
+.. _mimetypes: https://docs.python.org/3/library/mimetypes.html
+
+* File validation using the `puremagic`_ library
+
+.. _puremagic: https://github.com/cdgriffith/puremagic
+
+.. | line |
+
+* File validation with Size
+
+.. |  line |
+
+* Supporting for all `mimes`_
+
+.. _mimes: https://www.iana.org/assignments/media-types/media-types.xhtml
+
+.. |   line |
+
+* File validation simultaneously with all four libraries
+
+
+
+====================================
+installation
+====================================
+
 
 
 To install File Validator, run this command in your terminal:
@@ -90,33 +135,6 @@ When using macports:
 This is the preferred method to install File Validator, as it will always install the most recent stable release.
 
 
-Features
---------
-If you are looking for a safe way to validate your files, the file validator library will do this for you, this library also supports Django.
-
-* File validation using the `filetype`_ library
-
-.. _filetype: https://github.com/h2non/filetype.py
-
-* File validation using the `python-magic`_ library
-
-.. _python-magic: https://github.com/ahupp/python-magic
-
-* File validation using the `mimetypes`_ library
-
-.. _mimetypes: https://docs.python.org/3/library/mimetypes.html
-
-* File validation simultaneously with all three libraries
-
-.. | line |
-
-* File validation with Size
-.. |  line |
-
-
-* Supporting for all `mimes`_
-
-.. _mimes: https://www.iana.org/assignments/media-types/media-types.xhtml
 
 
 Documentation
