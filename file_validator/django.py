@@ -3,20 +3,6 @@ In this module, there are file validators for Django,
 and it is made using external libraries such as (filetype, python-magic)
 and native libraries such as (mimetypes), and there is a method to perform
 validation operations using all three libraries It is called safe mode
-
-maximum file size allowed for upload, in bytes:
-1 MB - 1048576 B - 1024**2 B - 2**20 B
-2.5 MB - 2621440 B
-5 MB - 5242880 B
-10 MB - 10485760 B
-20 MB - 20971520 B
-33 MiB - 2**25 B
-50 MB - 5242880 B
-100 MB 104857600 B
-250 MB - 214958080 B
-500 MB - 429916160 B
-1 GiB - 1024 MiB - 2**30 B
-
 """
 
 from mimetypes import guess_extension, guess_type
@@ -45,8 +31,13 @@ class FileValidatorByPythonMagic:
 
     def __init__(self, mimes: list, file_size: int = None):
         """
+        :type mimes: list, optional
         :param mimes: The mimes you want the file to be checked based on, example: image/png
-        :param file_size: If you want the file size to be checked, the file size must be in bytes
+        :type file_size: int, optional
+        :param file_size: If you want the file size to be checked, the file size must be in bytes,
+            example: file_size=1048576 (1MB), defaults to None, optional
+        :raises ValueError: If the mime list is empty, raised a value error or If the type you
+            enter is not supported, it will cause this value error
         """
         if file_size is not None:
             self.file_size = file_size
@@ -103,8 +94,13 @@ class FileValidatorByMimeTypes:
 
     def __init__(self, mimes: list, file_size: int = None):
         """
+        :type mimes: list, optional
         :param mimes: The mimes you want the file to be checked based on, example: image/png
-        :param file_size:  If you want the file size to be checked, the file size must be in bytes
+        :type file_size: int, optional
+        :param file_size: If you want the file size to be checked, the file size must be in bytes,
+            example: file_size=1048576 (1MB), defaults to None, optional
+        :raises ValueError: If the mime list is empty, raised a value error or If the type you
+            enter is not supported, it will cause this value error
         """
         if file_size is not None:
             self.file_size = file_size
@@ -173,14 +169,17 @@ class FileValidatorByMimeTypes:
 class FileValidatorByFileType:
     """
     :return: If everything is OK it will return None, otherwise it will return a ValidationError.
-    :param file_size: The file size you want the file to be checked based on
     """
 
     def __init__(self, mimes: list, file_size: int = None):
         """
+        :type mimes: list, optional
         :param mimes: The mimes you want the file to be checked based on, example: image/png
-        :param file_size: If you want the file size to be checked, the file size must be in bytes
-        :raises ValueError: If the type you enter is not supported, it will cause this value error
+        :type file_size: int, optional
+        :param file_size: If you want the file size to be checked, the file size must be in bytes,
+            example: file_size=1048576 (1MB), defaults to None, optional
+        :raises ValueError: If the mime list is empty, raised a value error or If the type you
+            enter is not supported, it will cause this value error
         """
         if not all(mimes):
             message = ARGS_EMPTY_ERROR_MESSAGE
@@ -257,9 +256,16 @@ class FileValidator:
 
     def __init__(self, mimes: list, python_magic: bool = False, file_size: int = None):
         """
+        :type mimes: list, optional
         :param mimes: The mimes you want the file to be checked based on, example: image/png
-        :param python_magic: If it is equal to True, the file will be checked with python-magic
-        :param file_size:  If you want the file size to be checked, the file size must be in bytes
+        :type file_size: int, optional
+        :param file_size: If you want the file size to be checked, the file size must be in bytes,
+            example: file_size=1048576 (1MB), defaults to None, optional
+        :type python_magic: bool, optional
+        :param python_magic: If you want to use python-magic to check the file type,
+            defaults to False, optional
+        :raises ValueError: If the mime list is empty, raised a value error or If the type you
+            enter is not supported, it will cause this value error
         """
 
         if file_size is not None:
