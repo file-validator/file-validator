@@ -22,6 +22,7 @@ jobs:
         pip install python-magic
         pip install filetype
         pip install termcolor
+        pip install puremagic
 
     - name: Analysing the code with pylint
       run: |
