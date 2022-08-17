@@ -108,7 +108,11 @@ If you are looking for a safe way to validate your files, the file validator lib
 
 * File validation simultaneously with all three libraries
 
-.. | This is a line |
+.. | line |
+
+* File validation with Size
+.. |  line |
+
 
 * Supporting for all `mimes`_
 
