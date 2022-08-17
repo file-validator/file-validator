@@ -27,6 +27,7 @@ def error_message(
     :param file: Returns the name of the file to be validated
     :param mimes: It returns the mimes on which the file is to be validated
     :param file_size: It returns the file size on which the file is to be validated
+    :param max_file_size: Returns the maximum file size to be validated and the user can upload
     :param message: The error message to be shown to the user when the file is not valid
     :return: return your error message or default error message
     """
