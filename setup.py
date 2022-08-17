@@ -15,6 +15,7 @@ requirements = [
     "filetype>=1.1.0",
     "termcolor>=1.1.0",
     "python-magic>=0.4.27",
+    "puremagic>=1.14",
 ]
 
 test_requirements = [
