@@ -3,19 +3,35 @@ In this module, there are file validators for Django,
 and it is made using external libraries such as (filetype, python-magic)
 and native libraries such as (mimetypes), and there is a method to perform
 validation operations using all three libraries It is called safe mode
+
+maximum file size allowed for upload, in bytes:
+1 MB - 1048576 B - 1024**2 B - 2**20 B
+2.5 MB - 2621440 B
+5 MB - 5242880 B
+10 MB - 10485760 B
+20 MB - 20971520 B
+33 MiB - 2**25 B
+50 MB - 5242880 B
+100 MB 104857600 B
+250 MB - 214958080 B
+500 MB - 429916160 B
+1 GiB - 1024 MiB - 2**30 B
+
 """
 
 from mimetypes import guess_extension, guess_type
 import magic
 from filetype import get_type, guess, is_mime_supported
 from termcolor import colored
+
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.utils.deconstruct import deconstructible
-
+from django.template.defaultfilters import filesizeformat
 
 from .exceptions import (
     error_message,
+    FILE_SIZE_IS_NOT_VALID,
     ARGS_EMPTY_ERROR_MESSAGE,
     MIME_NOT_VALID_ERROR_MESSAGE,
 )
@@ -27,13 +43,18 @@ class FileValidatorByPythonMagic:
     :return: If everything is OK it will return None, otherwise it will return a ValidationError.
     """
 
-    def __init__(self, mimes: list):
+    def __init__(self, mimes: list, file_size: int = None):
         """
-        :param mimes: The mimes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on, example: image/png
+        :param file_size: If you want the file size to be checked, the file size must be in bytes
         """
+        if file_size is not None:
+            self.file_size = file_size
+
         if not all(mimes):
             message = ARGS_EMPTY_ERROR_MESSAGE
             raise ValueError(colored(message, "red"))
+
         self.selected_mimes = []
         for mime in mimes:
             self.selected_mimes.append(mime)
@@ -43,11 +64,29 @@ class FileValidatorByPythonMagic:
         :param value: Here, value means the file that is received by the user and must be validated
         """
         file = value.file
+        file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         with open(file_path, "rb") as file_object:
             file_mime = magic.from_buffer(file_object.read(2048), mime=True)
+        if self.file_size is not None and file_size > self.file_size:
+            raise ValidationError(
+                error_message(
+                    file=file,
+                    mimes=self.selected_mimes,
+                    file_size=filesizeformat(file_size),
+                    max_file_size=filesizeformat(self.file_size),
+                    message=FILE_SIZE_IS_NOT_VALID,
+                )
+            )
         if file_mime not in self.selected_mimes:
-            raise ValidationError(error_message(file=file, mimes=self.selected_mimes))
+            raise ValidationError(
+                error_message(
+                    file=file,
+                    file_size=file_size,
+                    max_file_size=filesizeformat(self.file_size),
+                    mimes=self.selected_mimes,
+                )
+            )
 
     def __eq__(self, other):
         return (
@@ -62,10 +101,14 @@ class FileValidatorByMimeTypes:
     :return: If everything is OK it will return None, otherwise it will return a ValidationError.
     """
 
-    def __init__(self, mimes: list):
+    def __init__(self, mimes: list, file_size: int = None):
         """
-        :param mimes: The mimes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on, example: image/png
+        :param file_size:  If you want the file size to be checked, the file size must be in bytes
         """
+        if file_size is not None:
+            self.file_size = file_size
+
         self.selected_mimes = mimes
         self.selected_extensions = []
         for mime in mimes:
@@ -81,20 +124,41 @@ class FileValidatorByMimeTypes:
         :param value: Here, value means the file that is received by the user and must be validated
         """
         file = value.file
+        file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         try:
             file_mime = guess_type(file_path)[0]
             file_extension = guess_extension(file_mime)
+            if self.file_size is not None and file_size > self.file_size:
+                raise ValidationError(
+                    error_message(
+                        file=file,
+                        mimes=self.selected_mimes,
+                        file_size=filesizeformat(file_size),
+                        max_file_size=filesizeformat(self.file_size),
+                        message=FILE_SIZE_IS_NOT_VALID,
+                    )
+                )
             if (
                 file_mime not in self.selected_mimes
                 or file_extension not in self.selected_extensions
             ):
                 raise ValidationError(
-                    error_message(file=file, mimes=self.selected_mimes)
+                    error_message(
+                        file=file,
+                        file_size=file_size,
+                        max_file_size=filesizeformat(self.file_size),
+                        mimes=self.selected_mimes,
+                    )
                 )
         except AttributeError as error:
             raise ValidationError(
-                error_message(file=file, mimes=self.selected_mimes)
+                error_message(
+                    file=file,
+                    file_size=file_size,
+                    max_file_size=filesizeformat(self.file_size),
+                    mimes=self.selected_mimes,
+                )
             ) from error
 
     def __eq__(self, other):
@@ -109,16 +173,22 @@ class FileValidatorByMimeTypes:
 class FileValidatorByFileType:
     """
     :return: If everything is OK it will return None, otherwise it will return a ValidationError.
+    :param file_size: The file size you want the file to be checked based on
     """
 
-    def __init__(self, mimes: list):
+    def __init__(self, mimes: list, file_size: int = None):
         """
-        :param mimes: The mimes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on, example: image/png
+        :param file_size: If you want the file size to be checked, the file size must be in bytes
         :raises ValueError: If the type you enter is not supported, it will cause this value error
         """
         if not all(mimes):
             message = ARGS_EMPTY_ERROR_MESSAGE
             raise ValueError(colored(message, "red"))
+
+        if file_size is not None:
+            self.file_size = file_size
+
         self.selected_mimes = []
         self.selected_extensions = []
         for selected_file_type in mimes:
@@ -135,19 +205,40 @@ class FileValidatorByFileType:
         :param value: Here, value means the file that is received by the user and must be validated
         """
         file = value.file
+        file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         try:
             current_file = guess(file_path)
+            if self.file_size is not None and file_size > self.file_size:
+                raise ValidationError(
+                    error_message(
+                        file=file,
+                        mimes=self.selected_mimes,
+                        file_size=filesizeformat(file_size),
+                        max_file_size=filesizeformat(self.file_size),
+                        message=FILE_SIZE_IS_NOT_VALID,
+                    )
+                )
             if (
                 current_file.EXTENSION not in self.selected_extensions
                 and current_file.MIME not in self.selected_mimes
             ):
                 raise ValidationError(
-                    error_message(file=file, mimes=self.selected_mimes)
+                    error_message(
+                        file=file,
+                        file_size=file_size,
+                        max_file_size=filesizeformat(self.file_size),
+                        mimes=self.selected_mimes,
+                    )
                 )
         except AttributeError as error:
             raise ValidationError(
-                error_message(file=file, mimes=self.selected_mimes)
+                error_message(
+                    file=file,
+                    file_size=file_size,
+                    max_file_size=filesizeformat(self.file_size),
+                    mimes=self.selected_mimes,
+                )
             ) from error
 
     def __eq__(self, other):
@@ -164,11 +255,16 @@ class FileValidator:
     :return: If everything is OK it will return None, otherwise it will return a ValidationError.
     """
 
-    def __init__(self, mimes: list, python_magic: bool = False):
+    def __init__(self, mimes: list, python_magic: bool = False, file_size: int = None):
         """
-        :param mimes: The mimes you want the file to be checked based on
+        :param mimes: The mimes you want the file to be checked based on, example: image/png
         :param python_magic: If it is equal to True, the file will be checked with python-magic
+        :param file_size:  If you want the file size to be checked, the file size must be in bytes
         """
+
+        if file_size is not None:
+            self.file_size = file_size
+
         selected_mimes = []
         for mime in mimes:
             if is_mime_supported(mime):
@@ -182,6 +278,7 @@ class FileValidator:
 
     def __call__(self, value):
         file = value.file
+        file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         with open(file_path, "rb") as file_object:
             file_mime_with_pg = magic.from_buffer(
@@ -193,6 +290,18 @@ class FileValidator:
         file_mime_with_mimetypes = guess_type(file_path)[
             0
         ]  # get the file mime use mimetypes library (native in python)
+
+        if self.file_size is not None and file_size > self.file_size:
+            raise ValidationError(
+                error_message(
+                    file=file,
+                    mimes=self.selected_mimes,
+                    file_size=filesizeformat(file_size),
+                    max_file_size=filesizeformat(self.file_size),
+                    message=FILE_SIZE_IS_NOT_VALID,
+                )
+            )
+
         if self.must_be_validated_by_pg:
             if (
                 file_mime_with_filetype not in self.selected_mimes
@@ -200,7 +309,12 @@ class FileValidator:
                 or file_mime_with_pg not in self.selected_mimes
             ):
                 raise ValidationError(
-                    error_message(file=file, mimes=self.selected_mimes)
+                    error_message(
+                        file=file,
+                        file_size=file_size,
+                        max_file_size=filesizeformat(self.file_size),
+                        mimes=self.selected_mimes,
+                    )
                 )
         else:
             if (
@@ -208,7 +322,12 @@ class FileValidator:
                 or file_mime_with_mimetypes not in self.selected_mimes
             ):
                 raise ValidationError(
-                    error_message(file=file, mimes=self.selected_mimes)
+                    error_message(
+                        file=file,
+                        file_size=file_size,
+                        max_file_size=filesizeformat(self.file_size),
+                        mimes=self.selected_mimes,
+                    )
                 )
 
     def __eq__(self, other):
