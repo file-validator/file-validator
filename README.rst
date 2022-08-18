@@ -85,9 +85,7 @@ validate files based on extension, size, mimes and magic numbers
 
 
 
-====================================
-installation
-====================================
+**installation**
 
 
 

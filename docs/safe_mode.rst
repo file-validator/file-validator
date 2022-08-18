@@ -15,7 +15,7 @@ Then just call the file_validator function:
 
     from file_validator.validator import file_validator
 
-    file_validator('image/png', 'image/jpeg', file_path='/path/to/file')
+    file_validator(mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to/file')
 
 .. autofunction:: file_validator.validator.file_validator
 

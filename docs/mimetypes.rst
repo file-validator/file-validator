@@ -18,7 +18,7 @@ For the mimetypes library, you must do exactly as above:
 
     from file_validator.validator import file_validator_by_mimetypes
 
-    file_validator_by_mimetypes('audio/mpeg', 'video/mp4', file_path='/path/to/file')
+    file_validator_by_mimetypes(mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to/file')
 
 
 .. autofunction:: file_validator.validator.file_validator_by_mimetypes

@@ -31,7 +31,7 @@ Just call this function and give the function path of the file and the mimes you
 
     from file_validator.validator import file_validator_by_python_magic
 
-    file_validator_by_python_magic('image/png', 'image/jpeg', file_path='/path/to/file')
+    file_validator_by_python_magic(mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to/file')
 
 
 .. autofunction:: file_validator.validator.file_validator_by_python_magic
