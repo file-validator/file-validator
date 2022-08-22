@@ -67,13 +67,14 @@ class FileValidator:
         :raises ValueError: If the mime list is empty, raised a value error or If the type you
             enter is not supported, it will cause this value error
         """
-
         if file_size != ZERO:
             self.file_size = file_size
+        else:
+            self.file_size = ZERO
 
         self.libraries = []
         if libraries is None:
-            self.libraries = SELECTING_ALL_SUPPORTED_LIBRARIES
+            self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
         else:
             for library in libraries:
                 if library not in ALL_SUPPORTED_LIBRARIES:
