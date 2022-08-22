@@ -90,7 +90,7 @@ History
 * Adding File Validation using Pure Magic Library
 * Fix Minor Problem
 
-0.1.6 (2022-08-22)
+0.1.6 (2022-08-23)
 ------------------
 * In this version of file validator, instead
   of considering a separate class for each
@@ -101,4 +101,8 @@ History
   From one class, you can perform validation
   operations by one or more libraries
 
-* adding constants
+* Adding Constants
+* Fix AttributeError When Mime Not Found
+* Fix Value Error When Selected One Mime
+* Fix Minor Problem
+
