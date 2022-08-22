@@ -8,14 +8,6 @@ try:
 except AttributeError:
     ERROR_MESSAGE = "{file} is not valid"
 
-ARGS_EMPTY_ERROR_MESSAGE = "The args value is empty, please pass the value (file MIME)."
-MIME_NOT_VALID_ERROR_MESSAGE = "{mime} is not a valid MIME"
-FILE_IS_NOT_VALID_ERROR_MESSAGE = "{file} is not valid"
-FILE_SIZE_IS_NOT_VALID = (
-    "{file_size} is not valid size, you can upload files up to {max_file_size}."
-)
-MIMES_IS_EQUAL_ERROR_MESSAGE = "The mimes ({mimes}) are similar, please use different mimes"
-
 
 def error_message(
     file,
