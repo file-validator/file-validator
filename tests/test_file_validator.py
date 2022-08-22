@@ -7,7 +7,8 @@ from file_validator.file_validator.validator import (
     file_validator_by_filetype,
     file_validator,
 )
-from .fixtures import MP3_MIME, JPEG_MIME, PNG_MIME, JPEG_FILE, MP3_FILE
+from .fixtures import MP3_MIME, JPEG_MIME, PNG_MIME, JPEG_FILE, MP3_FILE, PNG_FILE
+from file_validator.django_example.post.models import ValidFile
 
 
 class TestFileValidatorByPythonMagic:
@@ -15,7 +16,7 @@ class TestFileValidatorByPythonMagic:
     These tests are for file validators that are made using the python-magic library
     """
 
-    def test_file_validator_by_python_magic_library_when_file_is_valid(
+    def test_file_validator_when_file_is_valid(
         self, jpeg=JPEG_FILE
     ):
         """
@@ -24,7 +25,7 @@ class TestFileValidatorByPythonMagic:
         """
         assert file_validator_by_python_magic(JPEG_MIME, file_path=jpeg) is None
 
-    def test_file_validator_by_python_magic_library_when_file_is_not_valid(
+    def test_file_validator_when_file_is_not_valid(
         self, jpeg=JPEG_FILE
     ):
         """
@@ -35,6 +36,10 @@ class TestFileValidatorByPythonMagic:
             file_validator_by_python_magic(PNG_MIME, file_path=jpeg)
         except ValueError as error:
             assert JPEG_MIME in str(error)
+
+    def test_file_validator_when_file_is_valid_in_django(self, jpeg=JPEG_FILE, file=ValidFile):
+        new_file = file(file=jpeg)
+        new_file.full_clean()
 
 
 class TestFileValidatorByMimeTypes:
