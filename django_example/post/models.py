@@ -1,8 +1,16 @@
 from django.db import models
-from file_validator.django import FileValidatorByMimeTypes, FileValidatorByFileType
+from file_validator.file_validator.django import FileValidator
 
 
-class Post(models.Model):
-    title = models.CharField(max_length=150)
-    description = models.TextField()
-    file = models.FileField(validators=[FileValidatorByFileType("image/png", "video/mp4")])
+class ValidFile(models.Model):
+    file = models.FileField(validators=[FileValidator(mimes=["image/jpeg", "video/mp4"])])
+
+    class Meta:
+        app_label = 'post'
+
+
+class BadFile(models.Model):
+    file = models.FileField(validators=[FileValidator(mimes=["bad/mime"])])
+
+    class Meta:
+        app_label = 'post'

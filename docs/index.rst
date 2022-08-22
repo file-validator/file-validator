@@ -8,6 +8,7 @@ Welcome to File Validator's documentation!
    readme
    installation
    usage
+   django
    customizing_errors
    contributing
    authors
