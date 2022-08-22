@@ -89,3 +89,16 @@ History
 * Adding File Size Validation
 * Adding File Validation using Pure Magic Library
 * Fix Minor Problem
+
+0.1.6 (2022-08-22)
+------------------
+* In this version of file validator, instead
+  of considering a separate class for each
+  library that we want to use for file validation,
+  we considered a whole class and left it to the
+  administrator to choose the library that is
+  going to perform the validation operation.
+  From one class, you can perform validation
+  operations by one or more libraries
+
+* adding constants

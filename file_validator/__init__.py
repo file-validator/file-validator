@@ -11,4 +11,4 @@ from . import django
 
 __author__ = """Reza Shakeri"""
 __email__ = 'rzashakeri@outlook.com'
-__version__ = '0.1.5'
+__version__ = '0.1.6'
