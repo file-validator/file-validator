@@ -12,6 +12,8 @@ import puremagic
 from filetype import guess
 from termcolor import colored
 
+from .constants import MIME_NOT_VALID, MIME_NOT_VALID_WITH_MIME_NAME
+
 
 def file_validator_by_python_magic(mimes: list, file_path: str):
     """
@@ -21,11 +23,16 @@ def file_validator_by_python_magic(mimes: list, file_path: str):
     :param mimes: The mime of the files you want to validate based on them, example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    with open(file_path, "rb") as file:
-        file_mime = magic.from_buffer(file.read(2048), mime=True)
+    try:
+        with open(file_path, "rb") as file:
+            file_mime = magic.from_buffer(file.read(2048), mime=True)
+    except AttributeError as error:
+        raise ValueError(colored(MIME_NOT_VALID, "red")) from error
+
     if file_mime not in mimes:
-        error_message = f"{file_mime} is not valid"
-        raise ValueError(colored(error_message, "red"))
+        raise ValueError(
+            colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
+        )
 
 
 def file_validator_by_mimetypes(mimes: list, file_path: str):
@@ -36,10 +43,14 @@ def file_validator_by_mimetypes(mimes: list, file_path: str):
     :param mimes: The mime of the files you want to validate based on them, example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    file_mime = guess_type(file_path)[0]
+    try:
+        file_mime = guess_type(file_path)[0]
+    except AttributeError as error:
+        raise ValueError(colored(MIME_NOT_VALID, "red")) from error
     if file_mime not in mimes:
-        error_message = f"{file_mime} is not valid"
-        raise ValueError(colored(error_message, "red"))
+        raise ValueError(
+            colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
+        )
 
 
 def file_validator_by_filetype(mimes: list, file_path: str):
@@ -50,10 +61,15 @@ def file_validator_by_filetype(mimes: list, file_path: str):
     :param mimes: The mime of the files you want to validate based on them, example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    file_mime = guess(file_path).MIME
+    try:
+        file_mime = guess(file_path).MIME
+    except AttributeError as error:
+        raise ValueError(colored(MIME_NOT_VALID, "red")) from error
+
     if file_mime not in mimes:
-        error_message = f"{file_mime} is not valid"
-        raise ValueError(colored(error_message, "red"))
+        raise ValueError(
+            colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
+        )
 
 
 def file_validator_by_pure_magic(mimes: list, file_path: str):
@@ -64,17 +80,24 @@ def file_validator_by_pure_magic(mimes: list, file_path: str):
     :param mimes: The mime of the files you want to validate based on them, example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    with open(file_path, "rb") as file:
-        file_signatures = puremagic.magic_stream(file)
-        file_mimes = []
-        for file_signature in file_signatures:
-            file_mimes.append(file_signature.mime_type)
+    try:
+        with open(file_path, "rb") as file:
+            file_signatures = puremagic.magic_stream(file)
+            file_mimes = []
+            for file_signature in file_signatures:
+                file_mimes.append(file_signature.mime_type)
+    except AttributeError as error:
+        raise ValueError(colored(MIME_NOT_VALID, "red")) from error
+
     mimes_is_equal = len(set(file_mimes)) <= 1
     if mimes_is_equal:
         file_mime = file_mimes[0]
         if file_mime not in mimes:
-            error_message = f"{file_mime} is not valid"
-            raise ValueError(colored(error_message, "red"))
+            raise ValueError(
+                colored(
+                    MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red"
+                )
+            )
 
 
 def file_validator(mimes: list, file_path: str):
@@ -85,7 +108,10 @@ def file_validator(mimes: list, file_path: str):
     :param mimes: The mime of the files you want to validate based on them, example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    file_validator_by_filetype(mimes, file_path)
-    file_validator_by_mimetypes(mimes, file_path)
-    file_validator_by_pure_magic(mimes, file_path)
-    file_validator_by_python_magic(mimes, file_path)
+    try:
+        file_validator_by_filetype(mimes, file_path)
+        file_validator_by_mimetypes(mimes, file_path)
+        file_validator_by_pure_magic(mimes, file_path)
+        file_validator_by_python_magic(mimes, file_path)
+    except AttributeError as error:
+        raise ValueError(colored(MIME_NOT_VALID, "red")) from error
