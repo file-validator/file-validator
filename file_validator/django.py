@@ -58,7 +58,7 @@ class FileValidator:
 
         :type libraries: list, optional
 
-        :param libraries :The value of libraries should be a list of libraries with which you
+        :param libraries: The value of libraries should be a list of libraries with which you
             want to perform the validation operation, example: libraries=["filetype","python_magic"]
             defaults If you do not select any library, it will perform the validation operation with
             all libraries by default, Supported libraries for validation operations: python_magic,
