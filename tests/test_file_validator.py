@@ -9,6 +9,7 @@ from file_validator.file_validator.validator import (
 )
 from .fixtures import MP3_MIME, JPEG_MIME, PNG_MIME, JPEG_FILE, MP3_FILE, PNG_FILE
 from file_validator.django_example.post.models import ValidFile
+from ..file_validator.exceptions import error_message
 
 
 class TestFileValidatorByPythonMagic:
@@ -16,18 +17,14 @@ class TestFileValidatorByPythonMagic:
     These tests are for file validators that are made using the python-magic library
     """
 
-    def test_file_validator_when_file_is_valid(
-        self, jpeg=JPEG_FILE
-    ):
+    def test_file_validator_when_file_is_valid(self, jpeg=JPEG_FILE):
         """
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
         assert file_validator_by_python_magic(JPEG_MIME, file_path=jpeg) is None
 
-    def test_file_validator_when_file_is_not_valid(
-        self, jpeg=JPEG_FILE
-    ):
+    def test_file_validator_when_file_is_not_valid(self, jpeg=JPEG_FILE):
         """
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect is a return value error, which means that the file is invalid
@@ -37,7 +34,9 @@ class TestFileValidatorByPythonMagic:
         except ValueError as error:
             assert JPEG_MIME in str(error)
 
-    def test_file_validator_when_file_is_valid_in_django(self, jpeg=JPEG_FILE, file=ValidFile):
+    def test_file_validator_when_file_is_valid_in_django(
+        self, jpeg=JPEG_FILE, file=ValidFile
+    ):
         new_file = file(file=jpeg)
         new_file.full_clean()
 
@@ -117,3 +116,18 @@ class TestFileValidator:
             file_validator(PNG_MIME, file_path=jpeg)
         except ValueError as error:
             assert JPEG_MIME in str(error)
+
+
+def test_error_message_function_return_correct_message():
+    """
+    We test whether this error message function returns the expected message or not
+    """
+    message = error_message(
+        message="{file} : {mimes} with this {file_size} is not valid,  you can upload files up to {max_file_size}",
+        file="test.png",
+        file_size="20 MB",
+        mimes=["image/png"],
+        max_file_size="10 MB",
+    )
+    expected_message = "test.png : image/png with this 20 MB is not valid,  you can upload files up to 10 MB"
+    assert expected_message in message
