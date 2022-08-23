@@ -35,8 +35,10 @@ and ``file_size`` is the size you want the file to be validated against
         file = models.FileField(validators=[
             FileValidator(
                 libraries=["filetype", "pure_magic", "mimetypes"],
-                mimes=["audio/mpeg"],
-                file_size=10485760)]
+                mimes=["audio/mpeg", "image/png"],
+                file_size=10485760
+                )
+            ]
         )
 
 
