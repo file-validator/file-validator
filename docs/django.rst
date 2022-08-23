@@ -46,7 +46,7 @@ and ``file_size`` is the size you want the file to be validated against
     Since the `python-magic <https://github.com/ahupp/python-magic>`_ library may treat audio files
     like mp3 as programs or application/octet-stream and it's a bit
     annoying, I suggest when you want to validate audio files from
-    three libraries (`filetype <https://github.com/h2non/filetype.py>`_, `MimeTypes <https://docs.python.org/3/library/mimetypes.html>`_, `pure magic <https://github.com/cdgriffith/puremagic>`_) or use the safe mode method.
+    three libraries (`filetype <https://github.com/h2non/filetype.py>`_, `MimeTypes <https://docs.python.org/3/library/mimetypes.html>`_, `pure magic <https://github.com/cdgriffith/puremagic>`_).
 
 
 
