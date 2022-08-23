@@ -64,8 +64,8 @@ class FileValidator:
             all libraries by default, Supported libraries for validation operations: python_magic,
             pure_magic, filetype, mimetypes
 
-        :raises ValueError: If the mime list is empty, raised a value error or If the mimes list
-            be empty, it will cause this value error
+        :raises ValueError: If the mime list is empty, raised a value error
+        :raises ValueError: If the library you entered is not supported, raised a value error
         """
         if file_size != ZERO:
             self.file_size = file_size
