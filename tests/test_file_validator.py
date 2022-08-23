@@ -126,8 +126,8 @@ def test_error_message_function_return_correct_message():
         message="{file} : {mimes} with this {file_size} is not valid,  you can upload files up to {max_file_size}",
         file="test.png",
         file_size="20 MB",
-        mimes=["image/png"],
+        mimes=["image/png","audio/mpeg"],
         max_file_size="10 MB",
     )
-    expected_message = "test.png : image/png with this 20 MB is not valid,  you can upload files up to 10 MB"
+    expected_message = "test.png : image/png, audio/mpeg with this 20 MB is not valid,  you can upload files up to 10 MB"
     assert expected_message in message
