@@ -28,7 +28,7 @@ and ``file_size`` is the size you want the file to be validated against
 .. code-block:: python
 
     from django.db import models
-    from file_validator.django import FileValidatorByPythonMagic
+    from file_validator.django import FileValidator
 
 
     class File(models.Model):
