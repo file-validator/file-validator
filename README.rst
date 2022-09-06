@@ -42,9 +42,6 @@ File Validator
    :target: https://www.codefactor.io/repository/github/rzashakeri/file_validator
    :alt: CodeFactor
 
-.. image:: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
-        :target: https://raw.githubusercontent.com/rzashakeri/file_validator/master/file_validator.png
-
 
 Features
 --------
