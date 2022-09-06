@@ -42,7 +42,7 @@ File Validator
    :target: https://www.codefactor.io/repository/github/rzashakeri/file_validator
    :alt: CodeFactor
 
-.. |  line  |
+|
 
 If you are looking for a safe way to validate your files,
 the file validator library will do this for you, this
