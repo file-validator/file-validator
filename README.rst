@@ -42,13 +42,13 @@ File Validator
    :target: https://www.codefactor.io/repository/github/rzashakeri/file_validator
    :alt: CodeFactor
 
-
-Features
---------
 If you are looking for a safe way to validate your files,
 the file validator library will do this for you, this
 library also supports `Django <https://www.djangoproject.com/>`_.With this library you can
 validate files based on extension, size, mimes and magic numbers
+
+Features
+--------
 
 * File validation using the `filetype`_ library
 
