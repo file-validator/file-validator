@@ -83,3 +83,13 @@ and ``file_size`` is the size you want the file to be validated against
 
 .. autoclass:: file_validator.django.FileValidator
     :members: __init__, __call__
+
+
+4. Don't forget to add the following code to your settings
+
+.. code-block:: python
+
+        FILE_UPLOAD_HANDLERS = [
+        'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+        ]
+
