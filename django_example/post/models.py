@@ -1,5 +1,5 @@
 from django.db import models
-from file_validator.django import FileValidator
+from file_validator.file_validator.django import FileValidator
 
 
 class ValidFile(models.Model):

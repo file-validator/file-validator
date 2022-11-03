@@ -34,6 +34,9 @@ class TestFileValidatorByPythonMagic:
         except ValueError as error:
             assert JPEG_MIME in str(error)
 
+    # def test_file_validator_when_file_is_not_valid_and_raise_attribute_error(self):
+    #     pass
+
     def test_file_validator_when_file_is_valid_in_django(
         self, jpeg=JPEG_FILE, file=ValidFile
     ):
@@ -126,7 +129,7 @@ def test_error_message_function_return_correct_message():
         message="{file} : {mimes} with this {file_size} is not valid,  you can upload files up to {max_file_size}",
         file="test.png",
         file_size="20 MB",
-        mimes=["image/png","audio/mpeg"],
+        mimes=["image/png", "audio/mpeg"],
         max_file_size="10 MB",
     )
     expected_message = "test.png : image/png, audio/mpeg with this 20 MB is not valid,  you can upload files up to 10 MB"
