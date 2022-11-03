@@ -34,14 +34,19 @@ class TestFileValidatorByPythonMagic:
         except ValueError as error:
             assert JPEG_MIME in str(error)
 
-    # def test_file_validator_when_file_is_not_valid_and_raise_attribute_error(self):
-    #     pass
-
     def test_file_validator_when_file_is_valid_in_django(
         self, jpeg=JPEG_FILE, file=ValidFile
     ):
+        """
+        :param jpeg: It is a fixture for jpeg files
+        :param file: model of a valid file in django
+        :return: The result we expect is a return value error, which means that the file is invalid
+        """
         new_file = file(file=jpeg)
         new_file.full_clean()
+
+    # def test_file_validator_when_file_is_not_valid_and_raise_attribute_error(self):
+    #     pass
 
 
 class TestFileValidatorByMimeTypes:
