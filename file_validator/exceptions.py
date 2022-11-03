@@ -2,10 +2,15 @@
 This file is for customizing errors and anything related to errors
 """
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+
 
 try:
+    # Get Error Message From Django Setting
     ERROR_MESSAGE = settings.FILE_VALIDATOR_ERROR_MESSAGE
 except AttributeError:
+    ERROR_MESSAGE = "{file} is not valid"
+except ImproperlyConfigured:
     ERROR_MESSAGE = "{file} is not valid"
 
 
