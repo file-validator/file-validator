@@ -6,8 +6,7 @@ from django.template.defaultfilters import filesizeformat
 from filetype import get_type, guess, is_mime_supported
 from termcolor import colored
 from . import exceptions
-from . import validator
-from . import django
+from . import validators
 
 __author__ = """Reza Shakeri"""
 __email__ = 'rzashakeri@outlook.com'
