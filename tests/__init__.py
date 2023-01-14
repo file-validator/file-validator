@@ -1,10 +1,5 @@
 """Unit test package for file_validator."""
-import django
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'file_validator.django_example.django_example.settings'
-django.setup()
-
-from file_validator.file_validator.validator import (
+from file_validator.file_validator.validators import (
     file_validator_by_python_magic,
     file_validator_by_mimetypes,
     file_validator_by_filetype,
