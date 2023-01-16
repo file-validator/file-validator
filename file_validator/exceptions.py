@@ -4,7 +4,6 @@ This file is for customizing errors and anything related to errors
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-
 try:
     # Get Error Message From Django Setting
     ERROR_MESSAGE = settings.FILE_VALIDATOR_ERROR_MESSAGE
@@ -12,6 +11,26 @@ except AttributeError:
     ERROR_MESSAGE = "{file} is not valid"
 except ImproperlyConfigured:
     ERROR_MESSAGE = "{file} is not valid"
+
+
+class FileValidationException(Exception):
+    """Raised when file is not valid"""
+
+
+class SizeValidationException(Exception):
+    """Raised when file size is not valid """
+
+
+class DjangoFileValidationException(Exception):
+    """Raised when file validation operation for django fails"""
+
+
+class LibraryNotSupportedException(Exception):
+    """Raised when a library is not supported"""
+
+
+class MimesEmptyException(Exception):
+    """Raised when the mime list is empty"""
 
 
 def error_message(
