@@ -4,9 +4,9 @@ test
 
 from django.db.models import FileField
 from django.core.files.uploadedfile import TemporaryUploadedFile
-from django.template.defaultfilters import filesizeformat
 from django.core.exceptions import ValidationError
 from termcolor import colored
+from humanize import naturalsize
 
 from file_validator.file_validator.exceptions import error_message
 from file_validator.file_validator.validators import size_validator, file_validator_by_django
@@ -34,7 +34,6 @@ class ValidatedFileField(FileField):
         size_validator(
             max_upload_file_size=self.max_upload_file_size,
             acceptable_mimes=self.acceptable_mimes,
-            file_size=file_size,
             file=file
         )
         try:
@@ -49,8 +48,8 @@ class ValidatedFileField(FileField):
             raise ValidationError(
                 error_message(
                     file=file,
-                    file_size=filesizeformat(file_size),
-                    max_file_size=filesizeformat(self.max_upload_file_size),
+                    file_size=naturalsize(file_size),
+                    max_file_size=naturalsize(self.max_upload_file_size),
                     mimes=self.acceptable_mimes,
                 )
             ) from error
