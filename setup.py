@@ -11,7 +11,7 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
     history = history_file.read()
 
 requirements = [
-    "Click>=7.0",
+    "humanize>=4.4.0"
     "filetype>=1.1.0",
     "termcolor>=1.1.0",
     "python-magic>=0.4.27",
