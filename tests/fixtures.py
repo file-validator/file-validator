@@ -12,6 +12,9 @@ JPEG_EXTENSION = "jpg"
 MP3_EXTENSION = "mp3"
 PNG_EXTENSION = "png"
 
+TEMPLATE_EXPECTED_MESSAGE = "{file} : {mimes} with this {file_size} is not valid, you can upload files up to {max_file_size}"
+EXPECTED_MESSAGE = "test.png : image/png, audio/mpeg with this 20 MB is not valid, you can upload files up to 10 MB"
+
 
 def get_test_file(file_name):
     """
@@ -26,4 +29,4 @@ def get_test_file(file_name):
 JPEG_FILE = get_test_file("test.jpg")
 MP3_FILE = get_test_file("test.mp3")
 PNG_FILE = get_test_file("test.png")
-BAD_FILE = get_test_file("test.bad")
+BAD_FILE = get_test_file("bad.file")
