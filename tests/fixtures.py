@@ -3,30 +3,59 @@ This file is related to fixtures and constants required for tests
 """
 import os
 
-BAD_MIME = "mime/bad"
-JPEG_MIME = "image/jpeg"
-MP3_MIME = "audio/mpeg"
-PNG_MIME = "image/png"
+from django.conf import settings
+from django.core.files.uploadedfile import TemporaryUploadedFile
 
-JPEG_EXTENSION = "jpg"
-MP3_EXTENSION = "mp3"
-PNG_EXTENSION = "png"
+from file_validator.models import ValidatedFileField
 
-TEMPLATE_EXPECTED_MESSAGE = "{file} : {mimes} with this {file_size} is not valid, you can upload files up to {max_file_size}"
-EXPECTED_MESSAGE = "test.png : image/png, audio/mpeg with this 20 MB is not valid, you can upload files up to 10 MB"
+PNG_OBJECT: dict = {
+    'name': 'test.png',
+    'mime': 'image/png',
+    'extension': 'png',
+}
+
+MP3_OBJECT: dict = {
+    'name': 'test.mp3',
+    'mime': 'audio/mpeg',
+    'extension': 'mp3',
+}
+
+JPEG_OBJECT: dict = {
+    'name': 'test.jpg',
+    'mime': 'image/jpeg',
+    'extension': 'jpg',
+}
+
+BAD_OBJECT: dict = {
+    'name': 'bad.file',
+    'mime': 'mime/bad',
+    'extension': 'file',
+}
 
 
-def get_test_file(file_name):
+TEMPLATE_EXPECTED_MESSAGE: str = "{file} : {mimes} with this {file_size} is not valid, you can upload files up to {max_file_size}"
+EXPECTED_MESSAGE: str = "test.png : image/png, audio/mpeg with this 20 MB is not valid, you can upload files up to 10 MB"
+TEST_LIBRARY: str = "test_library"
+
+
+def get_test_file(file_name) -> str:
     """
     :param file_name: The name of the test file
     :return: It should return the path of the test file that is in the project
     """
     test_directory = os.path.dirname(os.path.realpath(__file__))
-    test_files_directory = os.path.join(test_directory, "test_files", f"{file_name}")
+    test_files_directory = os.path.join(test_directory, "files", f"{file_name}")
     return test_files_directory
 
 
-JPEG_FILE = get_test_file("test.jpg")
-MP3_FILE = get_test_file("test.mp3")
-PNG_FILE = get_test_file("test.png")
-BAD_FILE = get_test_file("bad.file")
+JPEG_FILE: str = get_test_file(JPEG_OBJECT['name'])
+MP3_FILE: str = get_test_file(MP3_OBJECT['name'])
+PNG_FILE: str = get_test_file(PNG_OBJECT['name'])
+BAD_FILE: str = get_test_file(BAD_OBJECT['name'])
+
+
+def get_tmp_file(file_name, file_path, file_mime_type):
+    tmp_file = TemporaryUploadedFile(file_name, file_mime_type, 0, None)
+    tmp_file.file = open(file_path)
+    tmp_file.size = os.fstat(tmp_file.fileno()).st_size
+    return tmp_file
