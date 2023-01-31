@@ -5,9 +5,11 @@ from django.utils.deconstruct import deconstructible
 from django.template.defaultfilters import filesizeformat
 from filetype import get_type, guess, is_mime_supported
 from termcolor import colored
-from . import exceptions
-from . import validators
+import file_validator.exceptions
+import file_validator.validators
+import file_validator.constants
+import file_validator.models
 
 __author__ = """Reza Shakeri"""
-__email__ = 'rzashakeri@outlook.com'
-__version__ = '0.1.6'
+__email__ = "rzashakeri@outlook.com"
+__version__ = "0.1.7"
