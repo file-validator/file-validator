@@ -6,7 +6,7 @@ The good news is that we also support the native Python library, `MimeTypes <htt
 
 .. code-block:: console
 
-    $ from file_validator.validator import file_validator_by_mimetypes
+    $ from file_validator.validators import file_validator_by_mimetypes
 
 For the mimetypes library, you must do exactly as above:
 
@@ -16,10 +16,10 @@ For the mimetypes library, you must do exactly as above:
 
 .. code-block:: python
 
-    from file_validator.validator import file_validator_by_mimetypes
+    from file_validator.validators import file_validator_by_mimetypes
 
     file_validator_by_mimetypes(mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to/file')
 
 
-.. autofunction:: file_validator.validator.file_validator_by_mimetypes
+.. autofunction:: file_validator.validators.file_validator_by_mimetypes
 

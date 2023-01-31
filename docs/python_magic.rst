@@ -19,7 +19,7 @@ If you want to use File Validators made using the `python-magic <https://github.
 
 .. code-block:: python
 
-    from file_validator.validator import file_validator_by_python_magic
+    from file_validator.validators import file_validator_by_python_magic
 
 Just call this function and give the function path of the file and the mimes you want the files to be validated based on:
 
@@ -29,10 +29,10 @@ Just call this function and give the function path of the file and the mimes you
 
 .. code-block:: python
 
-    from file_validator.validator import file_validator_by_python_magic
+    from file_validator.validators import file_validator_by_python_magic
 
     file_validator_by_python_magic(mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to/file')
 
 
-.. autofunction:: file_validator.validator.file_validator_by_python_magic
+.. autofunction:: file_validator.validators.file_validator_by_python_magic
 

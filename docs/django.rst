@@ -2,6 +2,9 @@
 django
 ====================
 
+
+File Validator
+--------------
 To validate files in Django we use the ``FileValidator`` class
 In order to be able to use the validator written in `Django <https://www.djangoproject.com/>`_ , you must do the following:
 
@@ -10,7 +13,7 @@ In order to be able to use the validator written in `Django <https://www.djangop
 
 .. code-block:: python
 
-    from file_validator.django import FileValidator
+    from file_validator.models import FileValidator
 
 
 2. Now add the ``FileValidator`` to your model validator like the
@@ -28,7 +31,7 @@ and ``file_size`` is the size you want the file to be validated against
 .. code-block:: python
 
     from django.db import models
-    from file_validator.django import FileValidator
+    from file_validator.models import FileValidator
 
 
     class File(models.Model):
@@ -81,7 +84,7 @@ and ``file_size`` is the size you want the file to be validated against
 
 
 
-.. autoclass:: file_validator.django.FileValidator
+.. autoclass:: file_validator.models.FileValidator
     :members: __init__, __call__
 
 
@@ -92,4 +95,45 @@ and ``file_size`` is the size you want the file to be validated against
         FILE_UPLOAD_HANDLERS = [
         'django.core.files.uploadhandler.TemporaryFileUploadHandler',
         ]
+
+
+Validated File Field
+--------------------
+Another way to validate files is to use ``ValidatedFileField``,
+In order to be able to use the ValidatedFileField written for `Django <https://www.djangoproject.com/>`_ , you must do the following:
+
+1 .First, **import** the ``ValidatedFileField`` to your Django model as follows:
+
+.. code-block:: python
+
+    from file_validator.models import ValidatedFileField
+
+2. Now you can use ``ValidatedFileField`` as follows in your model:
+
+.. code-block:: python
+
+    from django.db import models
+    from file_validator.models import ValidatedFileField
+
+
+    class File(models.Model):
+        file = ValidatedFileField(
+            libraries=["filetype", "pure_magic", "mimetypes", "python_magic"],
+            acceptable_mimes=["audio/mpeg", "image/png"],
+            max_upload_file_size=10485760
+        )
+
+
+3. After this step, do a new migration to apply the changes
+
+.. code-block:: console
+
+        python manage.py makemigrations
+        python manage.py migrate
+
+
+
+.. autoclass:: file_validator.models.ValidatedFileField
+    :members: __init__, __call__
+
 

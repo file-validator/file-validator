@@ -94,7 +94,7 @@ To install File Validator, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install file_validator
+    pip install file-validator
 
 
 .. warning::
@@ -105,14 +105,14 @@ To install File Validator, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install python-magic-bin
+    pip install python-magic-bin
 
 
 **for Debian/Ubuntu:**
 
 .. code-block:: console
 
-    $ sudo apt-get install libmagic1
+    sudo apt-get install libmagic1
 
 **for OSX:**
 

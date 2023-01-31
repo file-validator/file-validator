@@ -12,12 +12,21 @@ links for a guide on using each of them: 👇
    :maxdepth: 1
 
    python_magic
+   pure_magic
    mimetypes
    filetype
 
+
 There is also a method called safe mode that
-uses all three libraries together to validate the file : 👇
+uses all libraries together to validate the file : 👇
 
 .. toctree::
 
     safe_mode
+
+You can use the following function to validate the file size:
+
+.. toctree::
+
+    size_validator
+

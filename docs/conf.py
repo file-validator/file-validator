@@ -19,15 +19,15 @@
 #
 import os
 import sys
+import file_validator
+import django
 
 sys.path.insert(0, os.path.abspath('..'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'django_example.django_example.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.project.project.settings'
 
-import django
 
 django.setup()
 
-import file_validator
 
 
 

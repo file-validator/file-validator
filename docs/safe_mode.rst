@@ -13,8 +13,8 @@ Then just call the file_validator function:
 
 .. code-block:: python
 
-    from file_validator.validator import file_validator
+    from file_validator.validators import file_validator
 
     file_validator(mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to/file')
 
-.. autofunction:: file_validator.validator.file_validator
+.. autofunction:: file_validator.validators.file_validator
