@@ -11,11 +11,13 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
     history = history_file.read()
 
 requirements = [
-    "humanize>=4.4.0"
+    "humanize>=4.4.0",
     "filetype>=1.1.0",
     "termcolor>=1.1.0",
     "python-magic>=0.4.27",
     "puremagic>=1.14",
+    "python-dotenv>=0.21.0",
+    "python-magic-bin>=0.4.14"
 ]
 
 test_requirements = [
@@ -72,6 +74,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/rzashakeri/file_validator",
-    version="0.1.6",
+    version="0.1.7",
     zip_safe=False,
 )
