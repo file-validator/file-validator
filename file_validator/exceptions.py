@@ -3,14 +3,13 @@ This file is for customizing errors and anything related to errors
 """
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from file_validator.constants import DEFAULT_ERROR_MESSAGE
 
 try:
     # Get Error Message From Django Setting
-    ERROR_MESSAGE = settings.FILE_VALIDATOR_ERROR_MESSAGE
-except AttributeError:
-    ERROR_MESSAGE = "{file} is not valid"
-except ImproperlyConfigured:
-    ERROR_MESSAGE = "{file} is not valid"
+    CUSTOM_ERROR_MESSAGE = settings.FILE_VALIDATOR_ERROR_MESSAGE
+except (AttributeError, ImproperlyConfigured):
+    CUSTOM_ERROR_MESSAGE = DEFAULT_ERROR_MESSAGE
 
 
 class FileValidationException(Exception):
@@ -18,7 +17,7 @@ class FileValidationException(Exception):
 
 
 class SizeValidationException(Exception):
-    """Raised when file size is not valid """
+    """Raised when file size is not valid"""
 
 
 class DjangoFileValidationException(Exception):
@@ -34,11 +33,11 @@ class MimesEmptyException(Exception):
 
 
 def error_message(
-    file,
-    mimes,
-    file_size,
-    max_file_size,
-    message=ERROR_MESSAGE,
+    mimes=None,
+    file_size=None,
+    max_file_size=None,
+    message=CUSTOM_ERROR_MESSAGE,
+    file=None,
 ):
     """
     :param file: Returns the name of the file to be validated
@@ -50,12 +49,13 @@ def error_message(
     :return: return your error message or default error message
     """
     file_mimes = ""
-    for mime in mimes:
-        if mime == mimes[-1]:
-            file_mimes += str(mime)
-        else:
-            file_mimes += str(mime)
-            file_mimes += ", "
+    if mimes is not None:
+        for mime in mimes:
+            if mime == mimes[-1]:
+                file_mimes += str(mime)
+            else:
+                file_mimes += str(mime)
+                file_mimes += ", "
 
     return message.format(
         file=file, mimes=file_mimes, file_size=file_size, max_file_size=max_file_size
