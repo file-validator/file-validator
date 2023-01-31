@@ -17,7 +17,7 @@ requirements = [
     "python-magic>=0.4.27",
     "puremagic>=1.14",
     "python-dotenv>=0.21.0",
-    "python-magic-bin"
+    "python-magic-bin>=0.4.14"
 ]
 
 test_requirements = [
