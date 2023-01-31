@@ -105,3 +105,4 @@ ENV/
 .vscode/
 .idea/
 !/django_example/post/models.py
+!/coverage_html_report/
