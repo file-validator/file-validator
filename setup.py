@@ -73,7 +73,7 @@ setup(
     packages=find_packages(include=["file_validator", "file_validator.*"]),
     test_suite="tests",
     tests_require=test_requirements,
-    url="https://github.com/rzashakeri/file_validator",
+    url="https://github.com/rzashakeri/file-validator",
     version="0.1.7",
     zip_safe=False,
 )
