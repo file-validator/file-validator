@@ -33,5 +33,5 @@ MIMES_IS_EQUAL: str = "The mimes ({mimes}) are similar, please use different mim
 LIBRARY_IS_NOT_SUPPORTED: str = (
     "{library} is not supported, you can choice library from this list : {libraries} "
 )
-PATH_MAGIC_FILE: str = os.environ["PATH_MAGIC_FILE"]
+PATH_MAGIC_FILE: str = os.environ.get("PATH_MAGIC_FILE")
 DEFAULT_ERROR_MESSAGE: str = "{file} is not valid"
