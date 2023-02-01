@@ -15,17 +15,14 @@ from humanize import naturalsize
 from file_validator.exceptions import (
     error_message,
     FileValidationException,
-    LibraryNotSupportedException,
     MimesEmptyException,
     DjangoFileValidationException,
 )
-from file_validator.utils import all_mimes_is_equal
+from file_validator.utils import all_mimes_is_equal, library_supported
 from file_validator.validators import size_validator, file_validator_by_django
 from file_validator.constants import (
     MIMES_EMPTY,
     SELECTING_ALL_SUPPORTED_LIBRARIES,
-    ALL_SUPPORTED_LIBRARIES,
-    LIBRARY_IS_NOT_SUPPORTED,
 )
 
 
@@ -143,11 +140,7 @@ class FileValidator:
             self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
         else:
             for library in libraries:
-                if library not in ALL_SUPPORTED_LIBRARIES:
-                    message = LIBRARY_IS_NOT_SUPPORTED.format(
-                        library=library, libraries=ALL_SUPPORTED_LIBRARIES
-                    )
-                    raise LibraryNotSupportedException(colored(message, "red"))
+                library_supported(library)
                 self.libraries.append(library)
 
         if acceptable_mimes is None or all_mimes_is_equal(acceptable_mimes):

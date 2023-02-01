@@ -19,7 +19,6 @@ from file_validator.exceptions import (
     error_message,
     FileValidationException,
     SizeValidationException,
-    LibraryNotSupportedException,
 )
 from file_validator.constants import (
     PYTHON_MAGIC,
@@ -29,11 +28,10 @@ from file_validator.constants import (
     MIMETYPES,
     FILE_SIZE_IS_NOT_VALID,
     MIME_NOT_VALID_WITH_MIME_NAME,
-    ALL_SUPPORTED_LIBRARIES,
-    LIBRARY_IS_NOT_SUPPORTED,
     ALL,
     PATH_MAGIC_FILE,
 )
+from file_validator.utils import library_supported
 
 
 def file_validator_by_python_magic(mimes: list, file_path: str):
@@ -180,11 +178,7 @@ def file_validator_by_django(
         return a FileValidationException.
     """
     for library in libraries:
-        if library not in ALL_SUPPORTED_LIBRARIES:
-            message = LIBRARY_IS_NOT_SUPPORTED.format(
-                library=library, libraries=ALL_SUPPORTED_LIBRARIES
-            )
-            raise LibraryNotSupportedException(colored(message, "red"))
+        library_supported(library)
 
         if library == ALL:
             file_validator(mimes=acceptable_mimes, file_path=file_path)
