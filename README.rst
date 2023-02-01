@@ -22,9 +22,9 @@ File Validator
         :alt: AppVeyor
         :target: https://ci.appveyor.com/api/projects/status/v8e1kr94a0259uw6?svg=true
 
-.. image:: https://img.shields.io/codecov/c/github/rzashakeri/file_validator?token=13ZVSJWH8M
+.. image:: https://img.shields.io/codecov/c/github/rzashakeri/file-validator?token=13ZVSJWH8M
         :alt: Codecov
-        :target: https://codecov.io/gh/rzashakeri/file_validator
+        :target: https://codecov.io/gh/rzashakeri/file-validator
 
 .. image:: https://img.shields.io/pypi/pyversions/file-validator?color=light
         :alt: PyPI - Python Version
@@ -38,8 +38,8 @@ File Validator
     :alt: pylint
 
 
-.. image:: https://www.codefactor.io/repository/github/rzashakeri/file_validator/badge
-   :target: https://www.codefactor.io/repository/github/rzashakeri/file_validator
+.. image:: https://www.codefactor.io/repository/github/rzashakeri/file-validator/badge
+   :target: https://www.codefactor.io/repository/github/rzashakeri/file-validator
    :alt: CodeFactor
 
 |
