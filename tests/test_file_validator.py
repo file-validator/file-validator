@@ -415,6 +415,5 @@ def test_size_validator():
     with pytest.raises(SizeValidationException):
         assert size_validator(
             max_upload_file_size=1,
-            acceptable_mimes=[PNG_OBJECT['mime'], JPEG_OBJECT['mime']],
             file_path=PNG_FILE
         )
