@@ -12,8 +12,10 @@ jobs:
           python-version: '3.8'
       - name: Install dependencies
         run: pip install -r requirements_dev.txt
-      - name: install libmagic
-        run: sudo apt-get install libmagic1
+      - name: install pip
+        run: sudo apt-get remove python3-pip && sudo easy_install3 pip
+      - name: install python-magic
+        run: sudo pip install python-magic
       - name: Run tests and collect coverage
         run: pytest --cov file_validator
       - name: Upload coverage to Codecov
