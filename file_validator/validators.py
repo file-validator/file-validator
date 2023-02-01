@@ -44,9 +44,13 @@ def file_validator_by_python_magic(mimes: list, file_path: str):
     :param mimes: The mime of the files you want to validate based on them, example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    with open(file_path, "rb") as file:
-        magic.Magic(magic_file=PATH_MAGIC_FILE)
-        file_mime = magic.from_buffer(file.read(2048), mime=True)
+    if PATH_MAGIC_FILE:
+        with open(file_path, "rb") as file:
+            magic.Magic(magic_file=PATH_MAGIC_FILE)
+            file_mime = magic.from_buffer(file.read(2048), mime=True)
+    else:
+        with open(file_path, "rb") as file:
+            file_mime = magic.from_buffer(file.read(2048), mime=True)
 
     if file_mime not in mimes:
         raise FileValidationException(
