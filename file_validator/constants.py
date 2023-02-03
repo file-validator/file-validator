@@ -1,10 +1,6 @@
 """
 In this module, the constants used at the library level are defined
 """
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 PYTHON_MAGIC: str = "python_magic"
 PURE_MAGIC: str = "pure_magic"
@@ -33,5 +29,6 @@ MIMES_IS_EQUAL: str = "The mimes ({mimes}) are similar, please use different mim
 LIBRARY_IS_NOT_SUPPORTED: str = (
     "{library} is not supported, you can choice library from this list : {libraries} "
 )
-PATH_MAGIC_FILE: str = os.environ.get("PATH_MAGIC_FILE")
+
 DEFAULT_ERROR_MESSAGE: str = "{file} is not valid"
+DEFAULT_FILE_NAME: str = 'file'
