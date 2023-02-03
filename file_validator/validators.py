@@ -29,39 +29,41 @@ from file_validator.constants import (
     FILE_SIZE_IS_NOT_VALID,
     MIME_NOT_VALID_WITH_MIME_NAME,
     ALL,
-    PATH_MAGIC_FILE,
 )
 from file_validator.utils import library_supported
 
 
-def file_validator_by_python_magic(mimes: list, file_path: str):
+def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :type mimes: list
-    :param mimes: The mime of the files you want to validate based on them, example: image/png
+    :type acceptable_mimes: list
+    :param acceptable_mimes: The mime of the files you want to validate based on them,
+        example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
-    if PATH_MAGIC_FILE:
+    path_magic_file = os.environ.get("path_magic_file")
+    if path_magic_file:
         with open(file_path, "rb") as file:
-            magic.Magic(magic_file=PATH_MAGIC_FILE)
+            magic.Magic(magic_file=path_magic_file)
             file_mime = magic.from_buffer(file.read(2048), mime=True)
     else:
         with open(file_path, "rb") as file:
             file_mime = magic.from_buffer(file.read(2048), mime=True)
 
-    if file_mime not in mimes:
+    if file_mime not in acceptable_mimes:
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
 
 
-def file_validator_by_pure_magic(mimes: list, file_path: str):
+def file_validator_by_pure_magic(acceptable_mimes: list, file_path: str):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :type mimes: list
-    :param mimes: The mime of the files you want to validate based on them, example: image/png
+    :type acceptable_mimes: list
+    :param acceptable_mimes: The mime of the files you want to validate based on them,
+        example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
     try:
@@ -74,36 +76,38 @@ def file_validator_by_pure_magic(mimes: list, file_path: str):
         raise FileValidationException(colored(MIME_NOT_VALID, "red")) from error
 
     file_mime = file_mimes[0]
-    if file_mime not in mimes:
+    if file_mime not in acceptable_mimes:
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
 
 
-def file_validator_by_mimetypes(mimes: list, file_path: str):
+def file_validator_by_mimetypes(acceptable_mimes: list, file_path: str):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :type mimes: list
-    :param mimes: The mime of the files you want to validate based on them, example: image/png
+    :type acceptable_mimes: list
+    :param acceptable_mimes: The mime of the files you want to validate based on them,
+        example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
     file_mime = guess_type(file_path)[0]
     if file_mime is None:
         raise FileValidationException(colored(MIME_NOT_VALID, "red"))
 
-    if file_mime not in mimes:
+    if file_mime not in acceptable_mimes:
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
 
 
-def file_validator_by_filetype(mimes: list, file_path: str):
+def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :type mimes: list
-    :param mimes: The mime of the files you want to validate based on them, example: image/png
+    :type acceptable_mimes: list
+    :param acceptable_mimes: The mime of the files you want to validate based on them,
+        example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
     try:
@@ -111,25 +115,26 @@ def file_validator_by_filetype(mimes: list, file_path: str):
     except AttributeError as error:
         raise FileValidationException(colored(MIME_NOT_VALID, "red")) from error
 
-    if file_mime not in mimes:
+    if file_mime not in acceptable_mimes:
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
 
 
-def file_validator(mimes: list, file_path: str):
+def file_validator(acceptable_mimes: list, file_path: str):
     """
     :type file_path: string
     :param file_path: The path to the file you want to validate
-    :type mimes: list
-    :param mimes: The mime of the files you want to validate based on them, example: image/png
+    :type acceptable_mimes: list
+    :param acceptable_mimes: The mime of the files you want to validate based on them,
+        example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
 
-    file_validator_by_filetype(mimes, file_path)
-    file_validator_by_mimetypes(mimes, file_path)
-    file_validator_by_pure_magic(mimes, file_path)
-    file_validator_by_python_magic(mimes, file_path)
+    file_validator_by_filetype(acceptable_mimes, file_path)
+    file_validator_by_mimetypes(acceptable_mimes, file_path)
+    file_validator_by_pure_magic(acceptable_mimes, file_path)
+    file_validator_by_python_magic(acceptable_mimes, file_path)
 
 
 def size_validator(
@@ -181,19 +186,19 @@ def file_validator_by_django(
         library_supported(library)
 
         if library == ALL:
-            file_validator(mimes=acceptable_mimes, file_path=file_path)
+            file_validator(acceptable_mimes=acceptable_mimes, file_path=file_path)
 
         elif library == PYTHON_MAGIC:
-            file_validator_by_python_magic(mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_python_magic(acceptable_mimes=acceptable_mimes, file_path=file_path)
 
         elif library == PURE_MAGIC:
-            file_validator_by_pure_magic(mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_pure_magic(acceptable_mimes=acceptable_mimes, file_path=file_path)
 
         elif library == FILETYPE:
-            file_validator_by_filetype(mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_filetype(acceptable_mimes=acceptable_mimes, file_path=file_path)
 
         elif library == MIMETYPES:
-            file_validator_by_mimetypes(mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_mimetypes(acceptable_mimes=acceptable_mimes, file_path=file_path)
 
         else:
             if content_type_guessed_by_django not in acceptable_mimes:
