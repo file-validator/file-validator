@@ -15,9 +15,12 @@ from django.test import TestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile, TemporaryUploadedFile
 from django.core import management
 from pathlib import Path
+from unittest import mock
+from dotenv import dotenv_values, load_dotenv
 from file_validator.models import ValidatedFileField, FileValidator
 from tests.fixtures import MP3_OBJECT, JPEG_OBJECT, PNG_OBJECT, JPEG_FILE, MP3_FILE, PNG_FILE, BAD_FILE, TEMPLATE_EXPECTED_MESSAGE, EXPECTED_MESSAGE, TEST_LIBRARY, get_tmp_file, BAD_OBJECT
-
+from pathlib import Path
+from pytest import MonkeyPatch
 from file_validator.validators import (
     file_validator_by_python_magic,
     file_validator_by_mimetypes,
@@ -51,6 +54,10 @@ class TestFileValidatorByPythonMagic:
         """
         with pytest.raises(FileValidationException):
             file_validator_by_python_magic(PNG_OBJECT['mime'], file_path=jpeg)
+
+    @mock.patch.dict(os.environ, {"PATH_MAGIC_FILE": "tests/libmagic/magic.mgc"}, clear=True)
+    def test_file_validator_by_python_magic_by_path_magic_file_from_env(self, jpeg=JPEG_FILE):
+        assert file_validator_by_python_magic(JPEG_OBJECT['mime'], file_path=jpeg) is None
 
 
 class TestFileValidatorByMimeTypes:
@@ -100,7 +107,7 @@ class TestFileValidatorByPureMagic:
         assert file_validator_by_pure_magic(JPEG_OBJECT['mime'], file_path=jpeg) is None
 
     def test_file_validator_by_pure_magic_library_when_file_is_not_valid(
-        self, mp3_file=MP3_FILE
+        self
     ):
         """
         :param mp3_file: It is a fixture for mp3 files
@@ -371,13 +378,13 @@ class TestFileValidator:
 
     def test_eq_methode(self):
         file_validator_one = FileValidator(
-                                acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
-                                libraries=[ALL]
-                            )
+            acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
+            libraries=[ALL]
+        )
         file_validator_two = FileValidator(
-                                acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
-                                libraries=[ALL]
-                            )
+            acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
+            libraries=[ALL]
+        )
         assert file_validator_one == file_validator_two
 
 
