@@ -51,6 +51,7 @@ class ValidatedFileField(FileField):
         :raises ValueError: If the library you entered is not supported,
             raised a value error, Supported library: filetype, mimetypes,
             pure_magic, python_magic
+        :raises ValidationError: if file not valid
         """
         self.acceptable_mimes: list = kwargs.get("acceptable_mimes")
         if self.acceptable_mimes is None or all_mimes_is_equal(self.acceptable_mimes):
