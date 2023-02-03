@@ -3,7 +3,7 @@ This file is for customizing errors and anything related to errors
 """
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from file_validator.constants import DEFAULT_ERROR_MESSAGE
+from file_validator.constants import DEFAULT_ERROR_MESSAGE, DEFAULT_FILE_NAME
 
 try:
     # Get Error Message From Django Setting
@@ -37,8 +37,8 @@ def error_message(
     file_size=None,
     max_file_size=None,
     message=CUSTOM_ERROR_MESSAGE,
-    file=None,
-):
+    file=DEFAULT_FILE_NAME,
+) -> str:
     """
     :param file: Returns the name of the file to be validated
     :param mimes: It returns the mimes on which the file is to be validated
