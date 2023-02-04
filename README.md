@@ -4,6 +4,7 @@
 [![license](https://img.shields.io/github/license/rzashakeri/file_validator?color=light)](https://github.com/file-validator/file-validator/blob/master/LICENSE)
 [![Build status](https://ci.appveyor.com/api/projects/status/dplr2t9bkulmh4v5?svg=true)](https://ci.appveyor.com/project/rzashakeri/file-validator-inxf9)
 [![codecov](https://codecov.io/gh/file-validator/file-validator/branch/master/graph/badge.svg?token=13ZVSJWH8M)](https://codecov.io/gh/file-validator/file-validator)
+[![Coverage Status](https://coveralls.io/repos/github/file-validator/file-validator/badge.svg)](https://coveralls.io/github/file-validator/file-validator)
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![pylint](https://mperlet.github.io/pybadge/badges/10.svg)](https://github.com/file-validator/file-validator/actions)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
