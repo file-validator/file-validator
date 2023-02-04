@@ -18,8 +18,10 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'File Validator', // Usually your GitHub org/user name.
-  projectName: 'File Validator', // Usually your repo name.
+
+  organizationName: 'file-validator', // Usually your GitHub org/user name.
+  projectName: 'file-validator.github.io', // Usually your repo name.
+
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
