@@ -4,4 +4,9 @@ sidebar_position: 5
 
 # ⚙️ Config
 
-In order to be able to encounter different Python Magic identification errors
+In **Windows**, you can set the path of the `magic.mgc` file by adjusting the environmental variable `Path_magic_file`
+
+**example:**
+```jsx title=".env"
+Path_magic_file='path/to/magic.mgc'
+```

@@ -6,7 +6,7 @@ sidebar_position: 3
 
 It is possible that you can customize the error messages, that is, show the format of the files or mimes in the error message, you can do this in the following way:
 
-First, in your Django settings `(settings.py)`, you must specify the error message as follows:
+First, in your Django settings `settings.py`, you must specify the error message as follows:
 ```
 FILE_VALIDATOR_ERROR_MESSAGE = "{file} is not valid"
 ```
