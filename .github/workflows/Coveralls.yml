@@ -1,5 +1,4 @@
-name: Python package test and coverage
-
+name: coveralls
 on:
   push:
     branches: [ main ]
