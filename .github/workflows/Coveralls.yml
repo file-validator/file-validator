@@ -24,5 +24,7 @@ jobs:
         pytest --cov=file_validator tests/
     
     - name: Upload to Coveralls
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        coveralls
+          coveralls --service=github
