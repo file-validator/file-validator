@@ -43,7 +43,7 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
     path_magic_file = os.environ.get("path_magic_file")
-    if path_magic_file:
+    if path_magic_file and os.name == 'nt':
         with open(file_path, "rb") as file:
             magic.Magic(magic_file=path_magic_file)
             file_mime = magic.from_buffer(file.read(2048), mime=True)
