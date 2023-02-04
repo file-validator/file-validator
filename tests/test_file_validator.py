@@ -18,7 +18,7 @@ from pathlib import Path
 from unittest import mock
 from dotenv import dotenv_values, load_dotenv
 from file_validator.models import ValidatedFileField, FileValidator
-from tests.fixtures import MP3_OBJECT, JPEG_OBJECT, PNG_OBJECT, JPEG_FILE, MP3_FILE, PNG_FILE, BAD_FILE, TEMPLATE_EXPECTED_MESSAGE, EXPECTED_MESSAGE, TEST_LIBRARY, get_tmp_file, BAD_OBJECT
+from tests.fixtures import MP3_OBJECT, JPEG_OBJECT, PNG_OBJECT, JPEG_FILE, MP3_FILE, PNG_FILE, BAD_FILE, TEMPLATE_EXPECTED_MESSAGE, EXPECTED_MESSAGE, TEST_LIBRARY, get_tmp_file, BAD_OBJECT, MAGIC_FILE
 from pathlib import Path
 from pytest import MonkeyPatch
 from file_validator.validators import (
@@ -55,7 +55,7 @@ class TestFileValidatorByPythonMagic:
         with pytest.raises(FileValidationException):
             file_validator_by_python_magic(PNG_OBJECT['mime'], file_path=jpeg)
 
-    @mock.patch.dict(os.environ, {"PATH_MAGIC_FILE": "tests/libmagic/magic.mgc"}, clear=True)
+    @mock.patch.dict(os.environ, {"path_magic_file": MAGIC_FILE}, clear=True)
     def test_file_validator_by_python_magic_by_path_magic_file_from_env(self, jpeg=JPEG_FILE):
         assert file_validator_by_python_magic(JPEG_OBJECT['mime'], file_path=jpeg) is None
 

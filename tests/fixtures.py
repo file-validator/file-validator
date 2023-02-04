@@ -32,7 +32,6 @@ BAD_OBJECT: dict = {
     'extension': 'file',
 }
 
-
 TEMPLATE_EXPECTED_MESSAGE: str = "{file} : {mimes} with this {file_size} is not valid, you can upload files up to {max_file_size}"
 EXPECTED_MESSAGE: str = "test.png : image/png, audio/mpeg with this 20 MB is not valid, you can upload files up to 10 MB"
 TEST_LIBRARY: str = "test_library"
@@ -52,6 +51,7 @@ JPEG_FILE: str = get_test_file(JPEG_OBJECT['name'])
 MP3_FILE: str = get_test_file(MP3_OBJECT['name'])
 PNG_FILE: str = get_test_file(PNG_OBJECT['name'])
 BAD_FILE: str = get_test_file(BAD_OBJECT['name'])
+MAGIC_FILE: str = get_test_file('magic.mgc')
 
 
 def get_tmp_file(file_name, file_path, file_mime_type):
