@@ -14,6 +14,7 @@ from filetype import guess
 from humanize import naturalsize
 from puremagic import PureError
 from termcolor import colored
+from dotenv import load_dotenv
 
 from file_validator.exceptions import (
     error_message,
@@ -42,6 +43,7 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
         example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
+    load_dotenv()
     path_magic_file = os.environ.get("path_magic_file")
     if path_magic_file and os.name == 'nt':
         with open(file_path, "rb") as file:
