@@ -8,5 +8,5 @@ In **Windows**, you can set the path of the `magic.mgc` file by adjusting the en
 
 **example:**
 ```jsx title=".env"
-Path_magic_file='path/to/magic.mgc'
+path_magic_file='path/to/magic.mgc'
 ```
