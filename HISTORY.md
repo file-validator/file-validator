@@ -106,3 +106,12 @@ History
 * Fix Value Error When Selected One Mime
 * Fix Minor Problem
 
+0.1.7 (2023-05-2)
+------------------
+* add ValidatedFileField (django)
+* reach test 100%
+* add size validator
+* add file validator by django
+* refactoring validators
+* Improved code and performance
+* add new documentation
