@@ -8,6 +8,7 @@ library is also used to color the error messages
 
 from mimetypes import guess_type
 import os
+import platform
 import magic
 import puremagic
 from filetype import guess
@@ -44,8 +45,9 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
     load_dotenv()
+    operating_system_name = platform.system()
     path_magic_file = os.environ.get("path_magic_file")
-    if path_magic_file and os.name == 'nt':
+    if path_magic_file and operating_system_name == 'Windows':
         with open(file_path, "rb") as file:
             magic.Magic(magic_file=path_magic_file)
             file_mime = magic.from_buffer(file.read(2048), mime=True)
