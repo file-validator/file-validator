@@ -52,7 +52,7 @@ setup(
         "Topic :: Security",
         "Topic :: Software Development :: Libraries"
     ],
-    description="A library for validating files in Python",
+    description="library for validating files in Python",
     entry_points={
         "console_scripts": [
             "file_validator=file_validator.cli:main",
