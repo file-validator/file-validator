@@ -1,24 +1,33 @@
 #!/usr/bin/env python
 
 """The setup script."""
-
+import platform
 from setuptools import setup, find_packages
 
-with open("README.rst", encoding="utf-8") as readme_file:
+with open("README.md", encoding="utf-8") as readme_file:
     readme = readme_file.read()
 
-with open("HISTORY.rst", encoding="utf-8") as history_file:
+with open("HISTORY.md", encoding="utf-8") as history_file:
     history = history_file.read()
 
 requirements = [
-    "humanize>=4.4.0",
-    "filetype>=1.1.0",
-    "termcolor>=1.1.0",
-    "python-magic>=0.4.27",
-    "puremagic>=1.14",
-    "python-dotenv>=0.21.0",
-    "python-magic-bin>=0.4.14"
+    "humanize==4.4.0",
+    "filetype==1.1.0",
+    "termcolor==1.1.0",
+    "puremagic==1.14",
+    "python-dotenv==0.21.1",
+    "django"
 ]
+
+PYTHON_MAGIC = "python-magic==0.4.27"
+PYTHON_MAGIC_BIN = "python-magic-bin==0.4.14"
+OS_NAME = platform.system()
+
+if OS_NAME == 'Windows':
+    requirements.append(PYTHON_MAGIC_BIN)
+else:
+    requirements.append(PYTHON_MAGIC)
+
 
 test_requirements = [
     "pytest>=3",
@@ -52,6 +61,7 @@ setup(
     install_requires=requirements,
     license="MIT license",
     long_description=readme + "\n\n" + history,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     keywords=[
         "file_validator",
@@ -69,4 +79,12 @@ setup(
     url="https://github.com/file-validator/file-validator",
     version="0.1.7",
     zip_safe=False,
+    project_urls={
+        'Documentation': "https://file-validator.github.io/",
+        'Homepage': "https://github.com/file-validator",
+        "Issue tracker": "https://github.com/file-validator/file-validator/issues",
+        "Release notes": "https://github.com/file-validator/file-validator/releases",
+        'Source': "https://github.com/file-validator/file-validator",
+        'Discussions': "https://github.com/orgs/file-validator/discussions"
+    }
 )
