@@ -17,6 +17,7 @@ sidebar_position: 1
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
+
 ## What Is File Validator? ✅
 
 It is a Python library for file validation based on **MIME**, **size**, **type** and **magic numbers** that supports Django.
