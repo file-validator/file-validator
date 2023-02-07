@@ -1,9 +1,9 @@
 from django.db import models
 
 from file_validator.constants import ALL, PYTHON_MAGIC
-from file_validator.models import ValidatedFileField
+from file_validator.models import ValidatedFileField, FileSizeValidator
 from file_validator.models import FileValidator
-from tests.fixtures import PNG_OBJECT, MP3_OBJECT, BAD_OBJECT
+from tests.fixtures import PNG_OBJECT, MP3_OBJECT
 
 
 class TestFileModel(models.Model):
@@ -20,6 +20,16 @@ class TestFileModelWithFileValidator(models.Model):
             FileValidator(
                 libraries=[PYTHON_MAGIC],
                 acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
+                max_upload_file_size=10485760
+            )
+        ]
+    )
+
+
+class TestFileModelWithFileSizeValidator(models.Model):
+    test_file = models.FileField(
+        validators=[
+            FileSizeValidator(
                 max_upload_file_size=10485760
             )
         ]
@@ -47,3 +57,11 @@ class TestFileModelWithFileValidatorLibraryIsNone(models.Model):
     )
 
 
+class TestFileModelWithFileSizeValidatorNotValidSize(models.Model):
+    test_file = models.FileField(
+        validators=[
+            FileSizeValidator(
+                max_upload_file_size=100
+            )
+        ]
+    )
