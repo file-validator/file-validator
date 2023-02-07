@@ -32,3 +32,4 @@ LIBRARY_IS_NOT_SUPPORTED: str = (
 
 DEFAULT_ERROR_MESSAGE: str = "{file} is not valid"
 DEFAULT_FILE_NAME: str = 'file'
+MAX_UPLOAD_SIZE_IS_EMPTY: str = 'max_upload_file_size is empty'
