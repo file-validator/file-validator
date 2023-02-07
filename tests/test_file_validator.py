@@ -1,26 +1,13 @@
 """
 This module is related to tests
 """
-import django
 import pytest
 import os
-import tempfile
-from io import BytesIO
 from django.db import models
-from django.test import Client
-from django.core.files import File
-from django.core.management import call_command
 from django.core.exceptions import ImproperlyConfigured, ValidationError
-from django.test import TestCase, override_settings
-from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile, TemporaryUploadedFile
-from django.core import management
-from pathlib import Path
 from unittest import mock
-from dotenv import dotenv_values, load_dotenv
-from file_validator.models import ValidatedFileField, FileValidator
+from file_validator.models import ValidatedFileField, FileValidator, FileSizeValidator
 from tests.fixtures import MP3_OBJECT, JPEG_OBJECT, PNG_OBJECT, JPEG_FILE, MP3_FILE, PNG_FILE, BAD_FILE, TEMPLATE_EXPECTED_MESSAGE, EXPECTED_MESSAGE, TEST_LIBRARY, get_tmp_file, BAD_OBJECT, MAGIC_FILE
-from pathlib import Path
-from pytest import MonkeyPatch
 from file_validator.validators import (
     file_validator_by_python_magic,
     file_validator_by_mimetypes,
@@ -32,7 +19,7 @@ from file_validator.validators import (
 )
 from file_validator.constants import PYTHON_MAGIC, FILETYPE, PURE_MAGIC, MIMETYPES, DEFAULT, SELECTING_ALL_SUPPORTED_LIBRARIES, ALL_SUPPORTED_LIBRARIES, FILE_IS_NOT_VALID, DEFAULT_ERROR_MESSAGE, ALL
 from file_validator.exceptions import error_message, FileValidationException, SizeValidationException, LibraryNotSupportedException, CUSTOM_ERROR_MESSAGE, MimesEmptyException, DjangoFileValidationException
-from tests.project.app.models import TestFileModel, TestFileModelWithFileValidator, TestFileModelWithFileValidatorSizeIsNone, TestFileModelWithFileValidatorLibraryIsNone
+from tests.project.app.models import TestFileModel, TestFileModelWithFileValidator, TestFileModelWithFileValidatorSizeIsNone, TestFileModelWithFileValidatorLibraryIsNone, TestFileModelWithFileSizeValidator, TestFileModelWithFileSizeValidatorNotValidSize
 
 
 class TestFileValidatorByPythonMagic:
@@ -308,6 +295,49 @@ class TestValidatedFileField:
                 )
 
 
+class TestFileSizeValidator:
+    def test_file_size_is_valid(self):
+        new_instance = TestFileModelWithFileSizeValidator(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT['name'],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT['mime']
+            )
+        )
+
+        new_instance.full_clean()
+
+    def test_file_size_is_not_valid(self):
+        with pytest.raises(ValidationError):
+            new_instance = TestFileModelWithFileSizeValidatorNotValidSize(
+                test_file=get_tmp_file(
+                    file_name=PNG_OBJECT['name'],
+                    file_path=PNG_FILE,
+                    file_mime_type=PNG_OBJECT['mime']
+                )
+            )
+
+            new_instance.full_clean()
+
+    def test_max_upload_file_size_is_none(self):
+        with pytest.raises(SizeValidationException):
+            class TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
+                test_file = models.FileField(
+                    validators=[
+                        FileSizeValidator()
+                    ]
+                )
+
+    def test_eq_methode(self):
+        file_validator_one = FileSizeValidator(
+            max_upload_file_size=10485760
+        )
+        file_validator_two = FileSizeValidator(
+            max_upload_file_size=10485760
+        )
+        assert file_validator_one == file_validator_two
+
+
 class TestFileValidator:
     def test_when_file_is_valid_and_return_none(self):
         new_instance = TestFileModelWithFileValidator(
@@ -321,7 +351,7 @@ class TestFileValidator:
         new_instance.full_clean()
 
     def test_when_file_is_not_valid_and_return_none(self):
-        with pytest.raises(DjangoFileValidationException):
+        with pytest.raises(ValidationError):
             new_instance = TestFileModelWithFileValidator(
                 test_file=get_tmp_file(
                     file_name=JPEG_OBJECT['name'],
