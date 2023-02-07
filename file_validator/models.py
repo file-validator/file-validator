@@ -16,13 +16,13 @@ from file_validator.exceptions import (
     error_message,
     FileValidationException,
     MimesEmptyException,
-    DjangoFileValidationException,
+    SizeValidationException,
 )
 from file_validator.utils import all_mimes_is_equal, library_supported
 from file_validator.validators import size_validator, file_validator_by_django
 from file_validator.constants import (
     MIMES_EMPTY,
-    SELECTING_ALL_SUPPORTED_LIBRARIES,
+    SELECTING_ALL_SUPPORTED_LIBRARIES, MAX_UPLOAD_SIZE_IS_EMPTY, FILE_SIZE_IS_NOT_VALID,
 )
 
 
@@ -31,6 +31,7 @@ class ValidatedFileField(FileField):
     :return: If everything is OK, it will return None, otherwise it will
         return a ValidationError.
     """
+
     def __init__(self, **kwargs):
         """
         :type acceptable_mimes: list
@@ -101,8 +102,7 @@ class ValidatedFileField(FileField):
 @deconstructible
 class FileValidator:
     """
-    :return: If everything is OK, it will return None, otherwise it will
-        return a DjangoFileValidationException.
+    file validator for django
     """
 
     def __init__(
@@ -130,6 +130,8 @@ class FileValidator:
         :raises ValueError: If the library you entered is not supported,
             raised a value error, Supported library: filetype, mimetypes,
             pure_magic, python_magic
+        :return: If everything is OK, it will return None, otherwise it will
+            return a ValidationError.
         """
         if max_upload_file_size is not None:
             self.max_upload_file_size = max_upload_file_size
@@ -156,19 +158,19 @@ class FileValidator:
         file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         content_type_guessed_by_django = file.content_type
-        size_validator(
-            max_upload_file_size=self.max_upload_file_size,
-            file_path=file_path,
-        )
         try:
+            size_validator(
+                max_upload_file_size=self.max_upload_file_size,
+                file_path=file_path,
+            )
             file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
                 file_path=file_path,
                 content_type_guessed_by_django=content_type_guessed_by_django,
             )
-        except FileValidationException as error:
-            raise DjangoFileValidationException(
+        except (FileValidationException, SizeValidationException) as error:
+            raise ValidationError(
                 error_message(
                     file=file,
                     file_size=naturalsize(file_size),
@@ -182,5 +184,54 @@ class FileValidator:
             isinstance(other, self.__class__)
             and self.libraries == other.libraries
             and self.acceptable_mimes == other.acceptable_mimes
+            and self.max_upload_file_size == other.max_upload_file_size
+        )
+
+
+@deconstructible
+class FileSizeValidator:
+    """
+    size validator for django
+    """
+
+    def __init__(
+        self,
+        max_upload_file_size: int = None,
+    ):
+        """
+        :type max_upload_file_size: int
+        :param max_upload_file_size: If you want the file size to be checked,
+            the file size must be in bytes,
+            example: file_size=1048576 (1MB), defaults to 0, optional
+        :return: If everything is OK, it will return None, otherwise it will
+            return a ValidationError.
+        """
+        if max_upload_file_size is None:
+            raise SizeValidationException(colored(MAX_UPLOAD_SIZE_IS_EMPTY, "red"))
+
+        self.max_upload_file_size = max_upload_file_size
+
+    def __call__(self, value):
+        file = value.file
+        file_size = file.size
+        file_path = TemporaryUploadedFile.temporary_file_path(file)
+        try:
+            size_validator(
+                max_upload_file_size=self.max_upload_file_size,
+                file_path=file_path,
+            )
+        except SizeValidationException as error:
+            raise ValidationError(
+                error_message(
+                    file=file,
+                    file_size=naturalsize(file_size),
+                    max_file_size=naturalsize(self.max_upload_file_size),
+                    message=FILE_SIZE_IS_NOT_VALID
+                )
+            ) from error
+
+    def __eq__(self, other):
+        return (
+            isinstance(other, self.__class__)
             and self.max_upload_file_size == other.max_upload_file_size
         )
