@@ -106,7 +106,7 @@ History
 * Fix Value Error When Selected One Mime
 * Fix Minor Problem
 
-0.1.7 (2023-05-02)
+0.1.7 (2023-02-05)
 ------------------
 * add ValidatedFileField (django)
 * reach test 100%
@@ -116,6 +116,11 @@ History
 * Improved code and performance
 * add new documentation
 
-0.1.8 (2023-05-02)
+0.1.8 (2023-02-05)
 ------------------
 * improve and refactoring code
+
+0.1.9 (2023-02-07)
+------------------
+* add file size validator (django)
+* refactor and improve code
