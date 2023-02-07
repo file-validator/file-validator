@@ -23,7 +23,7 @@ MIME_NOT_VALID: str = "mime is not a valid"
 MIME_NOT_VALID_WITH_MIME_NAME: str = "{file_mime} is not valid"
 FILE_IS_NOT_VALID: str = "{file} is not valid"
 FILE_SIZE_IS_NOT_VALID: str = (
-    "{file_size} is not valid size, you can upload files up to {max_file_size}."
+    "{file_size} is not valid size for this file, you can upload files up to {max_file_size}."
 )
 MIMES_IS_EQUAL: str = "The mimes ({mimes}) are similar, please use different mimes"
 LIBRARY_IS_NOT_SUPPORTED: str = (
