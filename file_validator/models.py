@@ -57,7 +57,16 @@ class ValidatedFileField(FileField):
         self.acceptable_mimes: list = kwargs.get("acceptable_mimes")
         if self.acceptable_mimes is None or all_mimes_is_equal(self.acceptable_mimes):
             raise ValueError(colored(MIMES_EMPTY, "red"))
-        self.libraries: list = kwargs.get("libraries")
+
+        libraries: list = kwargs.get("libraries")
+        self.libraries = []
+        if libraries is None:
+            self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
+        else:
+            for library in libraries:
+                is_library_supported(library)
+                self.libraries.append(library)
+
         self.max_upload_file_size: int = kwargs.get("max_upload_file_size")
         super().__init__()
 
