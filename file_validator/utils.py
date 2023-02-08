@@ -11,6 +11,8 @@ from file_validator.exceptions import LibraryNotSupportedException
 
 def all_mimes_is_equal(iterable):
     """Returns True if all the elements are equal to each other"""
+    if len(iterable) == 1:
+        return False
     group = groupby(iterable)
     return next(group, True) and not next(group, False)
 
