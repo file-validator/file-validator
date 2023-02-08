@@ -15,7 +15,7 @@ def all_mimes_is_equal(iterable):
     return next(group, True) and not next(group, False)
 
 
-def library_supported(library: str):
+def is_library_supported(library: str):
     """
     If we do not support the library you choose, a LibraryNotSupporteexception error is thrown.
     supported libraries: python magic, pure magic, filetype, mimetypes

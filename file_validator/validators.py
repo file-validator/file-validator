@@ -32,7 +32,7 @@ from file_validator.constants import (
     MIME_NOT_VALID_WITH_MIME_NAME,
     ALL,
 )
-from file_validator.utils import library_supported
+from file_validator.utils import is_library_supported
 
 
 def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
@@ -187,7 +187,7 @@ def file_validator_by_django(
         return a FileValidationException.
     """
     for library in libraries:
-        library_supported(library)
+        is_library_supported(library)
 
         if library == ALL:
             file_validator(acceptable_mimes=acceptable_mimes, file_path=file_path)

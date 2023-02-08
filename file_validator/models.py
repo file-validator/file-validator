@@ -18,7 +18,7 @@ from file_validator.exceptions import (
     MimesEmptyException,
     SizeValidationException,
 )
-from file_validator.utils import all_mimes_is_equal, library_supported
+from file_validator.utils import all_mimes_is_equal, is_library_supported
 from file_validator.validators import size_validator, file_validator_by_django
 from file_validator.constants import (
     MIMES_EMPTY,
@@ -143,7 +143,7 @@ class FileValidator:
             self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
         else:
             for library in libraries:
-                library_supported(library)
+                is_library_supported(library)
                 self.libraries.append(library)
 
         if acceptable_mimes is None or all_mimes_is_equal(acceptable_mimes):
