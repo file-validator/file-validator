@@ -14,6 +14,13 @@ class TestFileModel(models.Model):
     )
 
 
+class TestFileModelWithoutLibraries(models.Model):
+    test_file = ValidatedFileField(
+        max_upload_file_size=1000000,
+        acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
+    )
+
+
 class TestFileModelWithFileValidator(models.Model):
     test_file = models.FileField(
         validators=[

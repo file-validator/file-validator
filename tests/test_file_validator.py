@@ -7,6 +7,7 @@ from django.db import models
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from unittest import mock
 from file_validator.models import ValidatedFileField, FileValidator, FileSizeValidator
+from file_validator.utils import all_mimes_is_equal
 from tests.fixtures import MP3_OBJECT, JPEG_OBJECT, PNG_OBJECT, JPEG_FILE, MP3_FILE, PNG_FILE, BAD_FILE, TEMPLATE_EXPECTED_MESSAGE, EXPECTED_MESSAGE, TEST_LIBRARY, get_tmp_file, BAD_OBJECT, MAGIC_FILE
 from file_validator.validators import (
     file_validator_by_python_magic,
@@ -19,7 +20,7 @@ from file_validator.validators import (
 )
 from file_validator.constants import PYTHON_MAGIC, FILETYPE, PURE_MAGIC, MIMETYPES, DEFAULT, SELECTING_ALL_SUPPORTED_LIBRARIES, ALL_SUPPORTED_LIBRARIES, FILE_IS_NOT_VALID, DEFAULT_ERROR_MESSAGE, ALL
 from file_validator.exceptions import error_message, FileValidationException, SizeValidationException, LibraryNotSupportedException, CUSTOM_ERROR_MESSAGE, MimesEmptyException, DjangoFileValidationException
-from tests.project.app.models import TestFileModel, TestFileModelWithFileValidator, TestFileModelWithFileValidatorSizeIsNone, TestFileModelWithFileValidatorLibraryIsNone, TestFileModelWithFileSizeValidator, TestFileModelWithFileSizeValidatorNotValidSize
+from tests.project.app.models import TestFileModel, TestFileModelWithFileValidator, TestFileModelWithFileValidatorSizeIsNone, TestFileModelWithFileValidatorLibraryIsNone, TestFileModelWithFileSizeValidator, TestFileModelWithFileSizeValidatorNotValidSize, TestFileModelWithoutLibraries
 
 
 class TestFileValidatorByPythonMagic:
@@ -291,8 +292,17 @@ class TestValidatedFileField:
             class TestFileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
-                    max_upload_file_size=1000000
+                    max_upload_file_size=1000000,
                 )
+
+    def test_libraries_is_none(self):
+        my_field_instance = TestFileModelWithoutLibraries(
+            test_file=get_tmp_file(
+                file_name=JPEG_OBJECT['name'],
+                file_path=JPEG_FILE,
+                file_mime_type=JPEG_OBJECT['mime']
+            )
+        )
 
 
 class TestFileSizeValidator:
@@ -454,3 +464,7 @@ def test_size_validator():
             max_upload_file_size=1,
             file_path=PNG_FILE
         )
+
+
+def test_all_mimes_is_equal():
+    assert all_mimes_is_equal(["image/png"]) is False
