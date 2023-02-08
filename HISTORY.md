@@ -124,3 +124,7 @@ History
 ------------------
 * add file size validator (django)
 * refactor and improve code
+
+0.2.0 (2023-02-08)
+------------------
+* Fix Bug
