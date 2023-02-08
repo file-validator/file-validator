@@ -127,4 +127,9 @@ History
 
 0.2.0 (2023-02-08)
 ------------------
-* Fix Bug
+* Fix Bug [error message function](https://github.com/file-validator/file-validator/commit/6a351bef661f3ffeabd1787574e0421f8035cda0)
+
+
+0.2.1 (2023-02-08)
+------------------
+* Fix Bug [ValidatedFileField](https://github.com/file-validator/file-validator/commit/94b263d03034e8e8053bdac310a371d30be10a1b)
