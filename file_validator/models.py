@@ -22,7 +22,9 @@ from file_validator.utils import all_mimes_is_equal, is_library_supported
 from file_validator.validators import size_validator, file_validator_by_django
 from file_validator.constants import (
     MIMES_EMPTY,
-    SELECTING_ALL_SUPPORTED_LIBRARIES, MAX_UPLOAD_SIZE_IS_EMPTY, FILE_SIZE_IS_NOT_VALID,
+    SELECTING_ALL_SUPPORTED_LIBRARIES,
+    MAX_UPLOAD_SIZE_IS_EMPTY,
+    FILE_SIZE_IS_NOT_VALID,
 )
 
 
@@ -183,7 +185,9 @@ class FileValidator:
                 error_message(
                     file=file,
                     file_size=naturalsize(file_size),
-                    max_file_size=naturalsize(self.max_upload_file_size),
+                    max_file_size=naturalsize(self.max_upload_file_size)
+                    if self.max_upload_file_size is not None
+                    else 0,
                     mimes=self.acceptable_mimes,
                 )
             ) from error
@@ -235,7 +239,7 @@ class FileSizeValidator:
                     file=file,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
-                    message=FILE_SIZE_IS_NOT_VALID
+                    message=FILE_SIZE_IS_NOT_VALID,
                 )
             ) from error
 
