@@ -56,7 +56,7 @@ Can you ask your questions through [this link](https://github.com/orgs/file-vali
 
 ## Where to read the documentation? 📄
 
-Can you read the documentation through [this link](https://github.com/orgs/file-validator/discussions)
+Can you read the documentation through [this link](https://file-validator.github.io)
 
 
 ## Credits
