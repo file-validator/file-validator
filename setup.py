@@ -77,7 +77,7 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/file-validator/file-validator",
-    version="0.2.1",
+    version="0.2.2",
     zip_safe=False,
     project_urls={
         'Documentation': "https://file-validator.github.io/",
@@ -85,6 +85,7 @@ setup(
         "Issue tracker": "https://github.com/file-validator/file-validator/issues",
         "Release notes": "https://github.com/file-validator/file-validator/releases",
         'Source': "https://github.com/file-validator/file-validator",
-        'Discussions': "https://github.com/orgs/file-validator/discussions"
+        'Discussions': "https://github.com/orgs/file-validator/discussions",
+        'History Of Changes': "https://file-validator.github.io/docs/history/",
     }
 )
