@@ -120,3 +120,7 @@ sidebar_position: 8
 0.2.1 (2023-02-08)
 ------------------
 * Fix Bug [ValidatedFileField](https://github.com/file-validator/file-validator/commit/94b263d03034e8e8053bdac310a371d30be10a1b)
+
+0.2.2 (2023-02-09)
+------------------
+* Error Handling when size is not valid in size_validator in ValidatedFileField ([#reference](https://github.com/file-validator/file-validator/commit/b4f1ce35140f9a91393f37d33588bd0ead32710d))
