@@ -85,11 +85,11 @@ class ValidatedFileField(FileField):
         content_type_guessed_by_django = file.content_type
         file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
-        size_validator(
-            max_upload_file_size=self.max_upload_file_size,
-            file_path=file_path,
-        )
         try:
+            size_validator(
+                max_upload_file_size=self.max_upload_file_size,
+                file_path=file_path,
+            )
             file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
@@ -97,7 +97,7 @@ class ValidatedFileField(FileField):
                 content_type_guessed_by_django=content_type_guessed_by_django,
             )
 
-        except FileValidationException as error:
+        except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
                     file=file,
