@@ -22,3 +22,18 @@ To display both memes and file name, you can put both in your error message. for
 ```
 FILE_VALIDATOR_ERROR_MESSAGE = "{file} and {mimes} Your custom error message"
 ```
+
+:::info
+
+> In this section we will explain the parameters you can use in your message message
+
+| Parameters        | Description                                           |
+|-------------------|:------------------------------------------------------|
+| `{file}`          | return the current file name                          |
+| `{mimes}`         | return the accepted mime                              |
+| `{max_file_size}` | return the Maximum file size that the user can upload |
+| `{file_size}`     | return the current file size                          |
+
+
+
+:::
