@@ -3,10 +3,10 @@ sidebar_position: 2
 ---
 
 # Validated File Field
-Using ValidatedFilefield you can perform file validation operations at the model level.
+Using `ValidatedFilefield` you can perform file validation operations at the model level.
 
 
-Before we go to the Validatedfilefield tutorial, let's first get acquainted with ValidatedFilefield parameters
+Before we go to the `Validatedfilefield` tutorial, let's first get acquainted with `ValidatedFilefield` parameters
 
 ## Parameters
 :::info
@@ -66,7 +66,7 @@ desired size in bytes:
 ## How Use ValidatedFilefield?
 
 
-To use ValidatedFilefield you must act as follows:
+To use `ValidatedFilefield` you must act as follows:
 
 1.First, import the `ValidatedFilefield` to your Django model as follows:
 
