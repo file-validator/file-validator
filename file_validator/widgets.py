@@ -9,4 +9,4 @@ class FileInputWidget(ClearableFileInput):
     """
     file input widget
     """
-    template_name = ""
+    template_name = "file_validator/file_input_widget.html"
