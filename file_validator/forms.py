@@ -19,5 +19,5 @@ class ValidatedFileFiled(forms.FileField):
 
     def widget_attrs(self, widget):
         if self.accept:
-            return dict(accept=self.accept)
+            return {'accept': self.accept}
         return {}
