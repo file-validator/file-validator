@@ -7,6 +7,8 @@ include README.md
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
+recursive-include file_validator/templates *
+recursive-include file_validator/static *
 
 prune doc*
 prune tests*
