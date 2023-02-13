@@ -6,7 +6,7 @@ from django import forms
 from file_validator.widgets import FileInputWidget
 
 
-class ValidatedFileFiled(forms.FileField):
+class ValidatedFileField(forms.FileField):
     """
     validated file filed for django
     """
