@@ -9,7 +9,7 @@ const config = {
   title: 'File Validator',
   tagline: 'Python validation library to validate files using type, mime, extension, magic numbers and size',
   favicon: 'img/favicon.ico',
-
+  plugins: [require.resolve('docusaurus-lunr-search')],
   // Set the production url of your site here
   url: 'https://file-validator.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
