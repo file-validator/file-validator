@@ -11,9 +11,10 @@ Before we go to the `Validatedfilefield` tutorial, let's first get acquainted wi
 :::info
 
 
-| Parameters | Type  | Description                                                                                                                                                                                                                                                                |
-|------------|:------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| accept         | `str` | The accept attribute takes as its value a comma-separated list of one or more file types, or unique file type specifiers, [describing which file types to allow. See this guide for more familiarity](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) |
+| Parameters       | Type  | Description                                                                                                                                                                                                                                                                |
+|------------------|:------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| accept           | `str` | The accept attribute takes as its value a comma-separated list of one or more file types, or unique file type specifiers, [describing which file types to allow. See this guide for more familiarity](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) |
+| custom_css_class | `str` | A custom class to customize input                                                                                                                                                                                                                                          |
 
 :::
 
