@@ -18,8 +18,12 @@ class ValidatedFileField(forms.FileField):
         super().__init__(**kwargs)
 
     def widget_attrs(self, widget):
+        attrs = {}
+
         if self.accept:
-            return {'accept': self.accept}
+            attrs['accept'] = self.accept
+
         if self.custom_css_class:
-            return {'class': self.custom_css_class}
-        return {}
+            attrs['class'] = self.custom_css_class
+
+        return attrs
