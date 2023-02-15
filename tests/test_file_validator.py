@@ -161,7 +161,7 @@ class TestValidatedFileFieldForm:
 
     def test_css_class_attribute_in_form(self):
         form = TestFormWithCssClassAttribute()
-        assert form.fields['test_file'].css_class == 'test-class'
+        assert form.fields['test_file'].custom_css_class == 'test-class'
 
 
 class TestFileValidatorByDjango:
