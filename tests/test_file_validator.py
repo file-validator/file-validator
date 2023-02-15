@@ -21,7 +21,7 @@ from file_validator.validators import (
 )
 from file_validator.constants import PYTHON_MAGIC, FILETYPE, PURE_MAGIC, MIMETYPES, DEFAULT, SELECTING_ALL_SUPPORTED_LIBRARIES, ALL_SUPPORTED_LIBRARIES, FILE_IS_NOT_VALID, DEFAULT_ERROR_MESSAGE, ALL
 from file_validator.exceptions import error_message, FileValidationException, SizeValidationException, LibraryNotSupportedException, CUSTOM_ERROR_MESSAGE, MimesEmptyException, DjangoFileValidationException
-from tests.project.app.forms import TestFormWithAcceptAttribute, TestFormWithoutAcceptAttribute
+from tests.project.app.forms import TestFormWithAcceptAttribute, TestFormWithoutAcceptAttribute, TestFormWithCssClassAttribute
 from tests.project.app.models import TestFileModel, TestFileModelWithFileValidator, TestFileModelWithFileValidatorSizeIsNone, TestFileModelWithFileValidatorLibraryIsNone, TestFileModelWithFileSizeValidator, TestFileModelWithFileSizeValidatorNotValidSize, TestFileModelWithoutLibraries
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -153,10 +153,15 @@ class TestValidatedFileFieldForm:
         file_dict = {'test_file': SimpleUploadedFile(upload_file.name, upload_file.read())}
         form = TestFormWithAcceptAttribute({}, file_dict)
         assert form.is_valid()
+        assert form.fields['test_file'].accept == 'image/*'
 
     def test_accept_attribute_is_none_in_form(self):
         form = TestFormWithoutAcceptAttribute()
         assert form.fields['test_file'].accept is None
+
+    def test_css_class_attribute_in_form(self):
+        form = TestFormWithCssClassAttribute()
+        assert form.fields['test_file'].css_class == 'test-class'
 
 
 class TestFileValidatorByDjango:
