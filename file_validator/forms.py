@@ -12,12 +12,14 @@ class ValidatedFileField(forms.FileField):
     """
     widget = FileInputWidget
 
-    def __init__(self, *, accept=None, **kwargs):
+    def __init__(self, *, accept=None, custom_css_class=None, **kwargs):
         self.accept = accept
-
+        self.custom_css_class = custom_css_class
         super().__init__(**kwargs)
 
     def widget_attrs(self, widget):
         if self.accept:
             return {'accept': self.accept}
+        if self.custom_css_class:
+            return {'class': self.custom_css_class}
         return {}
