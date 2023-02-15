@@ -95,8 +95,8 @@ sidebar_position: 8
 
 0.1.7 (2023-02-05)
 ------------------
-* add ValidatedFileField (django)
-* reach test 100%
+* add `ValidatedFileField` (django)
+* reach test `100%`
 * add size validator
 * add file validator by django
 * refactoring validators
@@ -123,8 +123,12 @@ sidebar_position: 8
 
 0.2.2 (2023-02-09)
 ------------------
-* Error Handling when size is not valid in size_validator in ValidatedFileField ([#reference](https://github.com/file-validator/file-validator/commit/b4f1ce35140f9a91393f37d33588bd0ead32710d))
+* Error Handling when size is not valid in `size_validator` in `ValidatedFileField` ([#reference](https://github.com/file-validator/file-validator/commit/b4f1ce35140f9a91393f37d33588bd0ead32710d))
 
 0.2.3 (2023-02-14)
 ------------------
 * add validation in forms level (by Using `ValidatedFilefield` can you say which type of files are allowed)
+
+0.2.4 (2023-02-15)
+------------------
+* providing custom css class for `ValidatedFilefield`
