@@ -18,3 +18,9 @@ class TestFormWithAcceptAttribute(forms.Form):
 
 class TestFormWithoutAcceptAttribute(forms.Form):
     test_file = ValidatedFileField()
+
+
+class TestFormWithCssClassAttribute(forms.Form):
+    test_file = ValidatedFileField(
+        css_class='test-class'
+    )
