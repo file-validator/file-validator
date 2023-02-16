@@ -132,3 +132,7 @@ sidebar_position: 8
 0.2.4 (2023-02-15)
 ------------------
 * providing custom css class for `ValidatedFilefield`
+
+0.2.5 (2023-02-16)
+------------------
+* add return statements to `file_validator_by_python_magic` and providing information about the file
