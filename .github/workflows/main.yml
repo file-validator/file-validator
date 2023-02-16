@@ -9,7 +9,6 @@ jobs:
     env:
       OS: ${{ matrix.os }}
       PYTHON: '3.8'
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
     - uses: actions/checkout@master
     - name: Setup Python
