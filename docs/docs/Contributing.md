@@ -46,4 +46,7 @@ Before you submit a pull request, check that it meets these guidelines:
 
 1. The pull request should include tests.
 2. If the pull request adds functionality, the docs should be updated. Put your new functionality into a function with a docstring, and add the feature to the list in README.rst.
-3. The pull request should work for Python 3.5, 3.6, 3.7 and 3.8, and for PyPy.
+3. The pull request should work for Python 3.8, 3.9 and 3.10, and for PyPy.
+4. Run the tests before the Pull Request and must be successfully executed and accepted until the Pull Request, and this proves that there is no problem for the codes that are already running.
+5. Check your code with Pylint to meet the standards, [Pylint](https://pylint.readthedocs.io/en/latest/) analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, and can make suggestions about how the code could be refactored.
+6. You can also use [Black](https://github.com/psf/black) to format your code
