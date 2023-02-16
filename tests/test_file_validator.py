@@ -19,7 +19,7 @@ from file_validator.validators import (
     file_validator_by_pure_magic,
     file_validator_by_django
 )
-from file_validator.constants import PYTHON_MAGIC, FILETYPE, PURE_MAGIC, MIMETYPES, DEFAULT, SELECTING_ALL_SUPPORTED_LIBRARIES, ALL_SUPPORTED_LIBRARIES, FILE_IS_NOT_VALID, DEFAULT_ERROR_MESSAGE, ALL
+from file_validator.constants import PYTHON_MAGIC, FILETYPE, PURE_MAGIC, MIMETYPES, DEFAULT, SELECTING_ALL_SUPPORTED_LIBRARIES, ALL_SUPPORTED_LIBRARIES, FILE_IS_NOT_VALID, DEFAULT_ERROR_MESSAGE, ALL, OK
 from file_validator.exceptions import error_message, FileValidationException, SizeValidationException, LibraryNotSupportedException, CUSTOM_ERROR_MESSAGE, MimesEmptyException, DjangoFileValidationException
 from tests.project.app.forms import TestFormWithAcceptAttribute, TestFormWithoutAcceptAttribute, TestFormWithCssClassAttribute
 from tests.project.app.models import TestFileModel, TestFileModelWithFileValidator, TestFileModelWithFileValidatorSizeIsNone, TestFileModelWithFileValidatorLibraryIsNone, TestFileModelWithFileSizeValidator, TestFileModelWithFileSizeValidatorNotValidSize, TestFileModelWithoutLibraries
@@ -36,7 +36,11 @@ class TestFileValidatorByPythonMagic:
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
-        assert file_validator_by_python_magic(JPEG_OBJECT['mime'], file_path=jpeg) is None
+        result_of_validation = file_validator_by_python_magic(JPEG_OBJECT['mime'], file_path=jpeg)
+        assert result_of_validation['status'] == OK
+        assert result_of_validation['file_name'] == JPEG_OBJECT['name']
+        assert result_of_validation['file_mime'] == JPEG_OBJECT['mime']
+        assert result_of_validation['file_extension'] == JPEG_OBJECT['extension']
 
     def test_file_validator_by_python_magic_library_when_file_is_not_valid(self, jpeg=JPEG_FILE):
         """
@@ -48,7 +52,11 @@ class TestFileValidatorByPythonMagic:
 
     @mock.patch.dict(os.environ, {"path_magic_file": MAGIC_FILE}, clear=True)
     def test_file_validator_by_python_magic_by_path_magic_file_from_env(self, jpeg=JPEG_FILE):
-        assert file_validator_by_python_magic(JPEG_OBJECT['mime'], file_path=jpeg) is None
+        result_of_validation = file_validator_by_python_magic(JPEG_OBJECT['mime'], file_path=jpeg)
+        assert result_of_validation['status'] == OK
+        assert result_of_validation['file_name'] == JPEG_OBJECT['name']
+        assert result_of_validation['file_mime'] == JPEG_OBJECT['mime']
+        assert result_of_validation['file_extension'] == JPEG_OBJECT['extension']
 
 
 class TestFileValidatorByMimeTypes:
