@@ -40,7 +40,7 @@ file_validator_by_python_magic(acceptable_mimes=['audio/mpeg', 'video/mp4'], fil
 | Parameters | Type           | Description     |
 |-----------|:--------------|:------|
 | file_path | `string` | The path to the file you want to validate  |
-| acceptable_mimes     | `list`      | The mime of the files you want to validate based on them, example: image/png   |
+| acceptable_mimes     | `list`      | The mime of the files you want to validate based on them, example: `image/png `  |
 
 | Returns:                                                                                                                             |
 |:-------------------------------------------------------------------------------------------------------------------------------------|
