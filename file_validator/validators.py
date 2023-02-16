@@ -31,7 +31,8 @@ from file_validator.constants import (
     MIMETYPES,
     FILE_SIZE_IS_NOT_VALID,
     MIME_NOT_VALID_WITH_MIME_NAME,
-    ALL, OK,
+    ALL,
+    OK,
 )
 from file_validator.utils import is_library_supported
 
@@ -48,7 +49,7 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
     load_dotenv()
     operating_system_name = platform.system()
     path_magic_file = os.environ.get("path_magic_file")
-    if path_magic_file and operating_system_name == 'Windows':
+    if path_magic_file and operating_system_name == "Windows":
         with open(file_path, "rb") as file:
             magic.Magic(magic_file=path_magic_file)
             file_mime = magic.from_buffer(file.read(2048), mime=True)
@@ -64,10 +65,10 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
     file_name = file.name
     file_extension = file.suffix
     result_of_validation = {
-        'status': OK,
-        'file_name': file_name,
-        'file_mime': file_mime,
-        'file_extension': file_extension,
+        "status": OK,
+        "file_name": file_name,
+        "file_mime": file_mime,
+        "file_extension": file_extension,
     }
     return result_of_validation
 
@@ -204,16 +205,24 @@ def file_validator_by_django(
             file_validator(acceptable_mimes=acceptable_mimes, file_path=file_path)
 
         elif library == PYTHON_MAGIC:
-            file_validator_by_python_magic(acceptable_mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_python_magic(
+                acceptable_mimes=acceptable_mimes, file_path=file_path
+            )
 
         elif library == PURE_MAGIC:
-            file_validator_by_pure_magic(acceptable_mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_pure_magic(
+                acceptable_mimes=acceptable_mimes, file_path=file_path
+            )
 
         elif library == FILETYPE:
-            file_validator_by_filetype(acceptable_mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_filetype(
+                acceptable_mimes=acceptable_mimes, file_path=file_path
+            )
 
         elif library == MIMETYPES:
-            file_validator_by_mimetypes(acceptable_mimes=acceptable_mimes, file_path=file_path)
+            file_validator_by_mimetypes(
+                acceptable_mimes=acceptable_mimes, file_path=file_path
+            )
 
         else:
             if content_type_guessed_by_django not in acceptable_mimes:
