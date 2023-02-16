@@ -11,25 +11,25 @@ from file_validator.models import ValidatedFileField
 PNG_OBJECT: dict = {
     'name': 'test.png',
     'mime': 'image/png',
-    'extension': 'png',
+    'extension': '.png',
 }
 
 MP3_OBJECT: dict = {
     'name': 'test.mp3',
     'mime': 'audio/mpeg',
-    'extension': 'mp3',
+    'extension': '.mp3',
 }
 
 JPEG_OBJECT: dict = {
     'name': 'test.jpg',
     'mime': 'image/jpeg',
-    'extension': 'jpg',
+    'extension': '.jpg',
 }
 
 BAD_OBJECT: dict = {
     'name': 'bad.file',
     'mime': 'mime/bad',
-    'extension': 'file',
+    'extension': '.file',
 }
 
 TEMPLATE_EXPECTED_MESSAGE: str = "{file} : {mimes} with this {file_size} is not valid, you can upload files up to {max_file_size}"

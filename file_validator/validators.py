@@ -9,6 +9,7 @@ library is also used to color the error messages
 from mimetypes import guess_type
 import os
 import platform
+from pathlib import Path
 import magic
 import puremagic
 from filetype import guess
@@ -30,7 +31,7 @@ from file_validator.constants import (
     MIMETYPES,
     FILE_SIZE_IS_NOT_VALID,
     MIME_NOT_VALID_WITH_MIME_NAME,
-    ALL,
+    ALL, OK,
 )
 from file_validator.utils import is_library_supported
 
@@ -59,6 +60,16 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
+    file = Path(file_path)
+    file_name = file.name
+    file_extension = file.suffix
+    result_of_validation = {
+        'status': OK,
+        'file_name': file_name,
+        'file_mime': file_mime,
+        'file_extension': file_extension,
+    }
+    return result_of_validation
 
 
 def file_validator_by_pure_magic(acceptable_mimes: list, file_path: str):
