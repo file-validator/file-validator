@@ -30,3 +30,17 @@ def is_library_supported(library: str):
             library=library, libraries=ALL_SUPPORTED_LIBRARIES
         )
         raise LibraryNotSupportedException(colored(message, "red"))
+
+
+def generate_information_about_file(status, library, file_name, file_extension, file_mime):
+    """
+    generates information about file validated
+    """
+    result = {
+        "status": status,
+        "library": library,
+        "file_name": file_name,
+        "file_mime": file_mime,
+        "file_extension": file_extension,
+    }
+    return result
