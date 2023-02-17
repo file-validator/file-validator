@@ -71,7 +71,11 @@ class TestFileValidatorByMimeTypes:
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
-        assert file_validator_by_mimetypes(JPEG_OBJECT['mime'], file_path=jpeg) is None
+        result_of_validation = file_validator_by_mimetypes(JPEG_OBJECT['mime'], file_path=jpeg)
+        assert result_of_validation['status'] == OK
+        assert result_of_validation['file_name'] == JPEG_OBJECT['name']
+        assert result_of_validation['file_mime'] == JPEG_OBJECT['mime']
+        assert result_of_validation['file_extension'] == JPEG_OBJECT['extension']
 
     def test_file_validator_by_mimetypes_library_when_file_is_not_valid(
         self, jpeg=JPEG_FILE
@@ -103,7 +107,11 @@ class TestFileValidatorByPureMagic:
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
-        assert file_validator_by_pure_magic(JPEG_OBJECT['mime'], file_path=jpeg) is None
+        result_of_validation = file_validator_by_pure_magic(JPEG_OBJECT['mime'], file_path=jpeg)
+        assert result_of_validation['status'] == OK
+        assert result_of_validation['file_name'] == JPEG_OBJECT['name']
+        assert result_of_validation['file_mime'] == JPEG_OBJECT['mime']
+        assert result_of_validation['file_extension'] == JPEG_OBJECT['extension']
 
     def test_file_validator_by_pure_magic_library_when_file_is_not_valid(
         self
@@ -135,7 +143,11 @@ class TestFileValidatorByFileType:
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
-        assert file_validator_by_filetype(JPEG_OBJECT['mime'], file_path=jpeg) is None
+        result_of_validation = file_validator_by_filetype(JPEG_OBJECT['mime'], file_path=jpeg)
+        assert result_of_validation['status'] == OK
+        assert result_of_validation['file_name'] == JPEG_OBJECT['name']
+        assert result_of_validation['file_mime'] == JPEG_OBJECT['mime']
+        assert result_of_validation['file_extension'] == JPEG_OBJECT['extension']
 
     def test_file_validator_by_filetype_library_when_file_is_not_valid(
         self, mp3_file=MP3_FILE
