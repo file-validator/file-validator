@@ -34,7 +34,7 @@ from file_validator.constants import (
     ALL,
     OK,
 )
-from file_validator.utils import is_library_supported
+from file_validator.utils import is_library_supported, generate_information_about_file
 
 
 def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
@@ -62,14 +62,13 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
     file = Path(file_path)
-    file_name = file.name
-    file_extension = file.suffix
-    result_of_validation = {
-        "status": OK,
-        "file_name": file_name,
-        "file_mime": file_mime,
-        "file_extension": file_extension,
-    }
+    result_of_validation = generate_information_about_file(
+        status=OK,
+        library=PYTHON_MAGIC,
+        file_name=file.name,
+        file_mime=file_mime,
+        file_extension=file.suffix
+    )
     return result_of_validation
 
 
@@ -96,6 +95,15 @@ def file_validator_by_pure_magic(acceptable_mimes: list, file_path: str):
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
+    file = Path(file_path)
+    result_of_validation = generate_information_about_file(
+        status=OK,
+        library=PURE_MAGIC,
+        file_name=file.name,
+        file_mime=file_mime,
+        file_extension=file.suffix
+    )
+    return result_of_validation
 
 
 def file_validator_by_mimetypes(acceptable_mimes: list, file_path: str):
@@ -116,6 +124,16 @@ def file_validator_by_mimetypes(acceptable_mimes: list, file_path: str):
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
 
+    file = Path(file_path)
+    result_of_validation = generate_information_about_file(
+        status=OK,
+        library=MIMETYPES,
+        file_name=file.name,
+        file_mime=file_mime,
+        file_extension=file.suffix
+    )
+    return result_of_validation
+
 
 def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
     """
@@ -135,6 +153,16 @@ def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
         raise FileValidationException(
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
+
+    file = Path(file_path)
+    result_of_validation = generate_information_about_file(
+        status=OK,
+        library=FILETYPE,
+        file_name=file.name,
+        file_mime=file_mime,
+        file_extension=file.suffix
+    )
+    return result_of_validation
 
 
 def file_validator(acceptable_mimes: list, file_path: str):
@@ -174,6 +202,11 @@ def size_validator(
                 message=FILE_SIZE_IS_NOT_VALID,
             )
         )
+    result_of_validation = {
+        "file_size": file_size,
+        "max_upload_file_size": max_upload_file_size
+    }
+    return result_of_validation
 
 
 def file_validator_by_django(
