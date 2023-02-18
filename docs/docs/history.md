@@ -136,3 +136,7 @@ sidebar_position: 8
 0.2.5 (2023-02-16)
 ------------------
 * add return statements to `file_validator_by_python_magic` and providing information about the file
+
+0.2.6 (2023-02-18)
+------------------
+* refactoring `validators` and now validators return validation data such `file_mime`, `file_extension`, `file_name` etc…
