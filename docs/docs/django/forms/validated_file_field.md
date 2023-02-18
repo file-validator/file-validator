@@ -38,7 +38,9 @@ from file_validator.forms import ValidatedFileField
 
 class TestForm(forms.Form):
     test_file = ValidatedFileField(
-        accept='image/*' # => accept attribute
+        accept='image/*', # => accept attribute
+        custom_css_class='your-custom-css-class' # => custom css class
+
     )
 
 ```
