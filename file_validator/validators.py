@@ -33,6 +33,7 @@ from file_validator.constants import (
     MIME_NOT_VALID_WITH_MIME_NAME,
     ALL,
     OK,
+    DEFAULT,
 )
 from file_validator.utils import is_library_supported, generate_information_about_file
 
@@ -67,7 +68,7 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
         library=PYTHON_MAGIC,
         file_name=file.name,
         file_mime=file_mime,
-        file_extension=file.suffix
+        file_extension=file.suffix,
     )
     return result_of_validation
 
@@ -101,7 +102,7 @@ def file_validator_by_pure_magic(acceptable_mimes: list, file_path: str):
         library=PURE_MAGIC,
         file_name=file.name,
         file_mime=file_mime,
-        file_extension=file.suffix
+        file_extension=file.suffix,
     )
     return result_of_validation
 
@@ -130,7 +131,7 @@ def file_validator_by_mimetypes(acceptable_mimes: list, file_path: str):
         library=MIMETYPES,
         file_name=file.name,
         file_mime=file_mime,
-        file_extension=file.suffix
+        file_extension=file.suffix,
     )
     return result_of_validation
 
@@ -160,7 +161,7 @@ def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
         library=FILETYPE,
         file_name=file.name,
         file_mime=file_mime,
-        file_extension=file.suffix
+        file_extension=file.suffix,
     )
     return result_of_validation
 
@@ -174,11 +175,25 @@ def file_validator(acceptable_mimes: list, file_path: str):
         example: image/png
     :return: If everything is OK it will return None, otherwise it will return a ValueError.
     """
+    validation_data = {}
 
-    file_validator_by_filetype(acceptable_mimes, file_path)
-    file_validator_by_mimetypes(acceptable_mimes, file_path)
-    file_validator_by_pure_magic(acceptable_mimes, file_path)
-    file_validator_by_python_magic(acceptable_mimes, file_path)
+    validation_data_filetype = file_validator_by_filetype(acceptable_mimes, file_path)
+    validation_data.update({FILETYPE: validation_data_filetype})
+
+    validation_data_mimetypes = file_validator_by_mimetypes(acceptable_mimes, file_path)
+    validation_data.update({MIMETYPES: validation_data_mimetypes})
+
+    validation_data_pure_magic = file_validator_by_pure_magic(
+        acceptable_mimes, file_path
+    )
+    validation_data.update({PURE_MAGIC: validation_data_pure_magic})
+
+    validation_data_python_magic = file_validator_by_python_magic(
+        acceptable_mimes, file_path
+    )
+    validation_data.update({PYTHON_MAGIC: validation_data_python_magic})
+
+    return validation_data
 
 
 def size_validator(
@@ -203,8 +218,10 @@ def size_validator(
             )
         )
     result_of_validation = {
-        "file_size": file_size,
-        "max_upload_file_size": max_upload_file_size
+        "file_size": naturalsize(file_size),
+        "max_upload_file_size": naturalsize(max_upload_file_size)
+        if max_upload_file_size is not None
+        else 0,
     }
     return result_of_validation
 
@@ -231,31 +248,41 @@ def file_validator_by_django(
     :return: If everything is OK it will return None, otherwise it will
         return a FileValidationException.
     """
+    validation_data = {}
     for library in libraries:
         is_library_supported(library)
 
         if library == ALL:
-            file_validator(acceptable_mimes=acceptable_mimes, file_path=file_path)
+            result_of_validation = file_validator(
+                acceptable_mimes=acceptable_mimes, file_path=file_path
+            )
+            validation_data.update({ALL: result_of_validation})
 
         elif library == PYTHON_MAGIC:
-            file_validator_by_python_magic(
+            result_of_validation_with_python_magic = file_validator_by_python_magic(
                 acceptable_mimes=acceptable_mimes, file_path=file_path
+            )
+            validation_data.update(
+                {PYTHON_MAGIC: result_of_validation_with_python_magic}
             )
 
         elif library == PURE_MAGIC:
-            file_validator_by_pure_magic(
+            result_of_validation_with_pure_magic = file_validator_by_pure_magic(
                 acceptable_mimes=acceptable_mimes, file_path=file_path
             )
+            validation_data.update({PURE_MAGIC: result_of_validation_with_pure_magic})
 
         elif library == FILETYPE:
-            file_validator_by_filetype(
+            result_of_validation_with_filetype = file_validator_by_filetype(
                 acceptable_mimes=acceptable_mimes, file_path=file_path
             )
+            validation_data.update({FILETYPE: result_of_validation_with_filetype})
 
         elif library == MIMETYPES:
-            file_validator_by_mimetypes(
+            result_of_validation_with_mimetypes = file_validator_by_mimetypes(
                 acceptable_mimes=acceptable_mimes, file_path=file_path
             )
+            validation_data.update({MIMETYPES: result_of_validation_with_mimetypes})
 
         else:
             if content_type_guessed_by_django not in acceptable_mimes:
@@ -267,3 +294,18 @@ def file_validator_by_django(
                         "red",
                     )
                 )
+            file = Path(file_path)
+
+            validation_data.update(
+                {
+                    DEFAULT: generate_information_about_file(
+                        status=OK,
+                        library=DEFAULT,
+                        file_name=file.name,
+                        file_mime=content_type_guessed_by_django,
+                        file_extension=file.suffix,
+                    )
+                }
+            )
+
+    return validation_data

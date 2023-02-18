@@ -86,11 +86,11 @@ class ValidatedFileField(FileField):
         file_size = file.size
         file_path = TemporaryUploadedFile.temporary_file_path(file)
         try:
-            size_validator(
+            file_size_validation_data = size_validator(
                 max_upload_file_size=self.max_upload_file_size,
                 file_path=file_path,
             )
-            file_validator_by_django(
+            file_validation_data = file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
                 file_path=file_path,
@@ -106,7 +106,11 @@ class ValidatedFileField(FileField):
                     mimes=self.acceptable_mimes,
                 )
             ) from error
-
+        setattr(data, 'validation_data', {
+            # merge two dictionaries
+            **file_validation_data,
+            **file_size_validation_data
+        })
         return data
 
 

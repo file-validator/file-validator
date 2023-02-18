@@ -189,7 +189,7 @@ class TestFileValidatorByDjango:
     These tests are for file validators django
     """
 
-    def test_django_file_validator_when_library_is_default_library_and_not_valid_file(self):
+    def test_file_validator_by_django_when_library_is_default_library_and_not_valid_file(self):
         """
 
         :return:
@@ -219,72 +219,128 @@ class TestFileValidatorByDjango:
 
         :return:
         """
-        assert file_validator_by_django(
+        result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT['mime'],
             acceptable_mimes=[PNG_OBJECT['mime'], JPEG_OBJECT['mime']],
             libraries=[PYTHON_MAGIC],
             file_path=JPEG_FILE
-        ) is None
+        )
+        file = result_of_validation['python_magic']
+        assert file['status'] == OK
+        assert file['file_name'] == JPEG_OBJECT['name']
+        assert file['file_mime'] == JPEG_OBJECT['mime']
+        assert file['file_extension'] == JPEG_OBJECT['extension']
 
     def test_django_file_validator_when_library_is_pure_magic_library(self):
         """
 
         :return:
         """
-        assert file_validator_by_django(
+        result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT['mime'],
             acceptable_mimes=[PNG_OBJECT['mime'], JPEG_OBJECT['mime']],
             libraries=[PURE_MAGIC],
             file_path=JPEG_FILE
-        ) is None
+        )
+        file = result_of_validation['pure_magic']
+        assert file['status'] == OK
+        assert file['file_name'] == JPEG_OBJECT['name']
+        assert file['file_mime'] == JPEG_OBJECT['mime']
+        assert file['file_extension'] == JPEG_OBJECT['extension']
 
     def test_django_file_validator_when_library_is_file_type_library(self):
         """
 
         :return:
         """
-        assert file_validator_by_django(
+        result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT['mime'],
             acceptable_mimes=[PNG_OBJECT['mime'], JPEG_OBJECT['mime']],
             libraries=[FILETYPE],
             file_path=JPEG_FILE
-        ) is None
+        )
+
+        file = result_of_validation[FILETYPE]
+        assert file['status'] == OK
+        assert file['file_name'] == JPEG_OBJECT['name']
+        assert file['file_mime'] == JPEG_OBJECT['mime']
+        assert file['file_extension'] == JPEG_OBJECT['extension']
 
     def test_django_file_validator_when_library_is_mimetypes_library(self):
         """
 
         :return:
         """
-        assert file_validator_by_django(
+        result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT['mime'],
             acceptable_mimes=[PNG_OBJECT['mime'], JPEG_OBJECT['mime']],
             libraries=[MIMETYPES],
             file_path=JPEG_FILE
-        ) is None
+        )
+
+        file = result_of_validation[MIMETYPES]
+        assert file['status'] == OK
+        assert file['file_name'] == JPEG_OBJECT['name']
+        assert file['file_mime'] == JPEG_OBJECT['mime']
+        assert file['file_extension'] == JPEG_OBJECT['extension']
 
     def test_django_file_validator_when_library_is_default_library(self):
         """
 
         :return:
         """
-        assert file_validator_by_django(
+        result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT['mime'],
             acceptable_mimes=[MP3_OBJECT['mime'], JPEG_OBJECT['mime']],
             libraries=[DEFAULT],
             file_path=MP3_FILE
-        ) is None
+        )
+        file = result_of_validation[DEFAULT]
+        assert file['status'] == OK
+        assert file['file_name'] == MP3_OBJECT['name']
+        assert file['file_mime'] == MP3_OBJECT['mime']
+        assert file['file_extension'] == MP3_OBJECT['extension']
 
     def test_django_file_validator_when_selected_all_library(self):
         """
 
         :return:
         """
-        assert file_validator_by_django(
+        result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=JPEG_OBJECT['mime'],
             acceptable_mimes=[PNG_OBJECT['mime'], JPEG_OBJECT['mime']],
             libraries=ALL_SUPPORTED_LIBRARIES,
             file_path=JPEG_FILE
-        ) is None
+        )
+        validation_data_django = result_of_validation[DEFAULT]
+        assert validation_data_django['status'] == OK
+        assert validation_data_django['file_name'] == JPEG_OBJECT['name']
+        assert validation_data_django['file_mime'] == JPEG_OBJECT['mime']
+        assert validation_data_django['file_extension'] == JPEG_OBJECT['extension']
+
+        validation_data_python_magic = result_of_validation[PYTHON_MAGIC]
+        assert validation_data_python_magic['status'] == OK
+        assert validation_data_python_magic['file_name'] == JPEG_OBJECT['name']
+        assert validation_data_python_magic['file_mime'] == JPEG_OBJECT['mime']
+        assert validation_data_python_magic['file_extension'] == JPEG_OBJECT['extension']
+
+        validation_data_pure_magic = result_of_validation[PURE_MAGIC]
+        assert validation_data_pure_magic['status'] == OK
+        assert validation_data_pure_magic['file_name'] == JPEG_OBJECT['name']
+        assert validation_data_pure_magic['file_mime'] == JPEG_OBJECT['mime']
+        assert validation_data_pure_magic['file_extension'] == JPEG_OBJECT['extension']
+
+        validation_data_filetype = result_of_validation[FILETYPE]
+        assert validation_data_filetype['status'] == OK
+        assert validation_data_filetype['file_name'] == JPEG_OBJECT['name']
+        assert validation_data_filetype['file_mime'] == JPEG_OBJECT['mime']
+        assert validation_data_filetype['file_extension'] == JPEG_OBJECT['extension']
+
+        validation_data_mimetypes = result_of_validation[MIMETYPES]
+        assert validation_data_mimetypes['status'] == OK
+        assert validation_data_mimetypes['file_name'] == JPEG_OBJECT['name']
+        assert validation_data_mimetypes['file_mime'] == JPEG_OBJECT['mime']
+        assert validation_data_mimetypes['file_extension'] == JPEG_OBJECT['extension']
 
 
 class TestValidatedFileField:
@@ -492,7 +548,31 @@ def test_file_validator_when_file_is_valid(jpeg=JPEG_FILE):
     :param jpeg: It is a fixture for jpeg files
     :return: The result we expect to return is None, which means that everything is OK
     """
-    assert file_validator(JPEG_OBJECT['mime'], file_path=jpeg) is None
+    result_of_validation = file_validator(JPEG_OBJECT['mime'], file_path=jpeg)
+
+    validation_data_python_magic = result_of_validation[PYTHON_MAGIC]
+    assert validation_data_python_magic['status'] == OK
+    assert validation_data_python_magic['file_name'] == JPEG_OBJECT['name']
+    assert validation_data_python_magic['file_mime'] == JPEG_OBJECT['mime']
+    assert validation_data_python_magic['file_extension'] == JPEG_OBJECT['extension']
+
+    validation_data_pure_magic = result_of_validation[PURE_MAGIC]
+    assert validation_data_pure_magic['status'] == OK
+    assert validation_data_pure_magic['file_name'] == JPEG_OBJECT['name']
+    assert validation_data_pure_magic['file_mime'] == JPEG_OBJECT['mime']
+    assert validation_data_pure_magic['file_extension'] == JPEG_OBJECT['extension']
+
+    validation_data_filetype = result_of_validation[FILETYPE]
+    assert validation_data_filetype['status'] == OK
+    assert validation_data_filetype['file_name'] == JPEG_OBJECT['name']
+    assert validation_data_filetype['file_mime'] == JPEG_OBJECT['mime']
+    assert validation_data_filetype['file_extension'] == JPEG_OBJECT['extension']
+
+    validation_data_mimetypes = result_of_validation[MIMETYPES]
+    assert validation_data_mimetypes['status'] == OK
+    assert validation_data_mimetypes['file_name'] == JPEG_OBJECT['name']
+    assert validation_data_mimetypes['file_mime'] == JPEG_OBJECT['mime']
+    assert validation_data_mimetypes['file_extension'] == JPEG_OBJECT['extension']
 
 
 def test_size_validator():
