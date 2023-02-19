@@ -22,6 +22,7 @@ from file_validator.exceptions import (
     error_message,
     FileValidationException,
     SizeValidationException,
+    TypeNotSupportedException,
 )
 from file_validator.constants import (
     PYTHON_MAGIC,
@@ -34,8 +35,14 @@ from file_validator.constants import (
     ALL,
     OK,
     DEFAULT,
+    SUPPORTED_TYPES,
+    TYPE_NOT_SUPPORTED
 )
-from file_validator.utils import is_library_supported, generate_information_about_file
+from file_validator.utils import (
+    is_library_supported,
+    generate_information_about_file,
+    guess_the_type,
+)
 
 
 def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
@@ -161,6 +168,30 @@ def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
         library=FILETYPE,
         file_name=file.name,
         file_mime=file_mime,
+        file_extension=file.suffix,
+    )
+    return result_of_validation
+
+
+def file_validator_by_type(acceptable_types: list, file_path: str):
+    """
+    file validator for validation of the overall type of files
+        such image, audio, video, archive, font
+    """
+    for acceptable_type in acceptable_types:
+        if acceptable_type.lower() not in SUPPORTED_TYPES:
+            raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+    file_type = guess_the_type(file_path)
+    if file_type not in acceptable_types:
+        raise FileValidationException(
+            colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_type), "red")
+        )
+    file = Path(file_path)
+    result_of_validation = generate_information_about_file(
+        status=OK,
+        library=FILETYPE,
+        file_name=file.name,
+        file_type=file_type,
         file_extension=file.suffix,
     )
     return result_of_validation
