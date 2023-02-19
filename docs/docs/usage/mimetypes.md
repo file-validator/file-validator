@@ -32,7 +32,7 @@ file_validator_by_mimetypes(acceptable_mimes=['audio/mpeg', 'video/mp4'], file_p
 
 | Returns:|
 |:----------|
-| If everything is OK it will return None, otherwise it will return a ValueError. |
+| If everything is OK it will return information about file such `file name`, `file mime`, `file extensions` , otherwise it will return a ValueError. |
 
 
 :::

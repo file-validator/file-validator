@@ -34,7 +34,7 @@ file_validator_by_pure_magic(acceptable_mimes=['audio/mpeg', 'video/mp4'], file_
 
 | Returns:|
 |:----------|
-| If everything is OK it will return None, otherwise it will return a ValueError. |
+| If everything is OK it will return information about file such `file name`, `file mime`, `file extensions` , otherwise it will return a ValueError. |
 
 
 :::

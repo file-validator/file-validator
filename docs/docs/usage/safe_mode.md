@@ -31,7 +31,7 @@ file_validator(acceptable_mimes=['audio/mpeg', 'video/mp4'], file_path='/path/to
 
 | Returns:|
 |:----------|
-| If everything is OK it will return None, otherwise it will return a ValueError. |
+| If everything is OK it will return information about file such `file name`, `file mime`, `file extensions` , otherwise it will return a ValueError. |
 
 
 :::
