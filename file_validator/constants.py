@@ -41,3 +41,4 @@ ARCHIVE: str = "archive"
 SUPPORTED_TYPES: list = [AUDIO, VIDEO, IMAGE, ARCHIVE, FONT]
 TYPE_NOT_SUPPORTED: str = "The type you entered is not supported, List of" \
                           " supported types: font, audio, video, image, archive"
+FILE_NOT_VALID: str = 'file is not valid'
