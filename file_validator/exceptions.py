@@ -45,6 +45,7 @@ def error_message(
     max_file_size=None,
     message=CUSTOM_ERROR_MESSAGE,
     file=DEFAULT_FILE_NAME,
+    **kwargs
 ) -> str:
     """
     :param file: Returns the name of the file to be validated
@@ -56,6 +57,7 @@ def error_message(
     :return: return your error message or default error message
     """
     file_mimes = ""
+    file_name = kwargs.get("file_name")
     if mimes is not None:
         for mime in mimes:
             if mime == mimes[-1]:
@@ -65,5 +67,9 @@ def error_message(
                 file_mimes += ", "
 
     return message.format(
-        file=file, mimes=file_mimes, file_size=file_size, max_file_size=max_file_size
+        file=file,
+        mimes=file_mimes,
+        file_size=file_size,
+        max_file_size=max_file_size,
+        file_name=file_name,
     )
