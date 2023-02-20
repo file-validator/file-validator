@@ -31,7 +31,7 @@ from file_validator.validators import (
     file_validator,
     size_validator,
     file_validator_by_pure_magic,
-    file_validator_by_django,
+    file_validator_by_django, file_validator_by_type,
 )
 from file_validator.constants import (
     PYTHON_MAGIC,
@@ -54,7 +54,7 @@ from file_validator.exceptions import (
     LibraryNotSupportedException,
     CUSTOM_ERROR_MESSAGE,
     MimesEmptyException,
-    DjangoFileValidationException,
+    DjangoFileValidationException, TypeNotSupportedException,
 )
 from tests.project.app.forms import (
     TestFormWithAcceptAttribute,
@@ -439,6 +439,23 @@ class TestFileValidatorByDjango:
         assert validation_data_mimetypes["file_name"] == JPEG_OBJECT["name"]
         assert validation_data_mimetypes["file_mime"] == JPEG_OBJECT["mime"]
         assert validation_data_mimetypes["file_extension"] == JPEG_OBJECT["extension"]
+
+
+class TestfileValidatorByType:
+    def test_file_validator_by_type_when_type_is_not_suported(self):
+        with pytest.raises(TypeNotSupportedException):
+            file_validator_by_type(acceptable_types=['test_type'], file_path=PNG_FILE)
+
+    def test_file_validator_by_type_when_return_file_validation_exception(self):
+        with pytest.raises(FileValidationException):
+            file_validator_by_type(acceptable_types=[VIDEO, AUDIO], file_path=PNG_FILE)
+
+    def test_file_validator_by_type_when_return_validation_data_and_file_is_valid(self):
+        result_of_validation = file_validator_by_type(acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE)
+        assert result_of_validation['status'] == OK
+        assert result_of_validation['library'] == FILETYPE
+        assert result_of_validation['file_name'] == PNG_OBJECT['name']
+
 
 
 class TestValidatedFileField:
