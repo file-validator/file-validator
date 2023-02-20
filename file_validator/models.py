@@ -81,10 +81,10 @@ class ValidatedFileField(FileField):
 
     def clean(self, *args, **kwargs):
         data = super().clean(*args, **kwargs)
-        file = data.file
-        content_type_guessed_by_django = file.content_type
-        file_size = file.size
-        file_path = TemporaryUploadedFile.temporary_file_path(file)
+        current_file = data.file
+        content_type_guessed_by_django = current_file.content_type
+        file_size = current_file.size
+        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
         try:
             file_size_validation_data = size_validator(
                 max_upload_file_size=self.max_upload_file_size,
@@ -100,7 +100,8 @@ class ValidatedFileField(FileField):
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
-                    file=file,
+                    file=current_file,
+                    file_name=current_file.name,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
                     mimes=self.acceptable_mimes,
@@ -169,10 +170,10 @@ class FileValidator:
             self.acceptable_mimes.append(mime)
 
     def __call__(self, value):
-        file = value.file
-        file_size = file.size
-        file_path = TemporaryUploadedFile.temporary_file_path(file)
-        content_type_guessed_by_django = file.content_type
+        current_file = value.file
+        file_size = current_file.size
+        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        content_type_guessed_by_django = current_file.content_type
         try:
             size_validator(
                 max_upload_file_size=self.max_upload_file_size,
@@ -187,7 +188,7 @@ class FileValidator:
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
-                    file=file,
+                    file=current_file,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
@@ -229,9 +230,9 @@ class FileSizeValidator:
         self.max_upload_file_size = max_upload_file_size
 
     def __call__(self, value):
-        file = value.file
-        file_size = file.size
-        file_path = TemporaryUploadedFile.temporary_file_path(file)
+        current_file = value.file
+        file_size = current_file.size
+        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
         try:
             size_validator(
                 max_upload_file_size=self.max_upload_file_size,
@@ -240,7 +241,7 @@ class FileSizeValidator:
         except SizeValidationException as error:
             raise ValidationError(
                 error_message(
-                    file=file,
+                    file=current_file,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
                     message=FILE_SIZE_IS_NOT_VALID,
