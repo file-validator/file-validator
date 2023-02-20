@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from unittest import mock
 from file_validator.models import ValidatedFileField, FileValidator, FileSizeValidator
-from file_validator.utils import all_mimes_is_equal, generate_information_about_file
+from file_validator.utils import all_mimes_is_equal, generate_information_about_file, guess_the_type
 from tests.fixtures import (
     MP3_OBJECT,
     JPEG_OBJECT,
@@ -22,7 +22,7 @@ from tests.fixtures import (
     TEST_LIBRARY,
     get_tmp_file,
     BAD_OBJECT,
-    MAGIC_FILE,
+    MAGIC_FILE, MP4_FILE, ZIP_FILE, TTF_FILE,
 )
 from file_validator.validators import (
     file_validator_by_python_magic,
@@ -45,7 +45,7 @@ from file_validator.constants import (
     DEFAULT_ERROR_MESSAGE,
     ALL,
     OK,
-    IMAGE,
+    IMAGE, VIDEO, AUDIO, ARCHIVE, FONT,
 )
 from file_validator.exceptions import (
     error_message,
@@ -612,6 +612,32 @@ class TestFileValidator:
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL]
         )
         assert file_validator_one == file_validator_two
+
+
+class TestGuessTheType:
+    def test_guess_the_type_function_when_file_is_invalid_and_return_none(self):
+        file_type = guess_the_type(file_path=BAD_FILE)
+        assert file_type is None
+
+    def test_guess_the_type_function_when_file_is_archive(self):
+        file_type = guess_the_type(file_path=ZIP_FILE)
+        assert file_type is ARCHIVE
+
+    def test_guess_the_type_function_when_file_is_image(self):
+        file_type = guess_the_type(file_path=PNG_FILE)
+        assert file_type is IMAGE
+
+    def test_guess_the_type_function_when_file_is_video(self):
+        file_type = guess_the_type(file_path=MP4_FILE)
+        assert file_type is VIDEO
+
+    def test_guess_the_type_function_when_file_is_audio(self):
+        file_type = guess_the_type(file_path=MP3_FILE)
+        assert file_type is AUDIO
+
+    def test_guess_the_type_function_when_file_is_font(self):
+        file_type = guess_the_type(file_path=TTF_FILE)
+        assert file_type is FONT
 
 
 class TestException:
