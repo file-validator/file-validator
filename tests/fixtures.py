@@ -20,10 +20,28 @@ MP3_OBJECT: dict = {
     'extension': '.mp3',
 }
 
+MP4_OBJECT: dict = {
+    'name': 'test.mp4',
+    'mime': 'video/mp4',
+    'extension': '.mp4',
+}
+
 JPEG_OBJECT: dict = {
     'name': 'test.jpg',
     'mime': 'image/jpeg',
     'extension': '.jpg',
+}
+
+ZIP_OBJECT: dict = {
+    'name': 'test.zip',
+    'mime': 'application/zip',
+    'extension': '.zip',
+}
+
+TTF_OBJECT: dict = {
+    'name': 'test.ttf',
+    'mime': 'application/font-sfnt',
+    'extension': '.ttf',
 }
 
 BAD_OBJECT: dict = {
@@ -47,11 +65,14 @@ def get_test_file(file_name) -> str:
     return test_files_directory
 
 
+MAGIC_FILE: str = get_test_file('magic.mgc')
 JPEG_FILE: str = get_test_file(JPEG_OBJECT['name'])
 MP3_FILE: str = get_test_file(MP3_OBJECT['name'])
+MP4_FILE: str = get_test_file(MP4_OBJECT['name'])
 PNG_FILE: str = get_test_file(PNG_OBJECT['name'])
+ZIP_FILE: str = get_test_file(ZIP_OBJECT['name'])
+TTF_FILE: str = get_test_file(TTF_OBJECT['name'])
 BAD_FILE: str = get_test_file(BAD_OBJECT['name'])
-MAGIC_FILE: str = get_test_file('magic.mgc')
 
 
 def get_tmp_file(file_name, file_path, file_mime_type):
