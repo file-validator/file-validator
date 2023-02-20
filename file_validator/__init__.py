@@ -9,4 +9,4 @@ import file_validator.utils
 
 __author__ = """Reza Shakeri"""
 __email__ = "rzashakeri@outlook.com"
-__version__ = "0.2.5"
+__version__ = "0.2.7"
