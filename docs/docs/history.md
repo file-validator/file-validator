@@ -140,3 +140,8 @@ sidebar_position: 8
 0.2.6 (2023-02-18)
 ------------------
 * refactoring `validators` and now validators return validation data such `file_mime`, `file_extension`, `file_name` etc…
+
+0.2.7 (2023-02-20)
+------------------
+* added `file_validator_by_type` : file validator for validation of the overall type of files such `image`, `audio`, `video`, `archive`, `font`
+* added `guess_the_type` : This function is used to guess the overall type of file such `image`, `audio`, `video`, `font` and archive
