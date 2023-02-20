@@ -494,12 +494,10 @@ class TestValidatedFileField:
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
             max_upload_file_size=1000000,
         )
-        assert (my_field_instance.libraries, new_instance.libraries)
-        assert (my_field_instance.acceptable_mimes, new_instance.acceptable_mimes)
-        assert (
-            my_field_instance.max_upload_file_size,
-            new_instance.max_upload_file_size,
-        )
+        assert my_field_instance.libraries, new_instance.libraries
+        assert my_field_instance.acceptable_mimes, new_instance.acceptable_mimes
+        assert my_field_instance.max_upload_file_size, new_instance.max_upload_file_size
+
 
     def test_acceptable_mimes_is_none(self):
         with pytest.raises(ValueError):
