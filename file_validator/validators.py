@@ -177,6 +177,10 @@ def file_validator_by_type(acceptable_types: list, file_path: str):
     """
     file validator for validation of the overall type of files
         such image, audio, video, archive, font
+    :type acceptable_types: list
+    :param acceptable_types: acceptable types of file such image, video, audio, archive, font
+    :type file_path: string
+    :param file_path: The path to the file you want to validate
     """
     for acceptable_type in acceptable_types:
         if acceptable_type.lower() not in SUPPORTED_TYPES:
