@@ -100,11 +100,11 @@ class ValidatedFileField(FileField):
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
-                    file=current_file,
+                    mimes=self.acceptable_mimes,
                     file_name=current_file.name,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
-                    mimes=self.acceptable_mimes,
+                    current_file_mime=content_type_guessed_by_django
                 )
             ) from error
         setattr(data, 'validation_data', {
@@ -188,12 +188,13 @@ class FileValidator:
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
-                    file=current_file,
+                    mimes=self.acceptable_mimes,
+                    file_name=current_file.name,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
                     else 0,
-                    mimes=self.acceptable_mimes,
+                    current_file_mime=content_type_guessed_by_django
                 )
             ) from error
 
@@ -241,7 +242,7 @@ class FileSizeValidator:
         except SizeValidationException as error:
             raise ValidationError(
                 error_message(
-                    file=current_file,
+                    file_name=current_file.name,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
                     message=FILE_SIZE_IS_NOT_VALID,
