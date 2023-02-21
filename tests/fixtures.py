@@ -9,49 +9,51 @@ from django.core.files.uploadedfile import TemporaryUploadedFile
 from file_validator.models import ValidatedFileField
 
 PNG_OBJECT: dict = {
-    'name': 'test.png',
-    'mime': 'image/png',
-    'extension': '.png',
+    "name": "test.png",
+    "mime": "image/png",
+    "extension": ".png",
 }
 
 MP3_OBJECT: dict = {
-    'name': 'test.mp3',
-    'mime': 'audio/mpeg',
-    'extension': '.mp3',
+    "name": "test.mp3",
+    "mime": "audio/mpeg",
+    "extension": ".mp3",
 }
 
 MP4_OBJECT: dict = {
-    'name': 'test.mp4',
-    'mime': 'video/mp4',
-    'extension': '.mp4',
+    "name": "test.mp4",
+    "mime": "video/mp4",
+    "extension": ".mp4",
 }
 
 JPEG_OBJECT: dict = {
-    'name': 'test.jpg',
-    'mime': 'image/jpeg',
-    'extension': '.jpg',
+    "name": "test.jpg",
+    "mime": "image/jpeg",
+    "extension": ".jpg",
 }
 
 ZIP_OBJECT: dict = {
-    'name': 'test.zip',
-    'mime': 'application/zip',
-    'extension': '.zip',
+    "name": "test.zip",
+    "mime": "application/zip",
+    "extension": ".zip",
 }
 
 TTF_OBJECT: dict = {
-    'name': 'test.ttf',
-    'mime': 'application/font-sfnt',
-    'extension': '.ttf',
+    "name": "test.ttf",
+    "mime": "application/font-sfnt",
+    "extension": ".ttf",
 }
 
 BAD_OBJECT: dict = {
-    'name': 'bad.file',
-    'mime': 'mime/bad',
-    'extension': '.file',
+    "name": "bad.file",
+    "mime": "mime/bad",
+    "extension": ".file",
 }
 
-TEMPLATE_EXPECTED_MESSAGE: str = "{file} : {mimes} with this {file_size} is not valid, you can upload files up to {max_file_size}"
-EXPECTED_MESSAGE: str = "test.png : image/png, audio/mpeg with this 20 MB is not valid, you can upload files up to 10 MB"
+TEMPLATE_EXPECTED_MESSAGE: str = (
+    "{file_name} {current_file_mime} {mimes} {file_size} {max_file_size}"
+)
+EXPECTED_MESSAGE: str = "test.png image/png image/png, audio/mpeg 20 MB 10 MB"
 TEST_LIBRARY: str = "test_library"
 
 
@@ -65,14 +67,14 @@ def get_test_file(file_name) -> str:
     return test_files_directory
 
 
-MAGIC_FILE: str = get_test_file('magic.mgc')
-JPEG_FILE: str = get_test_file(JPEG_OBJECT['name'])
-MP3_FILE: str = get_test_file(MP3_OBJECT['name'])
-MP4_FILE: str = get_test_file(MP4_OBJECT['name'])
-PNG_FILE: str = get_test_file(PNG_OBJECT['name'])
-ZIP_FILE: str = get_test_file(ZIP_OBJECT['name'])
-TTF_FILE: str = get_test_file(TTF_OBJECT['name'])
-BAD_FILE: str = get_test_file(BAD_OBJECT['name'])
+MAGIC_FILE: str = get_test_file("magic.mgc")
+JPEG_FILE: str = get_test_file(JPEG_OBJECT["name"])
+MP3_FILE: str = get_test_file(MP3_OBJECT["name"])
+MP4_FILE: str = get_test_file(MP4_OBJECT["name"])
+PNG_FILE: str = get_test_file(PNG_OBJECT["name"])
+ZIP_FILE: str = get_test_file(ZIP_OBJECT["name"])
+TTF_FILE: str = get_test_file(TTF_OBJECT["name"])
+BAD_FILE: str = get_test_file(BAD_OBJECT["name"])
 
 
 def get_tmp_file(file_name, file_path, file_mime_type):
