@@ -36,7 +36,7 @@ from file_validator.constants import (
     OK,
     DEFAULT,
     SUPPORTED_TYPES,
-    TYPE_NOT_SUPPORTED
+    TYPE_NOT_SUPPORTED,
 )
 from file_validator.utils import (
     is_library_supported,

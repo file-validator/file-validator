@@ -10,6 +10,7 @@ class ValidatedFileField(forms.FileField):
     """
     validated file filed for django
     """
+
     widget = FileInputWidget
 
     def __init__(self, *, accept=None, custom_css_class=None, **kwargs):
@@ -21,9 +22,9 @@ class ValidatedFileField(forms.FileField):
         attrs = {}
 
         if self.accept:
-            attrs['accept'] = self.accept
+            attrs["accept"] = self.accept
 
         if self.custom_css_class:
-            attrs['class'] = self.custom_css_class
+            attrs["class"] = self.custom_css_class
 
         return attrs

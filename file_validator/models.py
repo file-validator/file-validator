@@ -104,14 +104,18 @@ class ValidatedFileField(FileField):
                     file_name=current_file.name,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
-                    current_file_mime=content_type_guessed_by_django
+                    current_file_mime=content_type_guessed_by_django,
                 )
             ) from error
-        setattr(data, 'validation_data', {
-            # merge two dictionaries
-            **file_validation_data,
-            **file_size_validation_data
-        })
+        setattr(
+            data,
+            "validation_data",
+            {
+                # merge two dictionaries
+                **file_validation_data,
+                **file_size_validation_data,
+            },
+        )
         return data
 
 
@@ -194,7 +198,7 @@ class FileValidator:
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
                     else 0,
-                    current_file_mime=content_type_guessed_by_django
+                    current_file_mime=content_type_guessed_by_django,
                 )
             ) from error
 
