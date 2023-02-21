@@ -1,0 +1,14 @@
+name: Docusaurus
+on: [pull_request]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: redkubes/docusaurus-deploy-action@v1
+        with:
+          source-folder: ./docs
+          git-user: file-validator
+          git-password: ${{ secrets.MY_GITHUB_TOKEN }}
+          deployment-branch: gh-pages
