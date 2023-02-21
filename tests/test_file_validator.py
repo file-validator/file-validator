@@ -457,7 +457,6 @@ class TestfileValidatorByType:
         assert result_of_validation['file_name'] == PNG_OBJECT['name']
 
 
-
 class TestValidatedFileField:
     def test_when_file_is_valid_and_return_none(self):
         new_instance = TestFileModel(
@@ -666,10 +665,11 @@ class TestException:
         """
         message = error_message(
             message=TEMPLATE_EXPECTED_MESSAGE,
-            file=PNG_OBJECT["name"],
+            file_name=PNG_OBJECT["name"],
             file_size="20 MB",
             mimes=["image/png", "audio/mpeg"],
             max_file_size="10 MB",
+            current_file_mime=PNG_OBJECT["mime"]
         )
         assert EXPECTED_MESSAGE in message
 
