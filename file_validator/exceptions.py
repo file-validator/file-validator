@@ -44,18 +44,24 @@ def error_message(
     file_size=None,
     max_file_size=None,
     message=CUSTOM_ERROR_MESSAGE,
-    file=DEFAULT_FILE_NAME,
+    file_name=DEFAULT_FILE_NAME,
+    **kwargs
 ) -> str:
     """
-    :param file: Returns the name of the file to be validated
+    :type file_name: str
+    :param file_name: Returns the name of the file to be validated
+    :type mimes: list
     :param mimes: It returns the mimes on which the file is to be validated
+    :type file_size: str
     :param file_size: It returns the file size on which the file is to be validated
+    :type max_file_size: str
     :param max_file_size: Returns the maximum file size to be validated and the user can upload,
         If you have not confirmed the file size, it will return 0 by default
     :param message: The error message to be shown to the user when the file is not valid
     :return: return your error message or default error message
     """
     file_mimes = ""
+    current_file_mime = kwargs.get("current_file_mime")
     if mimes is not None:
         for mime in mimes:
             if mime == mimes[-1]:
@@ -65,5 +71,9 @@ def error_message(
                 file_mimes += ", "
 
     return message.format(
-        file=file, mimes=file_mimes, file_size=file_size, max_file_size=max_file_size
+        mimes=file_mimes,
+        file_size=file_size,
+        max_file_size=max_file_size,
+        file_name=file_name,
+        current_file_mime=current_file_mime
     )
