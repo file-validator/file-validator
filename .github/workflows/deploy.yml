@@ -9,6 +9,6 @@ jobs:
       - uses: redkubes/docusaurus-deploy-action@v1.2
         with:
           source-folder: docs
-          git-user: $SOME_USERNAME
-          git-password: ${{ secrets.GITHUB_TOKEN }}
+          git-user: file-validator
+          git-password: ${{ secrets.MY_GITHUB_TOKEN }}
           deployment-branch: master
