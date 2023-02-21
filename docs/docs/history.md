@@ -145,3 +145,8 @@ sidebar_position: 8
 ------------------
 * added `file_validator_by_type` : file validator for validation of the overall type of files such `image`, `audio`, `video`, `archive`, `font`
 * added `guess_the_type` : This function is used to guess the overall type of file such `image`, `audio`, `video`, `font` and archive
+
+0.2.8 (2023-02-23)
+------------------
+* refactored error message function
+* added `current file mime` and `file name` to models error message
