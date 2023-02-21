@@ -12,11 +12,10 @@ sidebar_position: 1
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![pylint](https://mperlet.github.io/pybadge/badges/10.svg)](https://github.com/file-validator/file-validator/actions)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
-[![Badge](https://i2pget6bpxrn.runkit.sh)](https://file-validator.github.io/)
 [![codefactor](https://www.codefactor.io/repository/github/rzashakeri/file-validator/badge)](https://www.codefactor.io/repository/github/rzashakeri/file-validator)
 [![codebeat badge](https://codebeat.co/badges/e4a99576-8d18-4f11-86b9-42860a8fe8e0)](https://codebeat.co/projects/github-com-file-validator-file-validator-master)
 [![black](https://github.com/file-validator/file-validator/actions/workflows/black.yml/badge.svg?branch=master)](https://github.com/file-validator/file-validator/actions/workflows/black.yml)
-
+[![docs](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml)
 
 ## What Is File Validator? ✅
 
