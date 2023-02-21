@@ -29,10 +29,11 @@ FILE_VALIDATOR_ERROR_MESSAGE = "{file} and {mimes} Your custom error message"
 
 | Parameters        | Description                                           |
 |-------------------|:------------------------------------------------------|
-| `{file}`          | return the current file name                          |
+| `{file_name}`        | return the current file name                          |
 | `{mimes}`         | return the accepted mime                              |
 | `{max_file_size}` | return the Maximum file size that the user can upload |
 | `{file_size}`     | return the current file size                          |
+| `{current_file_mime}`     | return the current file mime                           |
 
 
 
