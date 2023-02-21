@@ -8,7 +8,7 @@ on:
       - master
     paths:
       - '.github/workflows/deploy.yml'
-      - 'website/**'
+      - 'docs/**'
   pull_request:
 
 jobs:
