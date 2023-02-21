@@ -75,5 +75,5 @@ def error_message(
         file_size=file_size,
         max_file_size=max_file_size,
         file_name=file_name,
-        current_file_mime=current_file_mime
+        current_file_mime=current_file_mime,
     )
