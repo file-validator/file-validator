@@ -7,7 +7,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/file-validator/file-validator/badge.svg)](https://coveralls.io/github/file-validator/file-validator)
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
-[![codefactor](https://www.codefactor.io/repository/github/rzashakeri/file-validator/badge)](https://www.codefactor.io/repository/github/rzashakeri/file-validator)
+[![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
 [![codebeat badge](https://codebeat.co/badges/e4a99576-8d18-4f11-86b9-42860a8fe8e0)](https://codebeat.co/projects/github-com-file-validator-file-validator-master)
 [![black](https://github.com/file-validator/file-validator/actions/workflows/black.yml/badge.svg?branch=master)](https://github.com/file-validator/file-validator/actions/workflows/black.yml)
 [![docs](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml)
