@@ -1,8 +1,0 @@
-tests/**
-.github/**
-docs/**
-setup.py
-.circleci/**
-azure-pipelines.yml
-.travis.yml
-.readthedocs.yaml
