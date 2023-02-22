@@ -58,7 +58,7 @@ class ValidatedFileField(FileField):
         """
         self.acceptable_mimes: list = kwargs.get("acceptable_mimes")
         if self.acceptable_mimes is None or all_mimes_is_equal(self.acceptable_mimes):
-            raise ValueError(colored(MIMES_EMPTY, "red"))
+            raise MimesEmptyException(colored(MIMES_EMPTY, "red"))
 
         libraries: list = kwargs.get("libraries")
         self.libraries = []
@@ -103,7 +103,9 @@ class ValidatedFileField(FileField):
                     mimes=self.acceptable_mimes,
                     file_name=current_file.name,
                     file_size=naturalsize(file_size),
-                    max_file_size=naturalsize(self.max_upload_file_size),
+                    max_file_size=naturalsize(self.max_upload_file_size)
+                    if self.max_upload_file_size is not None
+                    else 0,
                     current_file_mime=content_type_guessed_by_django,
                 )
             ) from error
