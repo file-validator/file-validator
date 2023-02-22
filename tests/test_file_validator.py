@@ -499,7 +499,7 @@ class TestValidatedFileField:
 
 
     def test_acceptable_mimes_is_none(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(MimesEmptyException):
 
             class TestFileMimeModel(models.Model):
                 test_file = ValidatedFileField(
