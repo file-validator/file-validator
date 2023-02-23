@@ -24,3 +24,12 @@ class TestFormWithCssClassAttribute(forms.Form):
     test_file = ValidatedFileField(
         custom_css_class='test-class'
     )
+
+class TestForm(forms.Form):
+    test_file = ValidatedFileField(
+        accept='image/*',
+        # => accept attribute
+        custom_css_class='your-custom-css-class',
+        # => custom css class
+        multiple=True
+    )
