@@ -8,14 +8,15 @@ sidebar_position: 1
 [![made with python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg?color=light)](https://python.org)
 [![license](https://img.shields.io/github/license/rzashakeri/file_validator?color=light)](https://github.com/file-validator/file-validator/blob/master/LICENSE)
 [![Build status](https://ci.appveyor.com/api/projects/status/dplr2t9bkulmh4v5?svg=true)](https://ci.appveyor.com/project/rzashakeri/file-validator-inxf9)
-[![Workflow for Codecov](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml)
 [![Coverage Status](https://coveralls.io/repos/github/file-validator/file-validator/badge.svg)](https://coveralls.io/github/file-validator/file-validator)
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
 [![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/file-validator/file-validator/master.svg)](https://results.pre-commit.ci/latest/github/file-validator/file-validator/master)
 [![black](https://github.com/file-validator/file-validator/actions/workflows/black.yml/badge.svg?branch=master)](https://github.com/file-validator/file-validator/actions/workflows/black.yml)
 [![docs](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml)
 [![Pylint](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml)
+[![Workflow for Codecov](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml)
 
 ## What Is File Validator? ✅
 
