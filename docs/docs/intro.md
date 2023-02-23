@@ -18,6 +18,7 @@ sidebar_position: 1
 [![Pylint](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml)
 [![Workflow for Codecov](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml)
 [![Python package](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml)
+[![CodeQL](https://github.com/file-validator/file-validator/actions/workflows/codeql.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/codeql.yml)
 
 ## What Is File Validator? ✅
 
