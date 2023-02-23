@@ -59,7 +59,7 @@ from file_validator.exceptions import (
 from tests.project.app.forms import (
     TestFormWithAcceptAttribute,
     TestFormWithoutAcceptAttribute,
-    TestFormWithCssClassAttribute,
+    TestFormWithCssClassAttribute, TestForm,
 )
 from tests.project.app.models import (
     TestFileModel,
@@ -265,9 +265,10 @@ class TestValidatedFileFieldForm:
         file_dict = {
             "test_file": SimpleUploadedFile(upload_file.name, upload_file.read())
         }
-        form = TestFormWithAcceptAttribute({}, file_dict)
+        form = TestForm({}, file_dict)
         assert form.is_valid()
         assert form.fields["test_file"].accept == "image/*"
+        assert form.fields["test_file"].multiple == True
 
     def test_accept_attribute_is_none_in_form(self):
         form = TestFormWithoutAcceptAttribute()
