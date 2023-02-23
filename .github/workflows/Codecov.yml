@@ -1,4 +1,4 @@
-name: Workflow for Codecov 
+name: Workflow for Codecov
 on: [push, pull_request]
 jobs:
   run:
