@@ -40,7 +40,10 @@ It is a Python library for file validation based on **MIME**, **size**, **type**
 * File Size validation
 
 
-* Provide **ValidatedFilefield** and **FileValidator** for file validation in [Django](https://www.djangoproject.com/)
+* Provided **ValidatedFilefield** and **FileValidator** for file validation in [Django](https://www.djangoproject.com/)
+
+
+* Provided **ValidatedFilefield** in forms with support  [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept), [multiple](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple) and `custom css` attributes
 
 
 * Supporting for all mimes
