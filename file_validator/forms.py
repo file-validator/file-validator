@@ -13,8 +13,9 @@ class ValidatedFileField(forms.FileField):
 
     widget = FileInputWidget
 
-    def __init__(self, *, accept=None, custom_css_class=None, **kwargs):
+    def __init__(self, *, accept=None, custom_css_class=None, multiple=None, **kwargs):
         self.accept = accept
+        self.multiple = multiple
         self.custom_css_class = custom_css_class
         super().__init__(**kwargs)
 
@@ -23,6 +24,9 @@ class ValidatedFileField(forms.FileField):
 
         if self.accept:
             attrs["accept"] = self.accept
+
+        if self.multiple:
+            attrs["multiple"] = self.multiple
 
         if self.custom_css_class:
             attrs["class"] = self.custom_css_class
