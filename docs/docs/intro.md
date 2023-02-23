@@ -11,12 +11,13 @@ sidebar_position: 1
 [![Coverage Status](https://coveralls.io/repos/github/file-validator/file-validator/badge.svg)](https://coveralls.io/github/file-validator/file-validator)
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
-[![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/file-validator/file-validator/master.svg)](https://results.pre-commit.ci/latest/github/file-validator/file-validator/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
 [![black](https://github.com/file-validator/file-validator/actions/workflows/black.yml/badge.svg?branch=master)](https://github.com/file-validator/file-validator/actions/workflows/black.yml)
 [![docs](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml)
 [![Pylint](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml)
 [![Workflow for Codecov](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml)
+[![Python package](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml)
 
 ## What Is File Validator? ✅
 
