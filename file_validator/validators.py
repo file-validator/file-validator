@@ -70,11 +70,13 @@ def file_validator_by_python_magic(acceptable_mimes: list, file_path: str):
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
     current_file = Path(file_path)
+    file_type = file_mime.split('/')[0]
     result_of_validation = generate_information_about_file(
         status=OK,
         library=PYTHON_MAGIC,
         file_name=current_file.name,
         file_mime=file_mime,
+        file_type=file_type,
         file_extension=current_file.suffix,
     )
     return result_of_validation
@@ -104,11 +106,13 @@ def file_validator_by_pure_magic(acceptable_mimes: list, file_path: str):
             colored(MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime), "red")
         )
     current_file = Path(file_path)
+    file_type = file_mime.split('/')[0]
     result_of_validation = generate_information_about_file(
         status=OK,
         library=PURE_MAGIC,
         file_name=current_file.name,
         file_mime=file_mime,
+        file_type=file_type,
         file_extension=current_file.suffix,
     )
     return result_of_validation
@@ -133,11 +137,13 @@ def file_validator_by_mimetypes(acceptable_mimes: list, file_path: str):
         )
 
     current_file = Path(file_path)
+    file_type = file_mime.split('/')[0]
     result_of_validation = generate_information_about_file(
         status=OK,
         library=MIMETYPES,
         file_name=current_file.name,
         file_mime=file_mime,
+        file_type=file_type,
         file_extension=current_file.suffix,
     )
     return result_of_validation
@@ -163,11 +169,13 @@ def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
         )
 
     current_file = Path(file_path)
+    file_type = file_mime.split('/')[0]
     result_of_validation = generate_information_about_file(
         status=OK,
         library=FILETYPE,
         file_name=current_file.name,
         file_mime=file_mime,
+        file_type=file_type,
         file_extension=current_file.suffix,
     )
     return result_of_validation
@@ -330,13 +338,14 @@ def file_validator_by_django(
                     )
                 )
             current_file = Path(file_path)
-
+            file_type = content_type_guessed_by_django.split('/')[0]
             validation_data.update(
                 {
                     DEFAULT: generate_information_about_file(
                         status=OK,
                         library=DEFAULT,
                         file_name=current_file.name,
+                        file_type=file_type,
                         file_mime=content_type_guessed_by_django,
                         file_extension=current_file.suffix,
                     )

@@ -11,42 +11,49 @@ from file_validator.models import ValidatedFileField
 PNG_OBJECT: dict = {
     "name": "test.png",
     "mime": "image/png",
+    "type": "image",
     "extension": ".png",
 }
 
 MP3_OBJECT: dict = {
     "name": "test.mp3",
     "mime": "audio/mpeg",
+    "type": "audio",
     "extension": ".mp3",
 }
 
 MP4_OBJECT: dict = {
     "name": "test.mp4",
     "mime": "video/mp4",
+    "type": "video",
     "extension": ".mp4",
 }
 
 JPEG_OBJECT: dict = {
     "name": "test.jpg",
     "mime": "image/jpeg",
+    "type": "image",
     "extension": ".jpg",
 }
 
 ZIP_OBJECT: dict = {
     "name": "test.zip",
     "mime": "application/zip",
+    "type": "application",
     "extension": ".zip",
 }
 
 TTF_OBJECT: dict = {
     "name": "test.ttf",
     "mime": "application/font-sfnt",
+    "type": "application",
     "extension": ".ttf",
 }
 
 BAD_OBJECT: dict = {
     "name": "bad.file",
     "mime": "mime/bad",
+    "type": "bad",
     "extension": ".file",
 }
 
