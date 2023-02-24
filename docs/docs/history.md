@@ -150,3 +150,9 @@ sidebar_position: 8
 ------------------
 * refactored error message function
 * added `current file mime` and `file name` to models error message
+
+
+0.2.9 (2023-02-24)
+------------------
+* when mimes is empty returned MimesEmptyException instead of ValueError [#28](https://github.com/file-validator/file-validator/pull/28)
+* added multiple attribute to forms [#33](https://github.com/file-validator/file-validator/pull/33)
