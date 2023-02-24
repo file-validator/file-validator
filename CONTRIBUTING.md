@@ -48,3 +48,4 @@ Before you submit a pull request, check that it meets these guidelines:
 4. Run the tests before the Pull Request and must be successfully executed and accepted until the Pull Request, and this proves that there is no problem for the codes that are already running.
 5. Check your code with Pylint to meet the standards, [Pylint](https://pylint.readthedocs.io/en/latest/) analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, and can make suggestions about how the code could be refactored.
 6. You can also use [Black](https://github.com/psf/black) to format your code
+7. also check code with [pre-commit](https://pre-commit.com/) before release
