@@ -29,9 +29,9 @@ file_validator_by_filetype(acceptable_mimes=['audio/mpeg', 'video/mp4'], file_pa
 | file_path | `string` | The path to the file you want to validate  |
 | acceptable_mimes     | `list`      | The mime of the files you want to validate based on them, example: image/png   |
 
-| Returns:|
-|:----------|
-| If everything is OK it will return information about file such `file name`, `file mime`, `file extensions` , otherwise it will return a `FileValidationException`. |
+| Returns:                                                                                                                                                                       |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| If everything is OK it will return information about file such `file name`, `file mime`,`file type`, `file extensions` , otherwise it will return a `FileValidationException`. |
 
 
 :::
