@@ -554,7 +554,13 @@ class TestValidatedFileField:
 
 
 class TestFileSizeValidator:
+    """
+    test file size validator
+    """
     def test_file_size_is_valid(self):
+        """
+        test file size is valid
+        """
         new_instance = TestFileModelWithFileSizeValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -566,6 +572,9 @@ class TestFileSizeValidator:
         new_instance.full_clean()
 
     def test_file_size_is_not_valid(self):
+        """
+        test file size is not valid
+        """
         with pytest.raises(ValidationError):
             new_instance = TestFileModelWithFileSizeValidatorNotValidSize(
                 test_file=get_tmp_file(
@@ -583,7 +592,10 @@ class TestFileSizeValidator:
             class TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
                 test_file = models.FileField(validators=[FileSizeValidator()])
 
-    def test_eq_methode(self):
+    def test_eq_method(self):
+        """
+        test eq method
+        """
         file_validator_one = FileSizeValidator(max_upload_file_size=10485760)
         file_validator_two = FileSizeValidator(max_upload_file_size=10485760)
         assert file_validator_one == file_validator_two
