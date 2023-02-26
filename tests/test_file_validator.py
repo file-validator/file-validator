@@ -18,7 +18,11 @@ from file_validator.constants import (
     ALL_SUPPORTED_LIBRARIES,
     ALL,
     OK,
-    IMAGE, VIDEO, AUDIO, ARCHIVE, FONT,
+    IMAGE,
+    VIDEO,
+    AUDIO,
+    ARCHIVE,
+    FONT,
 )
 from file_validator.exceptions import (
     error_message,
@@ -29,7 +33,11 @@ from file_validator.exceptions import (
     TypeNotSupportedException,
 )
 from file_validator.models import ValidatedFileField, FileValidator, FileSizeValidator
-from file_validator.utils import all_mimes_is_equal, generate_information_about_file, guess_the_type
+from file_validator.utils import (
+    all_mimes_is_equal,
+    generate_information_about_file,
+    guess_the_type,
+)
 from file_validator.validators import (
     file_validator_by_python_magic,
     file_validator_by_mimetypes,
@@ -37,7 +45,8 @@ from file_validator.validators import (
     file_validator,
     size_validator,
     file_validator_by_pure_magic,
-    file_validator_by_django, file_validator_by_type,
+    file_validator_by_django,
+    file_validator_by_type,
 )
 from tests.fixtures import (
     MP3_OBJECT,
@@ -52,11 +61,15 @@ from tests.fixtures import (
     TEST_LIBRARY,
     get_tmp_file,
     BAD_OBJECT,
-    MAGIC_FILE, MP4_FILE, ZIP_FILE, TTF_FILE,
+    MAGIC_FILE,
+    MP4_FILE,
+    ZIP_FILE,
+    TTF_FILE,
 )
 from tests.project.app.forms import (
     TestFormWithoutAcceptAttribute,
-    TestFormWithCssClassAttribute, TestForm,
+    TestFormWithCssClassAttribute,
+    TestForm,
 )
 from tests.project.app.models import (
     TestFileModel,
@@ -73,6 +86,7 @@ class TestGenerateInformationAboutFile:
     """
     test for generate_information_about_file function in utils.py
     """
+
     def test_generate_information_about_file_when_parameters_is_fill(self):
         """
         test generates information about file when parameters are fill
@@ -276,6 +290,7 @@ class TestValidatedFileFieldForm:
     """
     test for ValidatedFileField Forms
     """
+
     def test_accept_attribute_in_form(self):
         """
         test accept attribute in form
@@ -339,7 +354,7 @@ class TestFileValidatorByDjango:
 
     def test_django_file_validator_when_library_is_python_magic_library(self):
         """
-        :return:
+        test django file validator when the library is python magic libraries
         """
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
@@ -347,17 +362,16 @@ class TestFileValidatorByDjango:
             libraries=[PYTHON_MAGIC],
             file_path=JPEG_FILE,
         )
-        file = result_of_validation["python_magic"]
-        assert file["status"] == OK
-        assert file["file_name"] == JPEG_OBJECT["name"]
-        assert file["file_mime"] == JPEG_OBJECT["mime"]
-        assert file["file_type"] == JPEG_OBJECT["type"]
-        assert file["file_extension"] == JPEG_OBJECT["extension"]
+        current_file = result_of_validation["python_magic"]
+        assert current_file["status"] == OK
+        assert current_file["file_name"] == JPEG_OBJECT["name"]
+        assert current_file["file_mime"] == JPEG_OBJECT["mime"]
+        assert current_file["file_type"] == JPEG_OBJECT["type"]
+        assert current_file["file_extension"] == JPEG_OBJECT["extension"]
 
     def test_django_file_validator_when_library_is_pure_magic_library(self):
         """
-
-        :return:
+        test django file validator when library is pure magic library
         """
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
@@ -365,17 +379,16 @@ class TestFileValidatorByDjango:
             libraries=[PURE_MAGIC],
             file_path=JPEG_FILE,
         )
-        file = result_of_validation["pure_magic"]
-        assert file["status"] == OK
-        assert file["file_name"] == JPEG_OBJECT["name"]
-        assert file["file_mime"] == JPEG_OBJECT["mime"]
-        assert file["file_type"] == JPEG_OBJECT["type"]
-        assert file["file_extension"] == JPEG_OBJECT["extension"]
+        current_file = result_of_validation["pure_magic"]
+        assert current_file["status"] == OK
+        assert current_file["file_name"] == JPEG_OBJECT["name"]
+        assert current_file["file_mime"] == JPEG_OBJECT["mime"]
+        assert current_file["file_type"] == JPEG_OBJECT["type"]
+        assert current_file["file_extension"] == JPEG_OBJECT["extension"]
 
     def test_django_file_validator_when_library_is_file_type_library(self):
         """
-
-        :return:
+        test django file validator when the library is file type libraries
         """
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
@@ -384,12 +397,12 @@ class TestFileValidatorByDjango:
             file_path=JPEG_FILE,
         )
 
-        file = result_of_validation[FILETYPE]
-        assert file["status"] == OK
-        assert file["file_name"] == JPEG_OBJECT["name"]
-        assert file["file_mime"] == JPEG_OBJECT["mime"]
-        assert file["file_type"] == JPEG_OBJECT["type"]
-        assert file["file_extension"] == JPEG_OBJECT["extension"]
+        current_file = result_of_validation[FILETYPE]
+        assert current_file["status"] == OK
+        assert current_file["file_name"] == JPEG_OBJECT["name"]
+        assert current_file["file_mime"] == JPEG_OBJECT["mime"]
+        assert current_file["file_type"] == JPEG_OBJECT["type"]
+        assert current_file["file_extension"] == JPEG_OBJECT["extension"]
 
     def test_django_file_validator_when_library_is_mimetypes_library(self):
         """
@@ -403,17 +416,16 @@ class TestFileValidatorByDjango:
             file_path=JPEG_FILE,
         )
 
-        file = result_of_validation[MIMETYPES]
-        assert file["status"] == OK
-        assert file["file_name"] == JPEG_OBJECT["name"]
-        assert file["file_mime"] == JPEG_OBJECT["mime"]
-        assert file["file_type"] == JPEG_OBJECT["type"]
-        assert file["file_extension"] == JPEG_OBJECT["extension"]
+        current_file = result_of_validation[MIMETYPES]
+        assert current_file["status"] == OK
+        assert current_file["file_name"] == JPEG_OBJECT["name"]
+        assert current_file["file_mime"] == JPEG_OBJECT["mime"]
+        assert current_file["file_type"] == JPEG_OBJECT["type"]
+        assert current_file["file_extension"] == JPEG_OBJECT["extension"]
 
     def test_django_file_validator_when_library_is_default_library(self):
         """
-
-        :return:
+        test django file validator when the library is the default library
         """
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
@@ -421,17 +433,16 @@ class TestFileValidatorByDjango:
             libraries=[DEFAULT],
             file_path=MP3_FILE,
         )
-        file = result_of_validation[DEFAULT]
-        assert file["status"] == OK
-        assert file["file_name"] == MP3_OBJECT["name"]
-        assert file["file_mime"] == MP3_OBJECT["mime"]
-        assert file["file_type"] == MP3_OBJECT["type"]
-        assert file["file_extension"] == MP3_OBJECT["extension"]
+        current_file = result_of_validation[DEFAULT]
+        assert current_file["status"] == OK
+        assert current_file["file_name"] == MP3_OBJECT["name"]
+        assert current_file["file_mime"] == MP3_OBJECT["mime"]
+        assert current_file["file_type"] == MP3_OBJECT["type"]
+        assert current_file["file_extension"] == MP3_OBJECT["extension"]
 
     def test_django_file_validator_when_selected_all_library(self):
         """
-
-        :return:
+        test django file validator when selected all libraries
         """
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=JPEG_OBJECT["mime"],
@@ -480,17 +491,19 @@ class TestFileValidatorByDjango:
 class TestfileValidatorByType:
     def test_file_validator_by_type_when_type_is_not_suported(self):
         with pytest.raises(TypeNotSupportedException):
-            file_validator_by_type(acceptable_types=['test_type'], file_path=PNG_FILE)
+            file_validator_by_type(acceptable_types=["test_type"], file_path=PNG_FILE)
 
     def test_file_validator_by_type_when_return_file_validation_exception(self):
         with pytest.raises(FileValidationException):
             file_validator_by_type(acceptable_types=[VIDEO, AUDIO], file_path=PNG_FILE)
 
     def test_file_validator_by_type_when_return_validation_data_and_file_is_valid(self):
-        result_of_validation = file_validator_by_type(acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE)
-        assert result_of_validation['status'] == OK
-        assert result_of_validation['library'] == FILETYPE
-        assert result_of_validation['file_name'] == PNG_OBJECT['name']
+        result_of_validation = file_validator_by_type(
+            acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE
+        )
+        assert result_of_validation["status"] == OK
+        assert result_of_validation["library"] == FILETYPE
+        assert result_of_validation["file_name"] == PNG_OBJECT["name"]
 
 
 class TestValidatedFileField:
@@ -533,7 +546,6 @@ class TestValidatedFileField:
         assert my_field_instance.acceptable_mimes, new_instance.acceptable_mimes
         assert my_field_instance.max_upload_file_size, new_instance.max_upload_file_size
 
-
     def test_acceptable_mimes_is_none(self):
         with pytest.raises(MimesEmptyException):
 
@@ -557,6 +569,7 @@ class TestFileSizeValidator:
     """
     test file size validator
     """
+
     def test_file_size_is_valid(self):
         """
         test file size is valid
@@ -587,6 +600,9 @@ class TestFileSizeValidator:
             new_instance.full_clean()
 
     def test_max_upload_file_size_is_none(self):
+        """
+        test max upload file size is none
+        """
         with pytest.raises(SizeValidationException):
 
             class TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
@@ -605,6 +621,7 @@ class TestFileValidator:
     """
     test for file validator
     """
+
     def test_when_file_is_valid_and_return_none(self):
         """
         test when file is valid and return none
@@ -672,6 +689,7 @@ class TestFileValidator:
                 """
                 Test Model
                 """
+
                 test_file = models.FileField(
                     validators=[
                         FileValidator(
@@ -691,6 +709,7 @@ class TestFileValidator:
                 """
                 Test Model
                 """
+
                 test_file = models.FileField(validators=[FileValidator()])
 
     def test_eq_methode(self):
@@ -710,6 +729,7 @@ class TestGuessTheType:
     """
     test for guess_the_type function in utils.py
     """
+
     def test_guess_the_type_function_when_file_is_invalid_and_return_none(self):
         """
         test guess the type function when file is invalid and return none
@@ -768,7 +788,7 @@ class TestException:
             file_size="20 MB",
             mimes=["image/png", "audio/mpeg"],
             max_file_size="10 MB",
-            current_file_mime=PNG_OBJECT["mime"]
+            current_file_mime=PNG_OBJECT["mime"],
         )
         assert EXPECTED_MESSAGE in message
 
