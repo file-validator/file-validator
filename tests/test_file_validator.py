@@ -144,6 +144,9 @@ class TestFileValidatorByPythonMagic:
     def test_file_validator_by_python_magic_by_path_magic_file_from_env(
         self, jpeg=JPEG_FILE
     ):
+        """
+        test file_validator_by_python_magic by path_magic file from .env file
+        """
         result_of_validation = file_validator_by_python_magic(
             JPEG_OBJECT["mime"], file_path=jpeg
         )
@@ -270,21 +273,34 @@ class TestFileValidatorByFileType:
 
 
 class TestValidatedFileFieldForm:
+    """
+    test for ValidatedFileField Forms
+    """
     def test_accept_attribute_in_form(self):
-        upload_file = open(PNG_FILE, "rb")
-        file_dict = {
-            "test_file": SimpleUploadedFile(upload_file.name, upload_file.read())
-        }
-        form = TestForm({}, file_dict)
-        assert form.is_valid()
-        assert form.fields["test_file"].accept == "image/*"
-        assert form.fields["test_file"].multiple == True
+        """
+        test accept attribute in form
+        """
+        with open(PNG_FILE, "rb") as file:
+            upload_file = file
+            file_dict = {
+                "test_file": SimpleUploadedFile(upload_file.name, upload_file.read())
+            }
+            form = TestForm({}, file_dict)
+            assert form.is_valid()
+            assert form.fields["test_file"].accept == "image/*"
+            assert form.fields["test_file"].multiple is True
 
     def test_accept_attribute_is_none_in_form(self):
+        """
+        test accept attribute is none in form
+        """
         form = TestFormWithoutAcceptAttribute()
         assert form.fields["test_file"].accept is None
 
     def test_css_class_attribute_in_form(self):
+        """
+        test css class attribute in form
+        """
         form = TestFormWithCssClassAttribute()
         assert form.fields["test_file"].custom_css_class == "test-class"
 
