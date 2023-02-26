@@ -590,7 +590,13 @@ class TestFileSizeValidator:
 
 
 class TestFileValidator:
+    """
+    test for file validator
+    """
     def test_when_file_is_valid_and_return_none(self):
+        """
+        test when file is valid and return none
+        """
         new_instance = TestFileModelWithFileValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -602,6 +608,9 @@ class TestFileValidator:
         new_instance.full_clean()
 
     def test_when_file_is_not_valid_and_return_none(self):
+        """
+        test when file is not valid and return none
+        """
         with pytest.raises(ValidationError):
             new_instance = TestFileModelWithFileValidator(
                 test_file=get_tmp_file(
@@ -614,6 +623,9 @@ class TestFileValidator:
             new_instance.full_clean()
 
     def test_when_file_size_is_none(self):
+        """
+        test when file size is none
+        """
         new_instance = TestFileModelWithFileValidatorSizeIsNone(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -625,6 +637,9 @@ class TestFileValidator:
         new_instance.full_clean()
 
     def test_when_libraries_is_none(self):
+        """
+        test when libraries is none
+        """
         new_instance = TestFileModelWithFileValidatorLibraryIsNone(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -636,9 +651,15 @@ class TestFileValidator:
         new_instance.full_clean()
 
     def test_when_libraries_is_not_supported(self):
+        """
+        test when libraries is not supported
+        """
         with pytest.raises(LibraryNotSupportedException):
 
             class TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
+                """
+                Test Model
+                """
                 test_file = models.FileField(
                     validators=[
                         FileValidator(
@@ -649,12 +670,21 @@ class TestFileValidator:
                 )
 
     def test_when_acceptable_mimes_is_none(self):
+        """
+        test when acceptable mimes is none
+        """
         with pytest.raises(MimesEmptyException):
 
             class TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
+                """
+                Test Model
+                """
                 test_file = models.FileField(validators=[FileValidator()])
 
     def test_eq_methode(self):
+        """
+        test eq methode
+        """
         file_validator_one = FileValidator(
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL]
         )
@@ -666,7 +696,7 @@ class TestFileValidator:
 
 class TestGuessTheType:
     """
-    test for file validator
+    test for guess_the_type function in utils.py
     """
     def test_guess_the_type_function_when_file_is_invalid_and_return_none(self):
         """
