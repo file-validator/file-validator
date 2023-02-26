@@ -339,7 +339,6 @@ class TestFileValidatorByDjango:
 
     def test_django_file_validator_when_library_is_python_magic_library(self):
         """
-
         :return:
         """
         result_of_validation = file_validator_by_django(
@@ -666,27 +665,48 @@ class TestFileValidator:
 
 
 class TestGuessTheType:
+    """
+    test for file validator
+    """
     def test_guess_the_type_function_when_file_is_invalid_and_return_none(self):
+        """
+        test guess the type function when file is invalid and return none
+        """
         file_type = guess_the_type(file_path=BAD_FILE)
         assert file_type is None
 
     def test_guess_the_type_function_when_file_is_archive(self):
+        """
+        test guess the type function when file is archive
+        """
         file_type = guess_the_type(file_path=ZIP_FILE)
         assert file_type is ARCHIVE
 
     def test_guess_the_type_function_when_file_is_image(self):
+        """
+        test guess the type function when file is image
+        """
         file_type = guess_the_type(file_path=PNG_FILE)
         assert file_type is IMAGE
 
     def test_guess_the_type_function_when_file_is_video(self):
+        """
+        test guess the type function when file is video
+        """
         file_type = guess_the_type(file_path=MP4_FILE)
         assert file_type is VIDEO
 
     def test_guess_the_type_function_when_file_is_audio(self):
+        """
+        test guesses the type function when file is audio
+        """
         file_type = guess_the_type(file_path=MP3_FILE)
         assert file_type is AUDIO
 
     def test_guess_the_type_function_when_file_is_font(self):
+        """
+        test guess the type function when file is font
+        """
         file_type = guess_the_type(file_path=TTF_FILE)
         assert file_type is FONT
 
