@@ -1,14 +1,44 @@
 """
 This module is related to tests
 """
-import pytest
 import os
-from django.db import models
-from django.core.exceptions import ImproperlyConfigured, ValidationError
-from django.core.files.uploadedfile import SimpleUploadedFile
 from unittest import mock
+
+import pytest
+from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import models
+
+from file_validator.constants import (
+    PYTHON_MAGIC,
+    FILETYPE,
+    PURE_MAGIC,
+    MIMETYPES,
+    DEFAULT,
+    ALL_SUPPORTED_LIBRARIES,
+    ALL,
+    OK,
+    IMAGE, VIDEO, AUDIO, ARCHIVE, FONT,
+)
+from file_validator.exceptions import (
+    error_message,
+    FileValidationException,
+    SizeValidationException,
+    LibraryNotSupportedException,
+    MimesEmptyException,
+    TypeNotSupportedException,
+)
 from file_validator.models import ValidatedFileField, FileValidator, FileSizeValidator
 from file_validator.utils import all_mimes_is_equal, generate_information_about_file, guess_the_type
+from file_validator.validators import (
+    file_validator_by_python_magic,
+    file_validator_by_mimetypes,
+    file_validator_by_filetype,
+    file_validator,
+    size_validator,
+    file_validator_by_pure_magic,
+    file_validator_by_django, file_validator_by_type,
+)
 from tests.fixtures import (
     MP3_OBJECT,
     JPEG_OBJECT,
@@ -24,40 +54,7 @@ from tests.fixtures import (
     BAD_OBJECT,
     MAGIC_FILE, MP4_FILE, ZIP_FILE, TTF_FILE,
 )
-from file_validator.validators import (
-    file_validator_by_python_magic,
-    file_validator_by_mimetypes,
-    file_validator_by_filetype,
-    file_validator,
-    size_validator,
-    file_validator_by_pure_magic,
-    file_validator_by_django, file_validator_by_type,
-)
-from file_validator.constants import (
-    PYTHON_MAGIC,
-    FILETYPE,
-    PURE_MAGIC,
-    MIMETYPES,
-    DEFAULT,
-    SELECTING_ALL_SUPPORTED_LIBRARIES,
-    ALL_SUPPORTED_LIBRARIES,
-    FILE_IS_NOT_VALID,
-    DEFAULT_ERROR_MESSAGE,
-    ALL,
-    OK,
-    IMAGE, VIDEO, AUDIO, ARCHIVE, FONT,
-)
-from file_validator.exceptions import (
-    error_message,
-    FileValidationException,
-    SizeValidationException,
-    LibraryNotSupportedException,
-    CUSTOM_ERROR_MESSAGE,
-    MimesEmptyException,
-    DjangoFileValidationException, TypeNotSupportedException,
-)
 from tests.project.app.forms import (
-    TestFormWithAcceptAttribute,
     TestFormWithoutAcceptAttribute,
     TestFormWithCssClassAttribute, TestForm,
 )
@@ -70,11 +67,16 @@ from tests.project.app.models import (
     TestFileModelWithFileSizeValidatorNotValidSize,
     TestFileModelWithoutLibraries,
 )
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class TestGenerateInformationAboutFile:
+    """
+    test for generate_information_about_file function in utils.py
+    """
     def test_generate_information_about_file_when_parameters_is_fill(self):
+        """
+        test generates information about file when parameters are fill
+        """
         result = generate_information_about_file(
             status=OK,
             library=FILETYPE,
@@ -92,6 +94,9 @@ class TestGenerateInformationAboutFile:
         assert result["file_extension"] == PNG_OBJECT["extension"]
 
     def test_generate_information_about_file_when_parameters_is_none(self):
+        """
+        test generates information about file when parameters are none
+        """
         with pytest.raises(KeyError):
 
             result = generate_information_about_file()
