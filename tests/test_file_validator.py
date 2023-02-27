@@ -489,15 +489,27 @@ class TestFileValidatorByDjango:
 
 
 class TestfileValidatorByType:
-    def test_file_validator_by_type_when_type_is_not_suported(self):
+    """
+    tests for file_validator_by_type function
+    """
+    def test_file_validator_by_type_when_type_is_not_supported(self):
+        """
+        test for file_validator_by_type when type is not supported
+        """
         with pytest.raises(TypeNotSupportedException):
             file_validator_by_type(acceptable_types=["test_type"], file_path=PNG_FILE)
 
     def test_file_validator_by_type_when_return_file_validation_exception(self):
+        """
+        test for file_validator_by_type when return file validation exception
+        """
         with pytest.raises(FileValidationException):
             file_validator_by_type(acceptable_types=[VIDEO, AUDIO], file_path=PNG_FILE)
 
     def test_file_validator_by_type_when_return_validation_data_and_file_is_valid(self):
+        """
+        test for file_validator_by_type when return validation data and file is valid
+        """
         result_of_validation = file_validator_by_type(
             acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE
         )
