@@ -868,4 +868,8 @@ def test_size_validator():
 
 
 def test_all_mimes_is_equal():
+    """
+    test all_mimes_is_equal function in utils.py
+    """
+
     assert all_mimes_is_equal(["image/png"]) is False
