@@ -65,6 +65,8 @@ Can report the problem through [this link](https://github.com/file-validator/fil
 Can you ask your questions through [this link](https://github.com/orgs/file-validator/discussions)
 
 
-## Credits
+## Contributors
 
-This library was created By [Reza Shakeri](https://github.com/rzashakeri)
+<a href="https://github.com/file-validator/file-validator/graphs/contributors">
+  <img width='250' src="https://contrib.rocks/image?repo=file-validator/file-validator" />
+</a>
