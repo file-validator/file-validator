@@ -3,10 +3,7 @@ This file is related to fixtures and constants required for tests
 """
 import os
 
-from django.conf import settings
 from django.core.files.uploadedfile import TemporaryUploadedFile
-
-from file_validator.models import ValidatedFileField
 
 PNG_OBJECT: dict = {
     "name": "test.png",
@@ -85,6 +82,11 @@ BAD_FILE: str = get_test_file(BAD_OBJECT["name"])
 
 
 def get_tmp_file(file_name, file_path, file_mime_type):
+    """
+    :param file_name: The name of the test file
+    :param file_path: The path of the test file
+    :param file_mime_type: The mime of the test file
+    """
     tmp_file = TemporaryUploadedFile(file_name, file_mime_type, 0, None)
     tmp_file.file = open(file_path)
     tmp_file.size = os.fstat(tmp_file.fileno()).st_size
