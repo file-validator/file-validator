@@ -519,7 +519,13 @@ class TestfileValidatorByType:
 
 
 class TestValidatedFileField:
+    """
+    tests for ValidatedFileField
+    """
     def test_when_file_is_valid_and_return_none(self):
+        """
+        test ValidatedFileField when file is valid and return none
+        """
         new_instance = TestFileModel(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -531,6 +537,9 @@ class TestValidatedFileField:
         new_instance.full_clean()
 
     def test_when_file_is_not_valid_and_raise_validation_error(self):
+        """
+        test ValidatedFileField when file is not valid and raise validation error
+        """
         new_instance = TestFileModel(
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT["name"],
@@ -543,6 +552,9 @@ class TestValidatedFileField:
             new_instance.full_clean()
 
     def test_deconstruct_method(self):
+        """
+        test deconstruct method
+        """
         my_field_instance = ValidatedFileField(
             libraries=[ALL],
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -559,6 +571,9 @@ class TestValidatedFileField:
         assert my_field_instance.max_upload_file_size, new_instance.max_upload_file_size
 
     def test_acceptable_mimes_is_none(self):
+        """
+        test acceptable mimes in ValidatedFileField is none
+        """
         with pytest.raises(MimesEmptyException):
 
             class TestFileMimeModel(models.Model):
@@ -568,6 +583,9 @@ class TestValidatedFileField:
                 )
 
     def test_libraries_is_none(self):
+        """
+        the test ValidatedFileField library is none
+        """
         my_field_instance = TestFileModelWithoutLibraries(
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT["name"],
