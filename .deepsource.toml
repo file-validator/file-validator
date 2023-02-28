@@ -1,5 +1,16 @@
 version = 1
 
+test_patterns = [
+  "test/**",
+  "tests/tests_*.py",
+  "**/*_test.py"
+]
+
+exclude_patterns = [
+  "migrations/**",
+  "tests/project/**"
+]
+
 [[analyzers]]
 name = "python"
 
