@@ -590,7 +590,7 @@ class TestValidatedFileField:
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
             max_upload_file_size=1000000,
         )
-        name, path, args, kwargs = my_field_instance.deconstruct()
+        _name, _path, _args, _kwargs = my_field_instance.deconstruct()
         new_instance = ValidatedFileField(
             libraries=[ALL],
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -607,7 +607,7 @@ class TestValidatedFileField:
         """
         with pytest.raises(MimesEmptyException):
 
-            class TestFileMimeModel(models.Model):
+            class _TestFileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
                     max_upload_file_size=1000000,
@@ -618,7 +618,7 @@ class TestValidatedFileField:
         """
         the test ValidatedFileField library is none
         """
-        my_field_instance = TestFileModelWithoutLibraries(
+        _my_field_instance = TestFileModelWithoutLibraries(
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT["name"],
                 file_path=JPEG_FILE,
@@ -670,7 +670,7 @@ class TestFileSizeValidator:
         """
         with pytest.raises(SizeValidationException):
 
-            class TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
+            class _TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
                 test_file = models.FileField(validators=[FileSizeValidator()])
 
     @staticmethod
@@ -756,7 +756,7 @@ class TestFileValidator:
         """
         with pytest.raises(LibraryNotSupportedException):
 
-            class TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
+            class _TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
                 """
                 Test Model
                 """
@@ -777,7 +777,7 @@ class TestFileValidator:
         """
         with pytest.raises(MimesEmptyException):
 
-            class TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
+            class _TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
                 """
                 Test Model
                 """
