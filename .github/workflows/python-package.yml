@@ -30,10 +30,10 @@ jobs:
         python -m pip install flake8 pytest
         pip install -r requirements_dev.txt
     - name: install magic ubuntu or macos
-      if: matrix.os == ubuntu-latest || matrix.os == macos-latest
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
       run: pip install python-magic==0.4.27
     - name: install magic windows
-      if: matrix.os == windows-latest
+      if: matrix.os == 'windows-latest'
       run: pip install python-magic-bin==0.4.14
     - name: Lint with flake8
       run: |
