@@ -11,7 +11,6 @@ black==21.7b0
 pytest-cov>=3.0.0
 filetype>=1.1.0
 termcolor>=1.1.0
-python-magic>=0.4.27
 Django>=4.1
 mkdocs==1.3.0
 jinja2==3.0.0
@@ -19,4 +18,5 @@ puremagic>=1.14
 humanize>=4.4.0
 python-dotenv>=0.21.0
 pre-commit>=3.1.0
-python-magic-bin>=0.4.14
+# python-magic-bin>=0.4.14 #if run on Windows un-comment the following line
+# python-magic>=0.4.27  # else other platforms un-comment the following line
