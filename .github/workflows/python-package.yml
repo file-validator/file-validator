@@ -29,7 +29,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         pip install -r requirements_dev.txt
-    - name: install python-magic-bin when os is ubuntu
+    - name: install python-magic when os is ubuntu
       if: matrix.os == 'ubuntu-latest'
       run: pip install python-magic==0.4.27
     - name: install python-magic-bin when os is windows
