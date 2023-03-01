@@ -29,11 +29,14 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         pip install -r requirements_dev.txt
-    - name: install magic ubuntu or macos
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+    - name: install python-magic-bin when os is ubuntu
+      if: matrix.os == 'ubuntu-latest'
       run: pip install python-magic==0.4.27
-    - name: install magic windows
+    - name: install python-magic-bin when os is windows
       if: matrix.os == 'windows-latest'
+      run: pip install python-magic-bin==0.4.14
+    - name: install python-magic-bin when os is mac
+      if: matrix.os == 'macos-latest'
       run: pip install python-magic-bin==0.4.14
     - name: Lint with flake8
       run: |
