@@ -161,3 +161,7 @@ sidebar_position: 8
 0.3.0 (2023-02-25)
 ------------------
 *  added file type such `image`, `audio` and `video` to result of validation
+
+0.3.1 (2023-03-02)
+------------------
+*  fixed bug for installation python-magic [reference](https://github.com/file-validator/file-validator/commit/b9a814f0ac93d0da14e8c86720efb65bf5b64b10)
