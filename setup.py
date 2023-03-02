@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """The setup script."""
-import os
+from distutils.util import get_platform
 from setuptools import setup, find_packages
 
 with open("README.md", encoding="utf-8") as readme_file:
@@ -21,8 +21,9 @@ requirements = [
 
 PYTHON_MAGIC = "python-magic==0.4.27"
 PYTHON_MAGIC_BIN = "python-magic-bin==0.4.14"
+OPERATING_SYSTEM_NAME = get_platform()
 
-if os.name == 'nt':
+if OPERATING_SYSTEM_NAME.startswith('win'):
     requirements.append(PYTHON_MAGIC_BIN)
 else:
     requirements.append(PYTHON_MAGIC)
@@ -78,7 +79,7 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/file-validator/file-validator",
-    version="0.3.1",
+    version="0.3.2",
     zip_safe=False,
     project_urls={
         'Documentation': "https://file-validator.github.io/",
