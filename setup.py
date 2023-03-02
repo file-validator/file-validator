@@ -17,7 +17,7 @@ requirements = [
     "python-dotenv==0.21.1",
     "django",
     "python-magic-bin==0.4.14 ; platform_system == 'Windows'",
-    "python-magic==0.4.27 ; platform_system != 'Windows'"
+    "python-magic==0.4.27 ; platform_system != 'Windows'",
 ]
 
 
@@ -28,7 +28,7 @@ test_requirements = [
 setup(
     author="Reza Shakeri",
     author_email="rzashakeri@outlook.com",
-    python_requires=">=3.6",
+    python_requires=">=3.x.x",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -43,7 +43,7 @@ setup(
         "Topic :: Multimedia :: Sound/Audio",
         "Topic :: Multimedia :: Video",
         "Topic :: Security",
-        "Topic :: Software Development :: Libraries"
+        "Topic :: Software Development :: Libraries",
     ],
     description="Python validation library to validate files "
                 "using type, mime, extension, magic numbers and size ✅",
@@ -64,7 +64,7 @@ setup(
         "image_validator",
         "audio_validator",
         "video_validator",
-        "django"
+        "django",
     ],
     name="file_validator",
     packages=find_packages(include=["file_validator", "file_validator.*"]),

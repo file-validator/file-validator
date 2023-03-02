@@ -132,14 +132,14 @@ class TestFileValidatorByPythonMagic:
 
     @staticmethod
     def test_file_validator_by_python_magic_library_when_file_is_valid(
-        jpeg=JPEG_FILE
+        jpeg=JPEG_FILE,
     ):
         """
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_python_magic(
-            JPEG_OBJECT["mime"], file_path=jpeg
+            JPEG_OBJECT["mime"], file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -149,7 +149,7 @@ class TestFileValidatorByPythonMagic:
 
     @staticmethod
     def test_file_validator_by_python_magic_library_when_file_is_not_valid(
-        jpeg=JPEG_FILE
+        jpeg=JPEG_FILE,
     ):
         """
         :param jpeg: It is a fixture for jpeg files
@@ -160,13 +160,13 @@ class TestFileValidatorByPythonMagic:
 
     @mock.patch.dict(os.environ, {"path_magic_file": MAGIC_FILE}, clear=True)
     def test_file_validator_by_python_magic_by_path_magic_file_from_env(
-        self, jpeg=JPEG_FILE
+        self, jpeg=JPEG_FILE,
     ):
         """
         test file_validator_by_python_magic by path_magic file from .env file
         """
         result_of_validation = file_validator_by_python_magic(
-            JPEG_OBJECT["mime"], file_path=jpeg
+            JPEG_OBJECT["mime"], file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -182,14 +182,14 @@ class TestFileValidatorByMimeTypes:
 
     @staticmethod
     def test_file_validator_by_mimetypes_library_when_file_is_valid(
-        jpeg=JPEG_FILE
+        jpeg=JPEG_FILE,
     ):
         """
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_mimetypes(
-            JPEG_OBJECT["mime"], file_path=jpeg
+            JPEG_OBJECT["mime"], file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -199,7 +199,7 @@ class TestFileValidatorByMimeTypes:
 
     @staticmethod
     def test_file_validator_by_mimetypes_library_when_file_is_not_valid(
-        jpeg=JPEG_FILE
+        jpeg=JPEG_FILE,
     ):
         """
         :param jpeg: It is a fixture for jpeg files
@@ -224,14 +224,14 @@ class TestFileValidatorByPureMagic:
 
     @staticmethod
     def test_file_validator_by_pure_magic_library_when_file_is_valid(
-        jpeg=JPEG_FILE
+        jpeg=JPEG_FILE,
     ):
         """
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_pure_magic(
-            JPEG_OBJECT["mime"], file_path=jpeg
+            JPEG_OBJECT["mime"], file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -264,14 +264,14 @@ class TestFileValidatorByFileType:
 
     @staticmethod
     def test_file_validator_by_filetype_library_when_file_is_valid(
-        jpeg=JPEG_FILE
+        jpeg=JPEG_FILE,
     ):
         """
         :param jpeg: It is a fixture for jpeg files
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_filetype(
-            JPEG_OBJECT["mime"], file_path=jpeg
+            JPEG_OBJECT["mime"], file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -281,7 +281,7 @@ class TestFileValidatorByFileType:
 
     @staticmethod
     def test_file_validator_by_filetype_library_when_file_is_not_valid(
-        mp3_file=MP3_FILE
+        mp3_file=MP3_FILE,
     ):
         """
         :param mp3_file: It is a fixture for mp3 files
@@ -312,7 +312,7 @@ class TestValidatedFileFieldForm:
         with open(PNG_FILE, "rb") as file:
             upload_file = file
             file_dict = {
-                "test_file": SimpleUploadedFile(upload_file.name, upload_file.read())
+                "test_file": SimpleUploadedFile(upload_file.name, upload_file.read()),
             }
             form = TestForm({}, file_dict)
             assert form.is_valid()
@@ -537,7 +537,7 @@ class TestfileValidatorByType:
         test for file_validator_by_type when return validation data and file is valid
         """
         result_of_validation = file_validator_by_type(
-            acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE
+            acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["library"] == FILETYPE
@@ -559,7 +559,7 @@ class TestValidatedFileField:
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT["mime"],
-            )
+            ),
         )
 
         new_instance.full_clean()
@@ -574,7 +574,7 @@ class TestValidatedFileField:
                 file_name=JPEG_OBJECT["name"],
                 file_path=JPEG_FILE,
                 file_mime_type=JPEG_OBJECT["mime"],
-            )
+            ),
         )
 
         with pytest.raises(ValidationError):
@@ -623,7 +623,7 @@ class TestValidatedFileField:
                 file_name=JPEG_OBJECT["name"],
                 file_path=JPEG_FILE,
                 file_mime_type=JPEG_OBJECT["mime"],
-            )
+            ),
         )
 
 
@@ -642,7 +642,7 @@ class TestFileSizeValidator:
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT["mime"],
-            )
+            ),
         )
 
         new_instance.full_clean()
@@ -658,7 +658,7 @@ class TestFileSizeValidator:
                     file_name=PNG_OBJECT["name"],
                     file_path=PNG_FILE,
                     file_mime_type=PNG_OBJECT["mime"],
-                )
+                ),
             )
 
             new_instance.full_clean()
@@ -698,7 +698,7 @@ class TestFileValidator:
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT["mime"],
-            )
+            ),
         )
 
         new_instance.full_clean()
@@ -714,7 +714,7 @@ class TestFileValidator:
                     file_name=JPEG_OBJECT["name"],
                     file_path=JPEG_FILE,
                     file_mime_type=JPEG_OBJECT["mime"],
-                )
+                ),
             )
 
             new_instance.full_clean()
@@ -729,7 +729,7 @@ class TestFileValidator:
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT["mime"],
-            )
+            ),
         )
 
         new_instance.full_clean()
@@ -744,7 +744,7 @@ class TestFileValidator:
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT["mime"],
-            )
+            ),
         )
 
         new_instance.full_clean()
@@ -766,8 +766,8 @@ class TestFileValidator:
                         FileValidator(
                             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
                             libraries=[BAD_OBJECT["name"]],
-                        )
-                    ]
+                        ),
+                    ],
                 )
 
     @staticmethod
@@ -790,10 +790,10 @@ class TestFileValidator:
         test eq methode
         """
         file_validator_one = FileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL]
+            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL],
         )
         file_validator_two = FileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL]
+            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL],
         )
         assert file_validator_one == file_validator_two
 

@@ -12,7 +12,7 @@ class TestFileModelForm(forms.ModelForm):
 
 class TestFormWithAcceptAttribute(forms.Form):
     test_file = ValidatedFileField(
-        accept='image/*'
+        accept='image/*',
     )
 
 
@@ -22,7 +22,7 @@ class TestFormWithoutAcceptAttribute(forms.Form):
 
 class TestFormWithCssClassAttribute(forms.Form):
     test_file = ValidatedFileField(
-        custom_css_class='test-class'
+        custom_css_class='test-class',
     )
 
 class TestForm(forms.Form):
@@ -31,5 +31,5 @@ class TestForm(forms.Form):
         # => accept attribute
         custom_css_class='your-custom-css-class',
         # => custom css class
-        multiple=True
+        multiple=True,
     )

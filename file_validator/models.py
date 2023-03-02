@@ -107,7 +107,7 @@ class ValidatedFileField(FileField):
                     if self.max_upload_file_size is not None
                     else 0,
                     current_file_mime=content_type_guessed_by_django,
-                )
+                ),
             ) from error
         setattr(
             data,
@@ -201,7 +201,7 @@ class FileValidator:
                     if self.max_upload_file_size is not None
                     else 0,
                     current_file_mime=content_type_guessed_by_django,
-                )
+                ),
             ) from error
 
     def __eq__(self, other):
@@ -255,7 +255,7 @@ class FileSizeValidator:
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
                     message=FILE_SIZE_IS_NOT_VALID,
-                )
+                ),
             ) from error
 
     def __eq__(self, other):

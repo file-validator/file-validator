@@ -10,7 +10,7 @@ class TestFileModel(models.Model):
     test_file = ValidatedFileField(
         libraries=["all"],
         acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
-        max_upload_file_size=1000000
+        max_upload_file_size=1000000,
     )
 
 
@@ -27,9 +27,9 @@ class TestFileModelWithFileValidator(models.Model):
             FileValidator(
                 libraries=[PYTHON_MAGIC],
                 acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
-                max_upload_file_size=10485760
-            )
-        ]
+                max_upload_file_size=10485760,
+            ),
+        ],
     )
 
 
@@ -37,9 +37,9 @@ class TestFileModelWithFileSizeValidator(models.Model):
     test_file = models.FileField(
         validators=[
             FileSizeValidator(
-                max_upload_file_size=10485760
-            )
-        ]
+                max_upload_file_size=10485760,
+            ),
+        ],
     )
 
 
@@ -49,8 +49,8 @@ class TestFileModelWithFileValidatorSizeIsNone(models.Model):
             FileValidator(
                 libraries=[ALL],
                 acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
-            )
-        ]
+            ),
+        ],
     )
 
 
@@ -59,8 +59,8 @@ class TestFileModelWithFileValidatorLibraryIsNone(models.Model):
         validators=[
             FileValidator(
                 acceptable_mimes=[PNG_OBJECT['mime'], MP3_OBJECT['mime']],
-            )
-        ]
+            ),
+        ],
     )
 
 
@@ -68,7 +68,7 @@ class TestFileModelWithFileSizeValidatorNotValidSize(models.Model):
     test_file = models.FileField(
         validators=[
             FileSizeValidator(
-                max_upload_file_size=100
-            )
-        ]
+                max_upload_file_size=100,
+            ),
+        ],
     )
