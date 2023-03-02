@@ -164,4 +164,8 @@ sidebar_position: 8
 
 0.3.1 (2023-03-02)
 ------------------
-*  fixed bug for installation python-magic [reference](https://github.com/file-validator/file-validator/commit/b9a814f0ac93d0da14e8c86720efb65bf5b64b10)
+*  fixed minor bug
+
+0.3.2 (2023-03-02)
+------------------
+*  fixed bug for installation python-magic [reference](https://github.com/file-validator/file-validator/pull/69)
