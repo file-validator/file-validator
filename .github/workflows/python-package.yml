@@ -27,6 +27,9 @@ jobs:
     - name: upgrade pip in windows
       if: matrix.os == 'windows-latest'
       run: python.exe -m pip install -r requirements_dev.txt
+    - name: upgrade pip in ubuntu and macos
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+      run: python -m pip install -r requirements_dev.txt
     - name: install flake8 pytest
       run: python -m pip install flake8 pytest
     - name: install requirements
