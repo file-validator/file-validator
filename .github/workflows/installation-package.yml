@@ -30,4 +30,3 @@ jobs:
     - name: installation file-validator in macos and ubuntu
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
       run: python -m pip install file-validator
-
