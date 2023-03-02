@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """The setup script."""
-import sys
+import os
 from setuptools import setup, find_packages
 
 with open("README.md", encoding="utf-8") as readme_file:
@@ -22,7 +22,7 @@ requirements = [
 PYTHON_MAGIC = "python-magic==0.4.27"
 PYTHON_MAGIC_BIN = "python-magic-bin==0.4.14"
 
-if sys.platform.startswith('win32'):
+if os.name == 'nt':
     requirements.append(PYTHON_MAGIC_BIN)
 else:
     requirements.append(PYTHON_MAGIC)
