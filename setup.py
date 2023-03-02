@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """The setup script."""
-import platform
+import sys
 from setuptools import setup, find_packages
 
 with open("README.md", encoding="utf-8") as readme_file:
@@ -21,9 +21,8 @@ requirements = [
 
 PYTHON_MAGIC = "python-magic==0.4.27"
 PYTHON_MAGIC_BIN = "python-magic-bin==0.4.14"
-OS_NAME = platform.system()
 
-if OS_NAME == 'Windows':
+if sys.platform.startswith('win32'):
     requirements.append(PYTHON_MAGIC_BIN)
 else:
     requirements.append(PYTHON_MAGIC)
@@ -45,6 +44,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: Django",
         "Topic :: Multimedia",
         "Topic :: Multimedia :: Sound/Audio",
@@ -52,7 +52,8 @@ setup(
         "Topic :: Security",
         "Topic :: Software Development :: Libraries"
     ],
-    description="library for validating files in Python",
+    description="Python validation library to validate files "
+                "using type, mime, extension, magic numbers and size ✅",
     entry_points={
         "console_scripts": [
             "file_validator=file_validator.cli:main",
