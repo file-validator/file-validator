@@ -164,4 +164,4 @@ sidebar_position: 8
 
 0.3.1, 0.3.2, 0.3.3 (2023-03-02)
 ------------------
-*  fixed bug for installation python-magic
+*  fixed bug for installation python-magic [#71](https://github.com/file-validator/file-validator/pull/71)
