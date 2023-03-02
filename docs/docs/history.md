@@ -162,10 +162,6 @@ sidebar_position: 8
 ------------------
 *  added file type such `image`, `audio` and `video` to result of validation
 
-0.3.1 (2023-03-02)
+0.3.1, 0.3.2, 0.3.3 (2023-03-02)
 ------------------
-*  fixed minor bug
-
-0.3.2 (2023-03-02)
-------------------
-*  fixed bug for installation python-magic [reference](https://github.com/file-validator/file-validator/pull/69)
+*  fixed bug for installation python-magic
