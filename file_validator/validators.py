@@ -227,12 +227,14 @@ def file_validator(acceptable_mimes: list, file_path: str):
     validation_data.update({MIMETYPES: validation_data_mimetypes})
 
     validation_data_pure_magic = file_validator_by_pure_magic(
-        acceptable_mimes, file_path,
+        acceptable_mimes,
+        file_path,
     )
     validation_data.update({PURE_MAGIC: validation_data_pure_magic})
 
     validation_data_python_magic = file_validator_by_python_magic(
-        acceptable_mimes, file_path,
+        acceptable_mimes,
+        file_path,
     )
     validation_data.update({PYTHON_MAGIC: validation_data_python_magic})
 
@@ -297,13 +299,15 @@ def file_validator_by_django(
 
         if library == ALL:
             result_of_validation = file_validator(
-                acceptable_mimes=acceptable_mimes, file_path=file_path,
+                acceptable_mimes=acceptable_mimes,
+                file_path=file_path,
             )
             validation_data.update({ALL: result_of_validation})
 
         elif library == PYTHON_MAGIC:
             result_of_validation_with_python_magic = file_validator_by_python_magic(
-                acceptable_mimes=acceptable_mimes, file_path=file_path,
+                acceptable_mimes=acceptable_mimes,
+                file_path=file_path,
             )
             validation_data.update(
                 {PYTHON_MAGIC: result_of_validation_with_python_magic},
@@ -311,19 +315,22 @@ def file_validator_by_django(
 
         elif library == PURE_MAGIC:
             result_of_validation_with_pure_magic = file_validator_by_pure_magic(
-                acceptable_mimes=acceptable_mimes, file_path=file_path,
+                acceptable_mimes=acceptable_mimes,
+                file_path=file_path,
             )
             validation_data.update({PURE_MAGIC: result_of_validation_with_pure_magic})
 
         elif library == FILETYPE:
             result_of_validation_with_filetype = file_validator_by_filetype(
-                acceptable_mimes=acceptable_mimes, file_path=file_path,
+                acceptable_mimes=acceptable_mimes,
+                file_path=file_path,
             )
             validation_data.update({FILETYPE: result_of_validation_with_filetype})
 
         elif library == MIMETYPES:
             result_of_validation_with_mimetypes = file_validator_by_mimetypes(
-                acceptable_mimes=acceptable_mimes, file_path=file_path,
+                acceptable_mimes=acceptable_mimes,
+                file_path=file_path,
             )
             validation_data.update({MIMETYPES: result_of_validation_with_mimetypes})
 

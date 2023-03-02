@@ -36,7 +36,8 @@ def is_library_supported(library: str):
     """
     if library not in ALL_SUPPORTED_LIBRARIES:
         message = LIBRARY_IS_NOT_SUPPORTED.format(
-            library=library, libraries=ALL_SUPPORTED_LIBRARIES,
+            library=library,
+            libraries=ALL_SUPPORTED_LIBRARIES,
         )
         raise LibraryNotSupportedException(colored(message, "red"))
 

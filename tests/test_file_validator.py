@@ -114,7 +114,6 @@ class TestGenerateInformationAboutFile:
         test generates information about file when parameters are none
         """
         with pytest.raises(KeyError):
-
             result = generate_information_about_file()
 
             assert result["status"] is None
@@ -139,7 +138,8 @@ class TestFileValidatorByPythonMagic:
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_python_magic(
-            JPEG_OBJECT["mime"], file_path=jpeg,
+            JPEG_OBJECT["mime"],
+            file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -160,13 +160,15 @@ class TestFileValidatorByPythonMagic:
 
     @mock.patch.dict(os.environ, {"path_magic_file": MAGIC_FILE}, clear=True)
     def test_file_validator_by_python_magic_by_path_magic_file_from_env(
-        self, jpeg=JPEG_FILE,
+        self,
+        jpeg=JPEG_FILE,
     ):
         """
         test file_validator_by_python_magic by path_magic file from .env file
         """
         result_of_validation = file_validator_by_python_magic(
-            JPEG_OBJECT["mime"], file_path=jpeg,
+            JPEG_OBJECT["mime"],
+            file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -189,7 +191,8 @@ class TestFileValidatorByMimeTypes:
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_mimetypes(
-            JPEG_OBJECT["mime"], file_path=jpeg,
+            JPEG_OBJECT["mime"],
+            file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -231,7 +234,8 @@ class TestFileValidatorByPureMagic:
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_pure_magic(
-            JPEG_OBJECT["mime"], file_path=jpeg,
+            JPEG_OBJECT["mime"],
+            file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -271,7 +275,8 @@ class TestFileValidatorByFileType:
         :return: The result we expect to return is None, which means that everything is OK
         """
         result_of_validation = file_validator_by_filetype(
-            JPEG_OBJECT["mime"], file_path=jpeg,
+            JPEG_OBJECT["mime"],
+            file_path=jpeg,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
@@ -537,7 +542,8 @@ class TestfileValidatorByType:
         test for file_validator_by_type when return validation data and file is valid
         """
         result_of_validation = file_validator_by_type(
-            acceptable_types=[IMAGE, AUDIO], file_path=PNG_FILE,
+            acceptable_types=[IMAGE, AUDIO],
+            file_path=PNG_FILE,
         )
         assert result_of_validation["status"] == OK
         assert result_of_validation["library"] == FILETYPE
@@ -790,10 +796,12 @@ class TestFileValidator:
         test eq methode
         """
         file_validator_one = FileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL],
+            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            libraries=[ALL],
         )
         file_validator_two = FileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]], libraries=[ALL],
+            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            libraries=[ALL],
         )
         assert file_validator_one == file_validator_two
 
