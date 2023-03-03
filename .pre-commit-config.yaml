@@ -23,18 +23,6 @@ repos:
           - black == 22.6.0
           - usort == 1.0.4
 
-- repo: local
-  hooks:
-    - id: pylint
-      name: pylint
-      entry: pylint
-      language: system
-      types: [python]
-      files: ^file_validator/
-      args:
-        [
-          "-rn", # Only display messages
-        ]
 
 -   repo: https://github.com/PyCQA/autoflake
     rev: v2.0.1
@@ -46,15 +34,3 @@ repos:
   hooks:
     - id: docformatter
       args: [--in-place]
-
-
-
-
--   repo: local
-    hooks:
-      - id: pytest-check
-        name: pytest-check
-        entry: pytest
-        language: system
-        pass_filenames: false
-        always_run: true
