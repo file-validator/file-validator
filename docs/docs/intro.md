@@ -12,6 +12,7 @@ sidebar_position: 1
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/file-validator/file-validator/master.svg)](https://results.pre-commit.ci/latest/github/file-validator/file-validator/master)
+[![DeepSource](https://deepsource.io/gh/file-validator/file-validator.svg/?label=resolved+issues&show_trend=true&token=0lNzvy0mQJqkT_aLu8BKzEXs)](https://deepsource.io/gh/file-validator/file-validator/?ref=repository-badge)
 [![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
 [![black](https://github.com/file-validator/file-validator/actions/workflows/black.yml/badge.svg?branch=master)](https://github.com/file-validator/file-validator/actions/workflows/black.yml)
 [![docs](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml)
