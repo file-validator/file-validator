@@ -34,10 +34,10 @@ from file_validator.constants import (
     TYPE_NOT_SUPPORTED,
 )
 from file_validator.exceptions import (
+    error_message,
     FileValidationException,
     SizeValidationException,
     TypeNotSupportedException,
-    error_message,
 )
 from file_validator.utils import (
     generate_information_about_file,

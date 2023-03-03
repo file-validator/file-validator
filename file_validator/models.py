@@ -19,10 +19,10 @@ from file_validator.constants import (
     SELECTING_ALL_SUPPORTED_LIBRARIES,
 )
 from file_validator.exceptions import (
+    error_message,
     FileValidationException,
     MimesEmptyException,
     SizeValidationException,
-    error_message,
 )
 from file_validator.utils import all_mimes_is_equal, is_library_supported
 from file_validator.validators import file_validator_by_django, size_validator

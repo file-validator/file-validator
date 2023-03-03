@@ -25,12 +25,12 @@ from file_validator.constants import (
     VIDEO,
 )
 from file_validator.exceptions import (
+    error_message,
     FileValidationException,
     LibraryNotSupportedException,
     MimesEmptyException,
     SizeValidationException,
     TypeNotSupportedException,
-    error_message,
 )
 from file_validator.models import FileSizeValidator, FileValidator, ValidatedFileField
 from file_validator.utils import (
@@ -48,10 +48,12 @@ from file_validator.validators import (
     file_validator_by_type,
     size_validator,
 )
+
 from tests.fixtures import (
     BAD_FILE,
     BAD_OBJECT,
     EXPECTED_MESSAGE,
+    get_tmp_file,
     JPEG_FILE,
     JPEG_OBJECT,
     MAGIC_FILE,
@@ -64,7 +66,6 @@ from tests.fixtures import (
     TEST_LIBRARY,
     TTF_FILE,
     ZIP_FILE,
-    get_tmp_file,
 )
 from tests.project.app.forms import (
     TestForm,

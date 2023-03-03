@@ -15,15 +15,13 @@ repos:
     hooks:
     -   id: add-trailing-comma
 
--   repo: https://github.com/psf/black
-    rev: 23.1.0
+-   repo: https://github.com/omnilib/ufmt
+    rev: v2.0.0
     hooks:
-      - id: black
-        # It is recommended to specify the latest version of Python
-        # supported by your project here, or alternatively use
-        # pre-commit's default_language_version, see
-        # https://pre-commit.com/#top_level-default_language_version
-        language_version: python3.8
+      - id: ufmt
+        additional_dependencies:
+          - black == 22.6.0
+          - usort == 1.0.4
 
 - repo: local
   hooks:
