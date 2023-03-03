@@ -1,9 +1,8 @@
 from django.db import models
 
 from file_validator.constants import ALL, PYTHON_MAGIC
-from file_validator.models import ValidatedFileField, FileSizeValidator
-from file_validator.models import FileValidator
-from tests.fixtures import PNG_OBJECT, MP3_OBJECT
+from file_validator.models import FileSizeValidator, FileValidator, ValidatedFileField
+from tests.fixtures import MP3_OBJECT, PNG_OBJECT
 
 
 class TestFileModel(models.Model):

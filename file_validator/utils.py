@@ -3,17 +3,17 @@ utils for file validator
 """
 from itertools import groupby
 
-from filetype import is_video, is_image, is_audio, is_font, is_archive
+from filetype import is_archive, is_audio, is_font, is_image, is_video
 from termcolor import colored
 
 from file_validator.constants import (
     ALL_SUPPORTED_LIBRARIES,
-    LIBRARY_IS_NOT_SUPPORTED,
-    VIDEO,
-    IMAGE,
-    FONT,
     ARCHIVE,
     AUDIO,
+    FONT,
+    IMAGE,
+    LIBRARY_IS_NOT_SUPPORTED,
+    VIDEO,
 )
 from file_validator.exceptions import LibraryNotSupportedException
 

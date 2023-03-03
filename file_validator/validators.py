@@ -6,42 +6,43 @@ on mimes, extensions, and magic numbers; The termcolor
 library is also used to color the error messages
 """
 
-from mimetypes import guess_type
 import os
 import platform
+from mimetypes import guess_type
 from pathlib import Path
+
 import magic
 import puremagic
+from dotenv import load_dotenv
 from filetype import guess
 from humanize import naturalsize
 from puremagic import PureError
 from termcolor import colored
-from dotenv import load_dotenv
 
-from file_validator.exceptions import (
-    error_message,
-    FileValidationException,
-    SizeValidationException,
-    TypeNotSupportedException,
-)
 from file_validator.constants import (
-    PYTHON_MAGIC,
-    PURE_MAGIC,
+    ALL,
+    DEFAULT,
+    FILE_SIZE_IS_NOT_VALID,
     FILETYPE,
     MIME_NOT_VALID,
-    MIMETYPES,
-    FILE_SIZE_IS_NOT_VALID,
     MIME_NOT_VALID_WITH_MIME_NAME,
-    ALL,
+    MIMETYPES,
     OK,
-    DEFAULT,
+    PURE_MAGIC,
+    PYTHON_MAGIC,
     SUPPORTED_TYPES,
     TYPE_NOT_SUPPORTED,
 )
+from file_validator.exceptions import (
+    FileValidationException,
+    SizeValidationException,
+    TypeNotSupportedException,
+    error_message,
+)
 from file_validator.utils import (
-    is_library_supported,
     generate_information_about_file,
     guess_the_type,
+    is_library_supported,
 )
 
 

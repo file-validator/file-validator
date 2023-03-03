@@ -5,27 +5,27 @@ and native libraries such as (mimetypes), and there is a method to perform
 validation operations using all three libraries It is called safe mode
 """
 
-from django.db.models import FileField
-from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import TemporaryUploadedFile
+from django.db.models import FileField
 from django.utils.deconstruct import deconstructible
-from termcolor import colored
 from humanize import naturalsize
+from termcolor import colored
 
+from file_validator.constants import (
+    FILE_SIZE_IS_NOT_VALID,
+    MAX_UPLOAD_SIZE_IS_EMPTY,
+    MIMES_EMPTY,
+    SELECTING_ALL_SUPPORTED_LIBRARIES,
+)
 from file_validator.exceptions import (
-    error_message,
     FileValidationException,
     MimesEmptyException,
     SizeValidationException,
+    error_message,
 )
 from file_validator.utils import all_mimes_is_equal, is_library_supported
-from file_validator.validators import size_validator, file_validator_by_django
-from file_validator.constants import (
-    MIMES_EMPTY,
-    SELECTING_ALL_SUPPORTED_LIBRARIES,
-    MAX_UPLOAD_SIZE_IS_EMPTY,
-    FILE_SIZE_IS_NOT_VALID,
-)
+from file_validator.validators import file_validator_by_django, size_validator
 
 
 class ValidatedFileField(FileField):
