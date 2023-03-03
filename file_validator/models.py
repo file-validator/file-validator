@@ -1,17 +1,24 @@
-"""
-In this module, there are file validators and field for Django.
-and it is made using external libraries such as (filetype, python-magic, pure_magic, mimetypes)
-and native libraries such as (mimetypes), and there is a method to perform
-validation operations using all three libraries It is called safe mode
+"""In this module, there are file validators and field for Django.
+
+and it is made using external libraries such as (filetype, python-magic,
+pure_magic, mimetypes) and native libraries such as (mimetypes), and
+there is a method to perform validation operations using all three
+libraries It is called safe mode
 """
 
-from django.db.models import FileField
-from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import TemporaryUploadedFile
+from django.db.models import FileField
 from django.utils.deconstruct import deconstructible
-from termcolor import colored
 from humanize import naturalsize
+from termcolor import colored
 
+from file_validator.constants import (
+    FILE_SIZE_IS_NOT_VALID,
+    MAX_UPLOAD_SIZE_IS_EMPTY,
+    MIMES_EMPTY,
+    SELECTING_ALL_SUPPORTED_LIBRARIES,
+)
 from file_validator.exceptions import (
     error_message,
     FileValidationException,
@@ -19,13 +26,7 @@ from file_validator.exceptions import (
     SizeValidationException,
 )
 from file_validator.utils import all_mimes_is_equal, is_library_supported
-from file_validator.validators import size_validator, file_validator_by_django
-from file_validator.constants import (
-    MIMES_EMPTY,
-    SELECTING_ALL_SUPPORTED_LIBRARIES,
-    MAX_UPLOAD_SIZE_IS_EMPTY,
-    FILE_SIZE_IS_NOT_VALID,
-)
+from file_validator.validators import file_validator_by_django, size_validator
 
 
 class ValidatedFileField(FileField):
@@ -107,7 +108,7 @@ class ValidatedFileField(FileField):
                     if self.max_upload_file_size is not None
                     else 0,
                     current_file_mime=content_type_guessed_by_django,
-                )
+                ),
             ) from error
         setattr(
             data,
@@ -123,9 +124,7 @@ class ValidatedFileField(FileField):
 
 @deconstructible
 class FileValidator:
-    """
-    file validator for django
-    """
+    """file validator for django."""
 
     def __init__(
         self,
@@ -201,7 +200,7 @@ class FileValidator:
                     if self.max_upload_file_size is not None
                     else 0,
                     current_file_mime=content_type_guessed_by_django,
-                )
+                ),
             ) from error
 
     def __eq__(self, other):
@@ -218,9 +217,7 @@ class FileValidator:
 
 @deconstructible
 class FileSizeValidator:
-    """
-    size validator for django
-    """
+    """size validator for django."""
 
     def __init__(
         self,
@@ -255,7 +252,7 @@ class FileSizeValidator:
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
                     message=FILE_SIZE_IS_NOT_VALID,
-                )
+                ),
             ) from error
 
     def __eq__(self, other):

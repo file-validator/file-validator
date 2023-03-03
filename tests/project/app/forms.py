@@ -7,12 +7,12 @@ from tests.project.app.models import TestFileModel
 class TestFileModelForm(forms.ModelForm):
     class Meta:
         model = TestFileModel
-        fields = ['test_file']
+        fields = ["test_file"]
 
 
 class TestFormWithAcceptAttribute(forms.Form):
     test_file = ValidatedFileField(
-        accept='image/*'
+        accept="image/*",
     )
 
 
@@ -22,14 +22,15 @@ class TestFormWithoutAcceptAttribute(forms.Form):
 
 class TestFormWithCssClassAttribute(forms.Form):
     test_file = ValidatedFileField(
-        custom_css_class='test-class'
+        custom_css_class="test-class",
     )
+
 
 class TestForm(forms.Form):
     test_file = ValidatedFileField(
-        accept='image/*',
+        accept="image/*",
         # => accept attribute
-        custom_css_class='your-custom-css-class',
+        custom_css_class="your-custom-css-class",
         # => custom css class
-        multiple=True
+        multiple=True,
     )

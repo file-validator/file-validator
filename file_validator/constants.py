@@ -1,6 +1,4 @@
-"""
-In this module, the constants used at the library level are defined
-"""
+"""In this module, the constants used at the library level are defined."""
 
 PYTHON_MAGIC: str = "python_magic"
 PURE_MAGIC: str = "pure_magic"

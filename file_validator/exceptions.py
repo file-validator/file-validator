@@ -1,8 +1,7 @@
-"""
-This file is for customizing errors and anything related to errors
-"""
+"""This file is for customizing errors and anything related to errors."""
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+
 from file_validator.constants import DEFAULT_ERROR_MESSAGE, DEFAULT_FILE_NAME
 
 try:
@@ -13,30 +12,28 @@ except (AttributeError, ImproperlyConfigured):
 
 
 class FileValidationException(Exception):
-    """Raised when file is not valid"""
+    """Raised when file is not valid."""
 
 
 class SizeValidationException(Exception):
-    """Raised when file size is not valid"""
+    """Raised when file size is not valid."""
 
 
 class DjangoFileValidationException(Exception):
-    """Raised when file validation operation for django fails"""
+    """Raised when file validation operation for django fails."""
 
 
 class LibraryNotSupportedException(Exception):
-    """Raised when a library is not supported"""
+    """Raised when a library is not supported."""
 
 
 class MimesEmptyException(Exception):
-    """Raised when the mime list is empty"""
+    """Raised when the mime list is empty."""
 
 
 class TypeNotSupportedException(Exception):
-    """
-    Raised when the type not supported,
-    supported types: image, audio, video, archive, font
-    """
+    """Raised when the type not supported, supported types: image, audio,
+    video, archive, font."""
 
 
 def error_message(
