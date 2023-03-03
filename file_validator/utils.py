@@ -1,6 +1,4 @@
-"""
-utils for file validator
-"""
+"""utils for file validator."""
 from itertools import groupby
 
 from filetype import is_archive, is_audio, is_font, is_image, is_video
@@ -19,10 +17,8 @@ from file_validator.exceptions import LibraryNotSupportedException
 
 
 def all_mimes_is_equal(mimes):
-    """
-    Returns True if all the mimes are equal to each other
-    if the length of mimes is one returned false
-    """
+    """Returns True if all the mimes are equal to each other if the length of
+    mimes is one returned false."""
     if len(mimes) == 1:
         return False
     group = groupby(mimes)
@@ -30,8 +26,9 @@ def all_mimes_is_equal(mimes):
 
 
 def is_library_supported(library: str):
-    """
-    If we do not support the library you choose, a LibraryNotSupporteexception error is thrown.
+    """If we do not support the library you choose, a
+    LibraryNotSupporteexception error is thrown.
+
     supported libraries: python magic, pure magic, filetype, mimetypes
     """
     if library not in ALL_SUPPORTED_LIBRARIES:
@@ -50,9 +47,7 @@ def generate_information_about_file(
     file_mime=None,
     **kwargs
 ) -> dict:
-    """
-    generates information about file validated
-    """
+    """generates information about file validated."""
     result = {}
     file_type = kwargs.get("file_type")
     if status is not None:
@@ -72,10 +67,8 @@ def generate_information_about_file(
 
 
 def guess_the_type(file_path: str):
-    """
-    This function is used to guess the overall type of file such image,
-        audio, video, font and archive
-    """
+    """This function is used to guess the overall type of file such image,
+    audio, video, font and archive."""
     if is_video(file_path):
         return VIDEO
     if is_image(file_path):

@@ -1,6 +1,4 @@
-"""
-This file is related to fixtures and constants required for tests
-"""
+"""This file is related to fixtures and constants required for tests."""
 import os
 
 from django.core.files.uploadedfile import TemporaryUploadedFile

@@ -1,10 +1,7 @@
-"""
-In this module, there is a file validator for python,
-and it uses different libraries such as filetype,
-python-magic, mimetypes, and files are validated based
-on mimes, extensions, and magic numbers; The termcolor
-library is also used to color the error messages
-"""
+"""In this module, there is a file validator for python, and it uses different
+libraries such as filetype, python-magic, mimetypes, and files are validated
+based on mimes, extensions, and magic numbers; The termcolor library is also
+used to color the error messages."""
 
 import os
 import platform
@@ -183,9 +180,9 @@ def file_validator_by_filetype(acceptable_mimes: list, file_path: str):
 
 
 def file_validator_by_type(acceptable_types: list, file_path: str):
-    """
-    file validator for validation of the overall type of files
-        such image, audio, video, archive, font
+    """file validator for validation of the overall type of files such image,
+    audio, video, archive, font.
+
     :type acceptable_types: list
     :param acceptable_types: acceptable types of file such image, video, audio, archive, font
     :type file_path: string

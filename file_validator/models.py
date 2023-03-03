@@ -1,8 +1,9 @@
-"""
-In this module, there are file validators and field for Django.
-and it is made using external libraries such as (filetype, python-magic, pure_magic, mimetypes)
-and native libraries such as (mimetypes), and there is a method to perform
-validation operations using all three libraries It is called safe mode
+"""In this module, there are file validators and field for Django.
+
+and it is made using external libraries such as (filetype, python-magic,
+pure_magic, mimetypes) and native libraries such as (mimetypes), and
+there is a method to perform validation operations using all three
+libraries It is called safe mode
 """
 
 from django.core.exceptions import ValidationError
@@ -123,9 +124,7 @@ class ValidatedFileField(FileField):
 
 @deconstructible
 class FileValidator:
-    """
-    file validator for django
-    """
+    """file validator for django."""
 
     def __init__(
         self,
@@ -218,9 +217,7 @@ class FileValidator:
 
 @deconstructible
 class FileSizeValidator:
-    """
-    size validator for django
-    """
+    """size validator for django."""
 
     def __init__(
         self,

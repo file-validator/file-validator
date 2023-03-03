@@ -1,6 +1,4 @@
-"""
-This module is related to tests
-"""
+"""This module is related to tests."""
 import os
 from unittest import mock
 
@@ -84,15 +82,11 @@ from tests.project.app.models import (
 
 
 class TestGenerateInformationAboutFile:
-    """
-    test for generate_information_about_file function in utils.py
-    """
+    """test for generate_information_about_file function in utils.py."""
 
     @staticmethod
     def test_generate_information_about_file_when_parameters_is_fill():
-        """
-        test generates information about file when parameters are fill
-        """
+        """test generates information about file when parameters are fill."""
         result = generate_information_about_file(
             status=OK,
             library=FILETYPE,
@@ -111,9 +105,7 @@ class TestGenerateInformationAboutFile:
 
     @staticmethod
     def test_generate_information_about_file_when_parameters_is_none():
-        """
-        test generates information about file when parameters are none
-        """
+        """test generates information about file when parameters are none."""
         with pytest.raises(KeyError):
             result = generate_information_about_file()
 
@@ -126,9 +118,8 @@ class TestGenerateInformationAboutFile:
 
 
 class TestFileValidatorByPythonMagic:
-    """
-    These tests are for file validators that are made using the python-magic library
-    """
+    """These tests are for file validators that are made using the python-magic
+    library."""
 
     @staticmethod
     def test_file_validator_by_python_magic_library_when_file_is_valid(
@@ -164,9 +155,8 @@ class TestFileValidatorByPythonMagic:
         self,
         jpeg=JPEG_FILE,
     ):
-        """
-        test file_validator_by_python_magic by path_magic file from .env file
-        """
+        """test file_validator_by_python_magic by path_magic file from .env
+        file."""
         result_of_validation = file_validator_by_python_magic(
             JPEG_OBJECT["mime"],
             file_path=jpeg,
@@ -179,9 +169,8 @@ class TestFileValidatorByPythonMagic:
 
 
 class TestFileValidatorByMimeTypes:
-    """
-    These tests are for file validators that are made using the mimetypes library
-    """
+    """These tests are for file validators that are made using the mimetypes
+    library."""
 
     @staticmethod
     def test_file_validator_by_mimetypes_library_when_file_is_valid(
@@ -222,9 +211,8 @@ class TestFileValidatorByMimeTypes:
 
 
 class TestFileValidatorByPureMagic:
-    """
-    These tests are for file validators that are made using the filetype library
-    """
+    """These tests are for file validators that are made using the filetype
+    library."""
 
     @staticmethod
     def test_file_validator_by_pure_magic_library_when_file_is_valid(
@@ -263,9 +251,8 @@ class TestFileValidatorByPureMagic:
 
 
 class TestFileValidatorByFileType:
-    """
-    These tests are for file validators that are made using the filetype library
-    """
+    """These tests are for file validators that are made using the filetype
+    library."""
 
     @staticmethod
     def test_file_validator_by_filetype_library_when_file_is_valid(
@@ -306,15 +293,11 @@ class TestFileValidatorByFileType:
 
 
 class TestValidatedFileFieldForm:
-    """
-    test for ValidatedFileField Forms
-    """
+    """test for ValidatedFileField Forms."""
 
     @staticmethod
     def test_accept_attribute_in_form():
-        """
-        test accept attribute in form
-        """
+        """test accept attribute in form."""
         with open(PNG_FILE, "rb") as file:
             upload_file = file
             file_dict = {
@@ -327,25 +310,19 @@ class TestValidatedFileFieldForm:
 
     @staticmethod
     def test_accept_attribute_is_none_in_form():
-        """
-        test accept attribute is none in form
-        """
+        """test accept attribute is none in form."""
         form = TestFormWithoutAcceptAttribute()
         assert form.fields["test_file"].accept is None
 
     @staticmethod
     def test_css_class_attribute_in_form():
-        """
-        test css class attribute in form
-        """
+        """test css class attribute in form."""
         form = TestFormWithCssClassAttribute()
         assert form.fields["test_file"].custom_css_class == "test-class"
 
 
 class TestFileValidatorByDjango:
-    """
-    These tests are for file validators django
-    """
+    """These tests are for file validators django."""
 
     @staticmethod
     def test_file_validator_by_django_when_library_is_default_library_and_not_valid_file():
@@ -363,9 +340,8 @@ class TestFileValidatorByDjango:
 
     @staticmethod
     def test_when_library_is_not_supported_raise_library_not_supported_exception():
-        """
-        test when the library is not supported raised LibraryNotSupportedException
-        """
+        """test when the library is not supported raised
+        LibraryNotSupportedException."""
         with pytest.raises(LibraryNotSupportedException):
             file_validator_by_django(
                 content_type_guessed_by_django=MP3_OBJECT["mime"],
@@ -376,9 +352,8 @@ class TestFileValidatorByDjango:
 
     @staticmethod
     def test_django_file_validator_when_library_is_python_magic_library():
-        """
-        test django file validator when the library is python magic libraries
-        """
+        """test django file validator when the library is python magic
+        libraries."""
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
@@ -394,9 +369,7 @@ class TestFileValidatorByDjango:
 
     @staticmethod
     def test_django_file_validator_when_library_is_pure_magic_library():
-        """
-        test django file validator when library is pure magic library
-        """
+        """test django file validator when library is pure magic library."""
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
@@ -412,9 +385,8 @@ class TestFileValidatorByDjango:
 
     @staticmethod
     def test_django_file_validator_when_library_is_file_type_library():
-        """
-        test django file validator when the library is file type libraries
-        """
+        """test django file validator when the library is file type
+        libraries."""
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
@@ -451,9 +423,8 @@ class TestFileValidatorByDjango:
 
     @staticmethod
     def test_django_file_validator_when_library_is_default_library():
-        """
-        test django file validator when the library is the default library
-        """
+        """test django file validator when the library is the default
+        library."""
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[MP3_OBJECT["mime"], JPEG_OBJECT["mime"]],
@@ -469,9 +440,7 @@ class TestFileValidatorByDjango:
 
     @staticmethod
     def test_django_file_validator_when_selected_all_library():
-        """
-        test django file validator when selected all libraries
-        """
+        """test django file validator when selected all libraries."""
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=JPEG_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
@@ -517,31 +486,25 @@ class TestFileValidatorByDjango:
 
 
 class TestfileValidatorByType:
-    """
-    tests for file_validator_by_type function
-    """
+    """tests for file_validator_by_type function."""
 
     @staticmethod
     def test_file_validator_by_type_when_type_is_not_supported():
-        """
-        test for file_validator_by_type when type is not supported
-        """
+        """test for file_validator_by_type when type is not supported."""
         with pytest.raises(TypeNotSupportedException):
             file_validator_by_type(acceptable_types=["test_type"], file_path=PNG_FILE)
 
     @staticmethod
     def test_file_validator_by_type_when_return_file_validation_exception():
-        """
-        test for file_validator_by_type when return file validation exception
-        """
+        """test for file_validator_by_type when return file validation
+        exception."""
         with pytest.raises(FileValidationException):
             file_validator_by_type(acceptable_types=[VIDEO, AUDIO], file_path=PNG_FILE)
 
     @staticmethod
     def test_file_validator_by_type_when_return_validation_data_and_file_is_valid():
-        """
-        test for file_validator_by_type when return validation data and file is valid
-        """
+        """test for file_validator_by_type when return validation data and file
+        is valid."""
         result_of_validation = file_validator_by_type(
             acceptable_types=[IMAGE, AUDIO],
             file_path=PNG_FILE,
@@ -552,15 +515,11 @@ class TestfileValidatorByType:
 
 
 class TestValidatedFileField:
-    """
-    tests for ValidatedFileField
-    """
+    """tests for ValidatedFileField."""
 
     @staticmethod
     def test_when_file_is_valid_and_return_none():
-        """
-        test ValidatedFileField when file is valid and return none
-        """
+        """test ValidatedFileField when file is valid and return none."""
         new_instance = TestFileModel(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -573,9 +532,8 @@ class TestValidatedFileField:
 
     @staticmethod
     def test_when_file_is_not_valid_and_raise_validation_error():
-        """
-        test ValidatedFileField when file is not valid and raise validation error
-        """
+        """test ValidatedFileField when file is not valid and raise validation
+        error."""
         new_instance = TestFileModel(
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT["name"],
@@ -589,9 +547,7 @@ class TestValidatedFileField:
 
     @staticmethod
     def test_deconstruct_method():
-        """
-        test deconstruct method
-        """
+        """test deconstruct method."""
         my_field_instance = ValidatedFileField(
             libraries=[ALL],
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -609,9 +565,7 @@ class TestValidatedFileField:
 
     @staticmethod
     def test_acceptable_mimes_is_none():
-        """
-        test acceptable mimes in ValidatedFileField is none
-        """
+        """test acceptable mimes in ValidatedFileField is none."""
         with pytest.raises(MimesEmptyException):
 
             class _TestFileMimeModel(models.Model):
@@ -622,9 +576,7 @@ class TestValidatedFileField:
 
     @staticmethod
     def test_libraries_is_none():
-        """
-        the test ValidatedFileField library is none
-        """
+        """the test ValidatedFileField library is none."""
         _my_field_instance = TestFileModelWithoutLibraries(
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT["name"],
@@ -635,15 +587,11 @@ class TestValidatedFileField:
 
 
 class TestFileSizeValidator:
-    """
-    test file size validator
-    """
+    """test file size validator."""
 
     @staticmethod
     def test_file_size_is_valid():
-        """
-        test file size is valid
-        """
+        """test file size is valid."""
         new_instance = TestFileModelWithFileSizeValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -656,9 +604,7 @@ class TestFileSizeValidator:
 
     @staticmethod
     def test_file_size_is_not_valid():
-        """
-        test file size is not valid
-        """
+        """test file size is not valid."""
         with pytest.raises(ValidationError):
             new_instance = TestFileModelWithFileSizeValidatorNotValidSize(
                 test_file=get_tmp_file(
@@ -672,9 +618,7 @@ class TestFileSizeValidator:
 
     @staticmethod
     def test_max_upload_file_size_is_none():
-        """
-        test max upload file size is none
-        """
+        """test max upload file size is none."""
         with pytest.raises(SizeValidationException):
 
             class _TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
@@ -682,24 +626,18 @@ class TestFileSizeValidator:
 
     @staticmethod
     def test_eq_method():
-        """
-        test eq method
-        """
+        """test eq method."""
         file_validator_one = FileSizeValidator(max_upload_file_size=10485760)
         file_validator_two = FileSizeValidator(max_upload_file_size=10485760)
         assert file_validator_one == file_validator_two
 
 
 class TestFileValidator:
-    """
-    test for file validator
-    """
+    """test for file validator."""
 
     @staticmethod
     def test_when_file_is_valid_and_return_none():
-        """
-        test when file is valid and return none
-        """
+        """test when file is valid and return none."""
         new_instance = TestFileModelWithFileValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -712,9 +650,7 @@ class TestFileValidator:
 
     @staticmethod
     def test_when_file_is_not_valid_and_return_none():
-        """
-        test when file is not valid and return none
-        """
+        """test when file is not valid and return none."""
         with pytest.raises(ValidationError):
             new_instance = TestFileModelWithFileValidator(
                 test_file=get_tmp_file(
@@ -728,9 +664,7 @@ class TestFileValidator:
 
     @staticmethod
     def test_when_file_size_is_none():
-        """
-        test when file size is none
-        """
+        """test when file size is none."""
         new_instance = TestFileModelWithFileValidatorSizeIsNone(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -743,9 +677,7 @@ class TestFileValidator:
 
     @staticmethod
     def test_when_libraries_is_none():
-        """
-        test when libraries is none
-        """
+        """test when libraries is none."""
         new_instance = TestFileModelWithFileValidatorLibraryIsNone(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
@@ -758,15 +690,11 @@ class TestFileValidator:
 
     @staticmethod
     def test_when_libraries_is_not_supported():
-        """
-        test when libraries is not supported
-        """
+        """test when libraries is not supported."""
         with pytest.raises(LibraryNotSupportedException):
 
             class _TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
-                """
-                Test Model
-                """
+                """Test Model."""
 
                 test_file = models.FileField(
                     validators=[
@@ -779,23 +707,17 @@ class TestFileValidator:
 
     @staticmethod
     def test_when_acceptable_mimes_is_none():
-        """
-        test when acceptable mimes is none
-        """
+        """test when acceptable mimes is none."""
         with pytest.raises(MimesEmptyException):
 
             class _TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
-                """
-                Test Model
-                """
+                """Test Model."""
 
                 test_file = models.FileField(validators=[FileValidator()])
 
     @staticmethod
     def test_eq_methode():
-        """
-        test eq methode
-        """
+        """test eq methode."""
         file_validator_one = FileValidator(
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
             libraries=[ALL],
@@ -808,69 +730,53 @@ class TestFileValidator:
 
 
 class TestGuessTheType:
-    """
-    test for guess_the_type function in utils.py
-    """
+    """test for guess_the_type function in utils.py."""
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_invalid_and_return_none():
-        """
-        test guess the type function when file is invalid and return none
-        """
+        """test guess the type function when file is invalid and return
+        none."""
         file_type = guess_the_type(file_path=BAD_FILE)
         assert file_type is None
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_archive():
-        """
-        test guess the type function when file is archive
-        """
+        """test guess the type function when file is archive."""
         file_type = guess_the_type(file_path=ZIP_FILE)
         assert file_type is ARCHIVE
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_image():
-        """
-        test guess the type function when file is image
-        """
+        """test guess the type function when file is image."""
         file_type = guess_the_type(file_path=PNG_FILE)
         assert file_type is IMAGE
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_video():
-        """
-        test guess the type function when file is video
-        """
+        """test guess the type function when file is video."""
         file_type = guess_the_type(file_path=MP4_FILE)
         assert file_type is VIDEO
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_audio():
-        """
-        test guesses the type function when file is audio
-        """
+        """test guesses the type function when file is audio."""
         file_type = guess_the_type(file_path=MP3_FILE)
         assert file_type is AUDIO
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_font():
-        """
-        test guess the type function when file is font
-        """
+        """test guess the type function when file is font."""
         file_type = guess_the_type(file_path=TTF_FILE)
         assert file_type is FONT
 
 
 class TestException:
-    """
-    test
-    """
+    """test."""
 
     @staticmethod
     def test_error_message_function_return_correct_message():
-        """
-        We test whether this error message function returns the expected message or not
-        """
+        """We test whether this error message function returns the expected
+        message or not."""
         message = error_message(
             message=TEMPLATE_EXPECTED_MESSAGE,
             file_name=PNG_OBJECT["name"],
@@ -927,8 +833,6 @@ def test_size_validator():
 
 
 def test_all_mimes_is_equal():
-    """
-    test all_mimes_is_equal function in utils.py
-    """
+    """test all_mimes_is_equal function in utils.py."""
 
     assert all_mimes_is_equal(["image/png"]) is False
