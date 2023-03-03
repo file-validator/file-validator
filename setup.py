@@ -28,7 +28,7 @@ test_requirements = [
 setup(
     author="Reza Shakeri",
     author_email="rzashakeri@outlook.com",
-    python_requires=">=3.x.x",
+    python_requires=">=3.8",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
