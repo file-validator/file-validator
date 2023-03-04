@@ -736,6 +736,15 @@ class TestFileValidator:
         )
         assert file_validator_one == file_validator_two
 
+    @staticmethod
+    def test_hash_method():
+        """Test for __hash__ method in FileValidator."""
+        test_file = FileValidator(
+            max_upload_file_size=1000,
+            acceptable_mimes=[PNG_OBJECT["mime"]],
+        )
+        assert hash(test_file) == 1000
+
 
 class TestGuessTheType:
     """test for guess_the_type function in utils.py."""
