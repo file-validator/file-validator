@@ -65,7 +65,7 @@ def get_test_file(file_name) -> str:
     :return: It should return the path of the test file that is in the project
     """
     test_directory = os.path.dirname(os.path.realpath(__file__))
-    test_files_directory = os.path.join(test_directory, "files", f"{file_name}")
+    test_files_directory = os.path.join(test_directory, "files", file_name)
     return test_files_directory
 
 
@@ -86,6 +86,7 @@ def get_tmp_file(file_name, file_path, file_mime_type):
     :param file_mime_type: The mime of the test file
     """
     tmp_file = TemporaryUploadedFile(file_name, file_mime_type, 0, None)
-    tmp_file.file = open(file_path)
-    tmp_file.size = os.fstat(tmp_file.fileno()).st_size
-    return tmp_file
+    with open(file_path, encoding="utf-8") as file:
+        tmp_file.file = file
+        tmp_file.size = os.fstat(tmp_file.fileno()).st_size
+        return tmp_file
