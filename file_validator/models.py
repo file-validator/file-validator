@@ -211,6 +211,9 @@ class FileValidator:
             and self.max_upload_file_size == other.max_upload_file_size
         )
 
+    def __hash__(self):
+        return hash(self.max_upload_file_size)
+
 
 @deconstructible
 class FileSizeValidator:
