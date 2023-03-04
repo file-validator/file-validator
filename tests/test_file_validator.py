@@ -631,6 +631,14 @@ class TestFileSizeValidator:
         file_validator_two = FileSizeValidator(max_upload_file_size=10485760)
         assert file_validator_one == file_validator_two
 
+    @staticmethod
+    def test_hash_method():
+        """Test for __hash__ method in FileSizeValidator."""
+        test_file = FileSizeValidator(
+            max_upload_file_size=1000,
+        )
+        assert hash(test_file) == 1000
+
 
 class TestFileValidator:
     """test for file validator."""
