@@ -18,12 +18,15 @@ from file_validator.constants import (
     MAX_UPLOAD_SIZE_IS_EMPTY,
     MIMES_EMPTY,
     SELECTING_ALL_SUPPORTED_LIBRARIES,
+    SUPPORTED_TYPES,
+    TYPE_NOT_SUPPORTED,
 )
 from file_validator.exceptions import (
     error_message,
     FileValidationException,
     MimesEmptyException,
     SizeValidationException,
+    TypeNotSupportedException,
 )
 from file_validator.utils import all_mimes_is_equal, is_library_supported
 from file_validator.validators import file_validator_by_django, size_validator
@@ -70,12 +73,20 @@ class ValidatedFileField(FileField):
                 is_library_supported(library)
                 self.libraries.append(library)
 
+        self.acceptable_types: list = kwargs.get("acceptable_types")
+        if (
+            self.acceptable_types is not None
+            and self.acceptable_types not in SUPPORTED_TYPES
+        ):
+            raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+
         self.max_upload_file_size: int = kwargs.get("max_upload_file_size")
         super().__init__()
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         kwargs["acceptable_mimes"] = self.acceptable_mimes
+        kwargs["acceptable_types"] = self.acceptable_types
         kwargs["libraries"] = self.libraries
         kwargs["max_upload_file_size"] = self.max_upload_file_size
         return name, path, args, kwargs
@@ -94,6 +105,7 @@ class ValidatedFileField(FileField):
             file_validation_data = file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
+                acceptable_types=self.acceptable_types,
                 file_path=file_path,
                 content_type_guessed_by_django=content_type_guessed_by_django,
             )
