@@ -43,6 +43,9 @@ class ValidatedFileField(FileField):
         :type acceptable_mimes: list
         :param acceptable_mimes: The mimes you want the file to be checked
             based on, example: image/png
+        :type acceptable_types: list
+        :param acceptable_types: The types you want the file to be checked based on, example: font,
+            audio, video, image, archive
         :type max_upload_file_size: int, optional
         :param max_upload_file_size: If you want the file size to be checked,
             the file size must be in bytes,
@@ -142,12 +145,16 @@ class FileValidator:
         self,
         libraries: list = None,
         acceptable_mimes: list = None,
+        acceptable_types: list = None,
         max_upload_file_size: int = None,
     ):
         """
         :type acceptable_mimes: list
         :param acceptable_mimes: The mimes you want the file to be checked
             based on, example: image/png
+        :type acceptable_types: list
+        :param acceptable_types: The types you want the file to be checked based on, example: font,
+            audio, video, image, archive
         :type max_upload_file_size: int, optional
         :param max_upload_file_size: If you want the file size to be checked,
             the file size must be in bytes,
@@ -186,6 +193,13 @@ class FileValidator:
         for mime in acceptable_mimes:
             self.acceptable_mimes.append(mime)
 
+        self.acceptable_types: list = acceptable_types
+        if (
+            self.acceptable_types is not None
+            and self.acceptable_types not in SUPPORTED_TYPES
+        ):
+            raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+
     def __call__(self, value):
         current_file = value.file
         file_size = current_file.size
@@ -199,6 +213,7 @@ class FileValidator:
             file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
+                acceptable_types=self.acceptable_types,
                 file_path=file_path,
                 content_type_guessed_by_django=content_type_guessed_by_django,
             )
@@ -220,6 +235,7 @@ class FileValidator:
             isinstance(other, self.__class__)
             and self.libraries == other.libraries
             and self.acceptable_mimes == other.acceptable_mimes
+            and self.acceptable_types == other.acceptable_types
             and self.max_upload_file_size == other.max_upload_file_size
         )
 
