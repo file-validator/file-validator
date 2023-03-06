@@ -334,6 +334,7 @@ class TestFileValidatorByDjango:
             file_validator_by_django(
                 content_type_guessed_by_django=MP3_OBJECT["mime"],
                 acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
+                acceptable_types=[PNG_OBJECT["type"], JPEG_OBJECT["type"]],
                 libraries=[DEFAULT],
                 file_path=MP3_FILE,
             )
@@ -346,6 +347,7 @@ class TestFileValidatorByDjango:
             file_validator_by_django(
                 content_type_guessed_by_django=MP3_OBJECT["mime"],
                 acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                acceptable_types=[PNG_OBJECT["type"], MP3_OBJECT["type"]],
                 libraries=[TEST_LIBRARY],
                 file_path=MP3_FILE,
             )
@@ -357,6 +359,7 @@ class TestFileValidatorByDjango:
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
+            acceptable_types=[PNG_OBJECT["type"], JPEG_OBJECT["type"]],
             libraries=[PYTHON_MAGIC],
             file_path=JPEG_FILE,
         )
@@ -373,6 +376,7 @@ class TestFileValidatorByDjango:
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
+            acceptable_types=[PNG_OBJECT["type"], JPEG_OBJECT["type"]],
             libraries=[PURE_MAGIC],
             file_path=JPEG_FILE,
         )
@@ -390,6 +394,7 @@ class TestFileValidatorByDjango:
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
+            acceptable_types=[PNG_OBJECT["type"], JPEG_OBJECT["type"]],
             libraries=[FILETYPE],
             file_path=JPEG_FILE,
         )
@@ -410,6 +415,7 @@ class TestFileValidatorByDjango:
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
+            acceptable_types=[PNG_OBJECT["type"], JPEG_OBJECT["type"]],
             libraries=[MIMETYPES],
             file_path=JPEG_FILE,
         )
@@ -428,6 +434,7 @@ class TestFileValidatorByDjango:
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=MP3_OBJECT["mime"],
             acceptable_mimes=[MP3_OBJECT["mime"], JPEG_OBJECT["mime"]],
+            acceptable_types=[MP3_OBJECT["type"], JPEG_OBJECT["type"]],
             libraries=[DEFAULT],
             file_path=MP3_FILE,
         )
@@ -444,6 +451,7 @@ class TestFileValidatorByDjango:
         result_of_validation = file_validator_by_django(
             content_type_guessed_by_django=JPEG_OBJECT["mime"],
             acceptable_mimes=[PNG_OBJECT["mime"], JPEG_OBJECT["mime"]],
+            acceptable_types=[PNG_OBJECT["type"], JPEG_OBJECT["type"]],
             libraries=ALL_SUPPORTED_LIBRARIES,
             file_path=JPEG_FILE,
         )
