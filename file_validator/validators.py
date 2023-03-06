@@ -272,6 +272,7 @@ def size_validator(
 def file_validator_by_django(
     content_type_guessed_by_django: str,
     acceptable_mimes: list,
+    acceptable_types: list,
     file_path: str,
     libraries: list,
 ):
@@ -284,6 +285,9 @@ def file_validator_by_django(
         pure_magic, filetype, mimetypes
     :type acceptable_mimes: list
     :param acceptable_mimes: The mimes you want the file to be checked based on, example: image/png
+    :type acceptable_types: list
+    :param acceptable_types: The types you want the file to be checked based on, example: font,
+        audio, video, image, archive
     :type file_path: string
     :param file_path: The file path to be validated
     :type content_type_guessed_by_django: Mime that guessed by Django
@@ -356,5 +360,6 @@ def file_validator_by_django(
                     ),
                 },
             )
-
+    if acceptable_types is not None:
+        file_validator_by_type(acceptable_types=acceptable_types, file_path=file_path)
     return validation_data
