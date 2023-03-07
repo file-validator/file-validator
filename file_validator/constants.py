@@ -44,3 +44,6 @@ TYPE_NOT_SUPPORTED: str = (
     " supported types: font, audio, video, image, archive"
 )
 FILE_NOT_VALID: str = "file is not valid"
+PARAMETERS_ARE_EMPTY: str = (
+    "you must fill at least one acceptable_mimes or acceptable_types parameter"
+)
