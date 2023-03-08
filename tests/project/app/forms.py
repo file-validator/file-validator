@@ -1,12 +1,12 @@
 from django import forms
 
 from file_validator.forms import ValidatedFileField
-from tests.project.app.models import TestFileModel
+from tests.project.app.models import FileModel
 
 
 class TestFileModelForm(forms.ModelForm):
     class Meta:
-        model = TestFileModel
+        model = FileModel
         fields = ["test_file"]
 
 

@@ -14,19 +14,31 @@ from humanize import naturalsize
 from termcolor import colored
 
 from file_validator.constants import (
+    ALL,
+    DEFAULT,
+    DJANGO,
     FILE_SIZE_IS_NOT_VALID,
+    FILETYPE,
     MAX_UPLOAD_SIZE_IS_EMPTY,
     MIMES_EMPTY,
+    MIMETYPES,
+    PARAMETERS_ARE_EMPTY,
+    PURE_MAGIC,
+    PYTHON_MAGIC,
     SELECTING_ALL_SUPPORTED_LIBRARIES,
+    SUPPORTED_TYPES,
+    TYPE_NOT_SUPPORTED,
 )
 from file_validator.exceptions import (
+    EmptyParametersException,
     error_message,
     FileValidationException,
     MimesEmptyException,
     SizeValidationException,
+    TypeNotSupportedException,
 )
 from file_validator.utils import all_mimes_is_equal, is_library_supported
-from file_validator.validators import file_validator_by_django, size_validator
+from file_validator.validators import FileValidator
 
 
 class ValidatedFileField(FileField):
@@ -40,6 +52,9 @@ class ValidatedFileField(FileField):
         :type acceptable_mimes: list
         :param acceptable_mimes: The mimes you want the file to be checked
             based on, example: image/png
+        :type acceptable_types: list
+        :param acceptable_types: The types you want the file to be checked based on, example: font,
+            audio, video, image, archive
         :type max_upload_file_size: int, optional
         :param max_upload_file_size: If you want the file size to be checked,
             the file size must be in bytes,
@@ -57,11 +72,19 @@ class ValidatedFileField(FileField):
             pure_magic, python_magic
         :raises ValidationError: if file not valid
         """
+        self.max_upload_file_size: int = kwargs.get("max_upload_file_size")
         self.acceptable_mimes: list = kwargs.get("acceptable_mimes")
-        if self.acceptable_mimes is None or all_mimes_is_equal(self.acceptable_mimes):
+        self.acceptable_types: list = kwargs.get("acceptable_types")
+        libraries: list = kwargs.get("libraries")
+
+        if self.acceptable_mimes is None and self.acceptable_types is None:
+            raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
+
+        if self.acceptable_mimes is not None and all_mimes_is_equal(
+            self.acceptable_mimes,
+        ):
             raise MimesEmptyException(colored(MIMES_EMPTY, "red"))
 
-        libraries: list = kwargs.get("libraries")
         self.libraries = []
         if libraries is None:
             self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
@@ -70,12 +93,17 @@ class ValidatedFileField(FileField):
                 is_library_supported(library)
                 self.libraries.append(library)
 
-        self.max_upload_file_size: int = kwargs.get("max_upload_file_size")
+        if self.acceptable_types is not None:
+            for acceptable_type in self.acceptable_types:
+                if acceptable_type not in SUPPORTED_TYPES:
+                    raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+
         super().__init__()
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         kwargs["acceptable_mimes"] = self.acceptable_mimes
+        kwargs["acceptable_types"] = self.acceptable_types
         kwargs["libraries"] = self.libraries
         kwargs["max_upload_file_size"] = self.max_upload_file_size
         return name, path, args, kwargs
@@ -83,20 +111,34 @@ class ValidatedFileField(FileField):
     def clean(self, *args, **kwargs):
         data = super().clean(*args, **kwargs)
         current_file = data.file
-        content_type_guessed_by_django = current_file.content_type
+        file_mime_guessed_by_django = current_file.content_type
         file_size = current_file.size
         file_path = TemporaryUploadedFile.temporary_file_path(current_file)
         try:
-            file_size_validation_data = size_validator(
-                max_upload_file_size=self.max_upload_file_size,
+            file_validator = FileValidator(
                 file_path=file_path,
-            )
-            file_validation_data = file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
-                file_path=file_path,
-                content_type_guessed_by_django=content_type_guessed_by_django,
+                acceptable_types=self.acceptable_types,
+                max_upload_file_size=self.max_upload_file_size,
+                file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
+            if self.acceptable_mimes is not None:
+                for library in self.libraries:
+                    if library == ALL:
+                        file_validator.validate()
+                    elif library == PYTHON_MAGIC:
+                        file_validator.python_magic()
+                    elif library == PURE_MAGIC:
+                        file_validator.pure_magic()
+                    elif library == MIMETYPES:
+                        file_validator.mimetypes()
+                    elif library == FILETYPE:
+                        file_validator.filetype()
+                    elif library == DJANGO:
+                        file_validator.django()
+            if self.acceptable_types is not None:
+                file_validator.validate_type()
 
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
@@ -107,35 +149,31 @@ class ValidatedFileField(FileField):
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
                     else 0,
-                    current_file_mime=content_type_guessed_by_django,
+                    current_file_mime=file_mime_guessed_by_django,
                 ),
             ) from error
-        setattr(
-            data,
-            "validation_data",
-            {
-                # merge two dictionaries
-                **file_validation_data,
-                **file_size_validation_data,
-            },
-        )
+        setattr(data, "validation_data", file_validator.result_of_validation)
         return data
 
 
 @deconstructible
-class FileValidator:
+class DjangoFileValidator:
     """file validator for django."""
 
     def __init__(
         self,
         libraries: list = None,
         acceptable_mimes: list = None,
+        acceptable_types: list = None,
         max_upload_file_size: int = None,
     ):
         """
         :type acceptable_mimes: list
         :param acceptable_mimes: The mimes you want the file to be checked
             based on, example: image/png
+        :type acceptable_types: list
+        :param acceptable_types: The types you want the file to be checked based on, example: font,
+            audio, video, image, archive
         :type max_upload_file_size: int, optional
         :param max_upload_file_size: If you want the file size to be checked,
             the file size must be in bytes,
@@ -174,22 +212,42 @@ class FileValidator:
         for mime in acceptable_mimes:
             self.acceptable_mimes.append(mime)
 
+        self.acceptable_types: list = acceptable_types
+        if self.acceptable_types is not None:
+            for acceptable_type in self.acceptable_types:
+                if acceptable_type not in SUPPORTED_TYPES:
+                    raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+
     def __call__(self, value):
         current_file = value.file
         file_size = current_file.size
         file_path = TemporaryUploadedFile.temporary_file_path(current_file)
-        content_type_guessed_by_django = current_file.content_type
+        file_mime_guessed_by_django = current_file.content_type
         try:
-            size_validator(
-                max_upload_file_size=self.max_upload_file_size,
+            file_validator = FileValidator(
                 file_path=file_path,
-            )
-            file_validator_by_django(
                 libraries=self.libraries,
                 acceptable_mimes=self.acceptable_mimes,
-                file_path=file_path,
-                content_type_guessed_by_django=content_type_guessed_by_django,
+                acceptable_types=self.acceptable_types,
+                max_upload_file_size=self.max_upload_file_size,
+                file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
+            for library in self.libraries:
+                is_library_supported(library)
+                if library == ALL:
+                    file_validator.validate()
+                elif library == PYTHON_MAGIC:
+                    file_validator.python_magic()
+                elif library == PURE_MAGIC:
+                    file_validator.pure_magic()
+                elif library == MIMETYPES:
+                    file_validator.mimetypes()
+                elif library == FILETYPE:
+                    file_validator.filetype()
+                else:
+                    file_validator.django()
+            if self.acceptable_types is not None:
+                file_validator.validate_type()
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
@@ -199,7 +257,7 @@ class FileValidator:
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
                     else 0,
-                    current_file_mime=content_type_guessed_by_django,
+                    current_file_mime=file_mime_guessed_by_django,
                 ),
             ) from error
 
@@ -208,6 +266,7 @@ class FileValidator:
             isinstance(other, self.__class__)
             and self.libraries == other.libraries
             and self.acceptable_mimes == other.acceptable_mimes
+            and self.acceptable_types == other.acceptable_types
             and self.max_upload_file_size == other.max_upload_file_size
         )
 
@@ -241,10 +300,11 @@ class FileSizeValidator:
         file_size = current_file.size
         file_path = TemporaryUploadedFile.temporary_file_path(current_file)
         try:
-            size_validator(
-                max_upload_file_size=self.max_upload_file_size,
+            file_validator = FileValidator(
                 file_path=file_path,
+                max_upload_file_size=self.max_upload_file_size,
             )
+            file_validator.validate_size()
         except SizeValidationException as error:
             raise ValidationError(
                 error_message(

@@ -36,6 +36,11 @@ class TypeNotSupportedException(Exception):
     video, archive, font."""
 
 
+class EmptyParametersException(Exception):
+    """Raised when the type not supported, supported types: image, audio,
+    video, archive, font."""
+
+
 def error_message(
     mimes=None,
     file_size=None,
