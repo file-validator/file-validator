@@ -5,13 +5,15 @@ PURE_MAGIC: str = "pure_magic"
 FILETYPE: str = "filetype"
 MIMETYPES: str = "mimetypes"
 DEFAULT: str = "default"
+DJANGO: str = "django"
+SIZE: str = "size"
 ALL: str = "all"
 ALL_SUPPORTED_LIBRARIES: list = [
     PYTHON_MAGIC,
     PURE_MAGIC,
     FILETYPE,
     MIMETYPES,
-    DEFAULT,
+    DJANGO,
     ALL,
 ]
 SELECTING_ALL_SUPPORTED_LIBRARIES: str = "all"
@@ -47,3 +49,4 @@ FILE_NOT_VALID: str = "file is not valid"
 PARAMETERS_ARE_EMPTY: str = (
     "you must fill at least one acceptable_mimes or acceptable_types parameter"
 )
+FILE_EXTENSION_NOT_VALID: str = "{file_extension} is not valid"
