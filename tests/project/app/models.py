@@ -13,10 +13,12 @@ from file_validator.models import (
     FileSizeValidator,
     ValidatedFileField,
 )
-from tests.fixtures import MP3_OBJECT, PNG_OBJECT
+from tests.fixtures import BAD_OBJECT, MP3_OBJECT, PNG_OBJECT
 
 
-class FileModel(models.Model):
+class TestModelWithValidatedFileField(models.Model):
+    """File Model With ValidatedFileField."""
+
     test_file = ValidatedFileField(
         libraries=["all"],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -24,15 +26,7 @@ class FileModel(models.Model):
     )
 
 
-class FileModelWithAllLibraries(models.Model):
-    test_file = ValidatedFileField(
-        libraries=[PYTHON_MAGIC, PURE_MAGIC, FILETYPE, MIMETYPES],
-        acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
-        max_upload_file_size=1000000,
-    )
-
-
-class FileModelWithDjango(models.Model):
+class TestModelWithValidatedFileFieldAndDjangoLibrary(models.Model):
     test_file = ValidatedFileField(
         libraries=[DJANGO],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -41,7 +35,7 @@ class FileModelWithDjango(models.Model):
     )
 
 
-class FileModelWithFileType(models.Model):
+class TestModelWithValidatedFileFieldAndFileTypeLibrary(models.Model):
     test_file = ValidatedFileField(
         libraries=[FILETYPE],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -49,7 +43,7 @@ class FileModelWithFileType(models.Model):
     )
 
 
-class FileModelWithPureMagic(models.Model):
+class TestModelWithValidatedFileFieldAndPureMagicLibrary(models.Model):
     test_file = ValidatedFileField(
         libraries=[PURE_MAGIC],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -57,7 +51,7 @@ class FileModelWithPureMagic(models.Model):
     )
 
 
-class FileModelWithMimetypes(models.Model):
+class TestModelWithValidatedFileFieldAndMimetypesLibrary(models.Model):
     test_file = ValidatedFileField(
         libraries=[MIMETYPES],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -65,7 +59,7 @@ class FileModelWithMimetypes(models.Model):
     )
 
 
-class FileModelWithPythonMagic(models.Model):
+class TestModelWithValidatedFileFieldAndPythonMagicLibrary(models.Model):
     test_file = ValidatedFileField(
         libraries=[PYTHON_MAGIC],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -73,14 +67,22 @@ class FileModelWithPythonMagic(models.Model):
     )
 
 
-class FileModelWithoutLibraries(models.Model):
+class TestModelWithValidatedFileFieldAndAllLibrary(models.Model):
+    test_file = ValidatedFileField(
+        libraries=[PYTHON_MAGIC, PURE_MAGIC, FILETYPE, MIMETYPES],
+        acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+        max_upload_file_size=1000000,
+    )
+
+
+class TestModelWithValidatedFileFieldWithoutLibrary(models.Model):
     test_file = ValidatedFileField(
         max_upload_file_size=1000000,
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
     )
 
 
-class FileModelWithFileValidator(models.Model):
+class TestModelWithDjangoFileValidator(models.Model):
     test_file = models.FileField(
         validators=[
             DjangoFileValidator(
@@ -92,7 +94,7 @@ class FileModelWithFileValidator(models.Model):
     )
 
 
-class FileModelWithAcceptableType(models.Model):
+class TestModelWithValidatedFileFieldWithAcceptableType(models.Model):
     test_file = ValidatedFileField(
         libraries=["all"],
         acceptable_types=[PNG_OBJECT["type"], MP3_OBJECT["type"]],
@@ -100,7 +102,7 @@ class FileModelWithAcceptableType(models.Model):
     )
 
 
-class FileModelWithFileSizeValidator(models.Model):
+class TestModelWithFileSizeValidator(models.Model):
     test_file = models.FileField(
         validators=[
             FileSizeValidator(
@@ -110,7 +112,19 @@ class FileModelWithFileSizeValidator(models.Model):
     )
 
 
-class FileModelWithFileValidatorSizeIsNone(models.Model):
+class TestModelWithDjangoFileValidatorAndBadAcceptableType(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                libraries=[ALL],
+                max_upload_file_size=1000000,
+                acceptable_types=[BAD_OBJECT["type"]],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorAndSizeIsNone(models.Model):
     test_file = models.FileField(
         validators=[
             DjangoFileValidator(
@@ -121,7 +135,7 @@ class FileModelWithFileValidatorSizeIsNone(models.Model):
     )
 
 
-class FileModelWithFileValidatorLibraryIsNone(models.Model):
+class TestModelWithDjangoFileValidatorAndLibraryIsNone(models.Model):
     test_file = models.FileField(
         validators=[
             DjangoFileValidator(
@@ -131,7 +145,7 @@ class FileModelWithFileValidatorLibraryIsNone(models.Model):
     )
 
 
-class FileModelWithFileSizeValidatorNotValidSize(models.Model):
+class TestModelWithFileSizeValidatorAndNotValidSize(models.Model):
     test_file = models.FileField(
         validators=[
             FileSizeValidator(
