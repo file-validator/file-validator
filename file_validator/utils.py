@@ -11,9 +11,13 @@ from file_validator.constants import (
     FONT,
     IMAGE,
     LIBRARY_IS_NOT_SUPPORTED,
+    PARAMETERS_ARE_EMPTY,
     VIDEO,
 )
-from file_validator.exceptions import LibraryNotSupportedException
+from file_validator.exceptions import (
+    EmptyParametersException,
+    LibraryNotSupportedException,
+)
 
 
 def all_mimes_is_equal(mimes):
@@ -80,3 +84,9 @@ def guess_the_type(file_path: str):
     if is_archive(file_path):
         return ARCHIVE
     return None
+
+
+def parameters_is_empty(acceptable_types, acceptable_mimes):
+    """this function check whether parameters are empty or no ?"""
+    if acceptable_types is None and acceptable_mimes is None:
+        raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
