@@ -13,12 +13,15 @@ from file_validator.constants import (
     LIBRARY_IS_NOT_SUPPORTED,
     MIMES_IS_EQUAL,
     PARAMETERS_ARE_EMPTY,
+    SUPPORTED_TYPES,
+    TYPE_NOT_SUPPORTED,
     VIDEO,
 )
 from file_validator.exceptions import (
     EmptyParametersException,
     LibraryNotSupportedException,
     MimesEqualException,
+    TypeNotSupportedException,
 )
 
 
@@ -92,6 +95,15 @@ def guess_the_type(file_path: str):
 
 
 def parameters_are_empty(acceptable_types, acceptable_mimes):
-    """this function check whether parameters are empty or no ?"""
+    """this function check whether parameters are empty or no?"""
     if acceptable_types is None and acceptable_mimes is None:
         raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
+
+
+def is_type_supported(acceptable_types):
+    """This function check whether the type is supported by file-validator
+    library, List of supported types: font, audio, video, image, archive."""
+    if acceptable_types is not None:
+        for acceptable_type in acceptable_types:
+            if acceptable_type not in SUPPORTED_TYPES:
+                raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
