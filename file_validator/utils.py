@@ -120,3 +120,13 @@ def set_the_library(libraries: list):
         is_library_supported(library)
         result.append(library)
     return result
+
+
+def set_the_acceptable_mimes(acceptable_mimes):
+    """This function for set the acceptable mimes."""
+    if acceptable_mimes is not None:
+        result: list = []
+        for mime in acceptable_mimes:
+            result.append(mime)
+        return result
+    return None
