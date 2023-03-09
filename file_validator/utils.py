@@ -31,7 +31,7 @@ def all_mimes_is_equal(acceptable_mimes: list):
     mimes is one returned false."""
     if acceptable_mimes is not None:
         if len(acceptable_mimes) == 1:
-            mimes_is_equal = False
+            return False
         group = groupby(acceptable_mimes)
         mimes_is_equal = next(group, True) and not next(group, False)
         if mimes_is_equal:
