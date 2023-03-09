@@ -11,22 +11,27 @@ from file_validator.constants import (
     FONT,
     IMAGE,
     LIBRARY_IS_NOT_SUPPORTED,
+    MIMES_IS_EQUAL,
     PARAMETERS_ARE_EMPTY,
     VIDEO,
 )
 from file_validator.exceptions import (
     EmptyParametersException,
     LibraryNotSupportedException,
+    MimesEqualException,
 )
 
 
-def all_mimes_is_equal(mimes):
+def all_mimes_is_equal(acceptable_mimes):
     """Returns True if all the mimes are equal to each other if the length of
     mimes is one returned false."""
-    if len(mimes) == 1:
-        return False
-    group = groupby(mimes)
-    return next(group, True) and not next(group, False)
+    if acceptable_mimes is not None:
+        if len(acceptable_mimes) == 1:
+            mimes_is_equal = False
+        group = groupby(acceptable_mimes)
+        mimes_is_equal = next(group, True) and not next(group, False)
+        if mimes_is_equal:
+            raise MimesEqualException(colored(MIMES_IS_EQUAL, "red"))
 
 
 def is_library_supported(library: str):
@@ -86,7 +91,7 @@ def guess_the_type(file_path: str):
     return None
 
 
-def parameters_is_empty(acceptable_types, acceptable_mimes):
+def parameters_are_empty(acceptable_types, acceptable_mimes):
     """this function check whether parameters are empty or no ?"""
     if acceptable_types is None and acceptable_mimes is None:
         raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
