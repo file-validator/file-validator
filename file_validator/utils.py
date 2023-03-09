@@ -13,6 +13,7 @@ from file_validator.constants import (
     LIBRARY_IS_NOT_SUPPORTED,
     MIMES_IS_EQUAL,
     PARAMETERS_ARE_EMPTY,
+    SELECTING_ALL_SUPPORTED_LIBRARIES,
     SUPPORTED_TYPES,
     TYPE_NOT_SUPPORTED,
     VIDEO,
@@ -25,7 +26,7 @@ from file_validator.exceptions import (
 )
 
 
-def all_mimes_is_equal(acceptable_mimes):
+def all_mimes_is_equal(acceptable_mimes: list):
     """Returns True if all the mimes are equal to each other if the length of
     mimes is one returned false."""
     if acceptable_mimes is not None:
@@ -94,16 +95,28 @@ def guess_the_type(file_path: str):
     return None
 
 
-def parameters_are_empty(acceptable_types, acceptable_mimes):
+def parameters_are_empty(acceptable_types: list, acceptable_mimes: list):
     """this function check whether parameters are empty or no?"""
     if acceptable_types is None and acceptable_mimes is None:
         raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
 
 
-def is_type_supported(acceptable_types):
+def is_type_supported(acceptable_types: list):
     """This function check whether the type is supported by file-validator
     library, List of supported types: font, audio, video, image, archive."""
     if acceptable_types is not None:
         for acceptable_type in acceptable_types:
             if acceptable_type not in SUPPORTED_TYPES:
                 raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+
+
+def set_the_library(libraries: list):
+    """This function set the libraries."""
+    result: list = []
+    if libraries is None:
+        result.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
+        return result
+    for library in libraries:
+        is_library_supported(library)
+        result.append(library)
+    return result
