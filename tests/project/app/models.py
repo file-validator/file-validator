@@ -13,7 +13,7 @@ from file_validator.models import (
     FileSizeValidator,
     ValidatedFileField,
 )
-from tests.fixtures import BAD_OBJECT, MP3_OBJECT, PNG_OBJECT
+from tests.fixtures import MP3_OBJECT, PNG_OBJECT
 
 
 # ValidatedFileField
