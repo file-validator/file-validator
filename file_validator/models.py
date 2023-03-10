@@ -15,28 +15,17 @@ from termcolor import colored
 
 from file_validator.constants import (
     ALL,
-    DEFAULT,
-    DJANGO,
     FILE_SIZE_IS_NOT_VALID,
     FILETYPE,
     MAX_UPLOAD_SIZE_IS_EMPTY,
-    MIMES_EMPTY,
     MIMETYPES,
-    PARAMETERS_ARE_EMPTY,
     PURE_MAGIC,
     PYTHON_MAGIC,
-    SELECTING_ALL_SUPPORTED_LIBRARIES,
-    SUPPORTED_TYPES,
-    TYPE_NOT_SUPPORTED,
 )
 from file_validator.exceptions import (
-    EmptyParametersException,
     error_message,
     FileValidationException,
-    MimesEmptyException,
-    MimesEqualException,
     SizeValidationException,
-    TypeNotSupportedException,
 )
 from file_validator.utils import (
     all_mimes_is_equal,
