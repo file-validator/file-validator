@@ -34,10 +34,18 @@ from file_validator.exceptions import (
     error_message,
     FileValidationException,
     MimesEmptyException,
+    MimesEqualException,
     SizeValidationException,
     TypeNotSupportedException,
 )
-from file_validator.utils import all_mimes_is_equal, is_library_supported
+from file_validator.utils import (
+    all_mimes_is_equal,
+    is_library_supported,
+    is_type_supported,
+    parameters_are_empty,
+    set_the_acceptable_mimes,
+    set_the_library,
+)
 from file_validator.validators import FileValidator
 
 
@@ -77,26 +85,18 @@ class ValidatedFileField(FileField):
         self.acceptable_types: list = kwargs.get("acceptable_types")
         libraries: list = kwargs.get("libraries")
 
-        if self.acceptable_mimes is None and self.acceptable_types is None:
-            raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
+        parameters_are_empty(
+            acceptable_mimes=self.acceptable_mimes,
+            acceptable_types=self.acceptable_types,
+        )
 
-        if self.acceptable_mimes is not None and all_mimes_is_equal(
-            self.acceptable_mimes,
-        ):
-            raise MimesEmptyException(colored(MIMES_EMPTY, "red"))
+        all_mimes_is_equal(self.acceptable_mimes)
 
-        self.libraries = []
-        if libraries is None:
-            self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
-        else:
-            for library in libraries:
-                is_library_supported(library)
-                self.libraries.append(library)
+        self.acceptable_mimes = set_the_acceptable_mimes(self.acceptable_mimes)
 
-        if self.acceptable_types is not None:
-            for acceptable_type in self.acceptable_types:
-                if acceptable_type not in SUPPORTED_TYPES:
-                    raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+        self.libraries = set_the_library(libraries)
+
+        is_type_supported(acceptable_types=self.acceptable_types)
 
         super().__init__()
 
@@ -135,7 +135,7 @@ class ValidatedFileField(FileField):
                         file_validator.mimetypes()
                     elif library == FILETYPE:
                         file_validator.filetype()
-                    elif library == DJANGO:
+                    else:
                         file_validator.django()
             if self.acceptable_types is not None:
                 file_validator.validate_type()
@@ -192,31 +192,23 @@ class DjangoFileValidator:
         :return: If everything is OK, it will return None, otherwise it will
             return a ValidationError.
         """
+        self.max_upload_file_size = None
+        self.acceptable_types: list = acceptable_types
+        self.libraries = set_the_library(libraries)
+
         if max_upload_file_size is not None:
             self.max_upload_file_size = max_upload_file_size
-        else:
-            self.max_upload_file_size = None
 
-        self.libraries = []
-        if libraries is None:
-            self.libraries.append(SELECTING_ALL_SUPPORTED_LIBRARIES)
-        else:
-            for library in libraries:
-                is_library_supported(library)
-                self.libraries.append(library)
+        parameters_are_empty(
+            acceptable_mimes=acceptable_mimes,
+            acceptable_types=acceptable_types,
+        )
 
-        if acceptable_mimes is None or all_mimes_is_equal(acceptable_mimes):
-            raise MimesEmptyException(colored(MIMES_EMPTY, "red"))
+        all_mimes_is_equal(acceptable_mimes)
 
-        self.acceptable_mimes = []
-        for mime in acceptable_mimes:
-            self.acceptable_mimes.append(mime)
+        self.acceptable_mimes = set_the_acceptable_mimes(acceptable_mimes)
 
-        self.acceptable_types: list = acceptable_types
-        if self.acceptable_types is not None:
-            for acceptable_type in self.acceptable_types:
-                if acceptable_type not in SUPPORTED_TYPES:
-                    raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
+        is_type_supported(acceptable_types=self.acceptable_types)
 
     def __call__(self, value):
         current_file = value.file
@@ -232,20 +224,21 @@ class DjangoFileValidator:
                 max_upload_file_size=self.max_upload_file_size,
                 file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
-            for library in self.libraries:
-                is_library_supported(library)
-                if library == ALL:
-                    file_validator.validate()
-                elif library == PYTHON_MAGIC:
-                    file_validator.python_magic()
-                elif library == PURE_MAGIC:
-                    file_validator.pure_magic()
-                elif library == MIMETYPES:
-                    file_validator.mimetypes()
-                elif library == FILETYPE:
-                    file_validator.filetype()
-                else:
-                    file_validator.django()
+            if self.acceptable_mimes is not None:
+                for library in self.libraries:
+                    is_library_supported(library)
+                    if library == ALL:
+                        file_validator.validate()
+                    elif library == PYTHON_MAGIC:
+                        file_validator.python_magic()
+                    elif library == PURE_MAGIC:
+                        file_validator.pure_magic()
+                    elif library == MIMETYPES:
+                        file_validator.mimetypes()
+                    elif library == FILETYPE:
+                        file_validator.filetype()
+                    else:
+                        file_validator.django()
             if self.acceptable_types is not None:
                 file_validator.validate_type()
         except (FileValidationException, SizeValidationException) as error:
