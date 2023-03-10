@@ -1,6 +1,7 @@
 """Tests for ValidatedFileField."""
 import pytest
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import models
 
 from file_validator.constants import ALL
@@ -20,6 +21,11 @@ from tests.fixtures import (
     PNG_FILE,
     PNG_OBJECT,
 )
+from tests.project.app.forms import (
+    TestForm,
+    TestFormWithCssClassAttribute,
+    TestFormWithoutAcceptAttribute,
+)
 from tests.project.app.models import (
     TestModelWithValidatedFileField,
     TestModelWithValidatedFileFieldAndAllLibrary,
@@ -33,7 +39,7 @@ from tests.project.app.models import (
 )
 
 
-class TestValidatedFileField:
+class TestValidatedFileFieldModel:
     """tests for ValidatedFileField."""
 
     @staticmethod
@@ -233,3 +239,32 @@ class TestValidatedFileField:
                 ),
             )
             _my_field_instance.full_clean()
+
+
+class TestValidatedFileFieldForm:
+    """test for ValidatedFileField Forms."""
+
+    @staticmethod
+    def test_accept_attribute_in_form():
+        """test accept attribute in form."""
+        with open(PNG_FILE, "rb") as file:
+            upload_file = file
+            file_dict = {
+                "test_file": SimpleUploadedFile(upload_file.name, upload_file.read()),
+            }
+            form = TestForm({}, file_dict)
+            assert form.is_valid()
+            assert form.fields["test_file"].accept == "image/*"
+            assert form.fields["test_file"].multiple is True
+
+    @staticmethod
+    def test_accept_attribute_is_none_in_form():
+        """test accept attribute is none in form."""
+        form = TestFormWithoutAcceptAttribute()
+        assert form.fields["test_file"].accept is None
+
+    @staticmethod
+    def test_css_class_attribute_in_form():
+        """test css class attribute in form."""
+        form = TestFormWithCssClassAttribute()
+        assert form.fields["test_file"].custom_css_class == "test-class"
