@@ -16,6 +16,7 @@ from file_validator.models import (
 from tests.fixtures import BAD_OBJECT, MP3_OBJECT, PNG_OBJECT
 
 
+# ValidatedFileField
 class TestModelWithValidatedFileField(models.Model):
     """File Model With ValidatedFileField."""
 
@@ -82,18 +83,6 @@ class TestModelWithValidatedFileFieldWithoutLibrary(models.Model):
     )
 
 
-class TestModelWithDjangoFileValidator(models.Model):
-    test_file = models.FileField(
-        validators=[
-            DjangoFileValidator(
-                libraries=[PYTHON_MAGIC],
-                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
-                max_upload_file_size=10485760,
-            ),
-        ],
-    )
-
-
 class TestModelWithValidatedFileFieldWithAcceptableType(models.Model):
     test_file = ValidatedFileField(
         libraries=["all"],
@@ -102,23 +91,14 @@ class TestModelWithValidatedFileFieldWithAcceptableType(models.Model):
     )
 
 
-class TestModelWithFileSizeValidator(models.Model):
-    test_file = models.FileField(
-        validators=[
-            FileSizeValidator(
-                max_upload_file_size=10485760,
-            ),
-        ],
-    )
-
-
-class TestModelWithDjangoFileValidatorAndBadAcceptableType(models.Model):
+# DjangoFileValidator
+class TestModelWithDjangoFileValidator(models.Model):
     test_file = models.FileField(
         validators=[
             DjangoFileValidator(
-                libraries=[ALL],
-                max_upload_file_size=1000000,
-                acceptable_types=[BAD_OBJECT["type"]],
+                libraries=[PYTHON_MAGIC],
+                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                max_upload_file_size=10485760,
             ),
         ],
     )
@@ -140,6 +120,82 @@ class TestModelWithDjangoFileValidatorAndLibraryIsNone(models.Model):
         validators=[
             DjangoFileValidator(
                 acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorAndLibraryIsPythonMagic(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                libraries=[PYTHON_MAGIC],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorAndLibraryIsPureMagic(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                libraries=[PURE_MAGIC],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorAndLibraryIsMimetypes(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                libraries=[MIMETYPES],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorAndLibraryIsFiletype(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                libraries=[FILETYPE],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorAndLibraryIsDjango(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                libraries=[DJANGO],
+            ),
+        ],
+    )
+
+
+class TestModelWithDjangoFileValidatorWithAcceptableType(models.Model):
+    test_file = models.FileField(
+        validators=[
+            DjangoFileValidator(
+                acceptable_types=[PNG_OBJECT["type"], MP3_OBJECT["type"]],
+            ),
+        ],
+    )
+
+
+# FileSizeValidator
+class TestModelWithFileSizeValidator(models.Model):
+    test_file = models.FileField(
+        validators=[
+            FileSizeValidator(
+                max_upload_file_size=10485760,
             ),
         ],
     )

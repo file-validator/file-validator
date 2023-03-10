@@ -71,8 +71,14 @@ from tests.project.app.forms import (
 )
 from tests.project.app.models import (
     TestModelWithDjangoFileValidator,
+    TestModelWithDjangoFileValidatorAndLibraryIsDjango,
+    TestModelWithDjangoFileValidatorAndLibraryIsFiletype,
+    TestModelWithDjangoFileValidatorAndLibraryIsMimetypes,
     TestModelWithDjangoFileValidatorAndLibraryIsNone,
+    TestModelWithDjangoFileValidatorAndLibraryIsPureMagic,
+    TestModelWithDjangoFileValidatorAndLibraryIsPythonMagic,
     TestModelWithDjangoFileValidatorAndSizeIsNone,
+    TestModelWithDjangoFileValidatorWithAcceptableType,
     TestModelWithFileSizeValidator,
     TestModelWithFileSizeValidatorAndNotValidSize,
     TestModelWithValidatedFileField,
@@ -425,7 +431,7 @@ class TestDjangoFileValidator:
     """test for file validator."""
 
     @staticmethod
-    def test_when_file_is_valid_and_return_none():
+    def test_django_file_validator_when_file_is_valid_and_return_none():
         """test when file is valid and return none."""
         new_instance = TestModelWithDjangoFileValidator(
             test_file=get_tmp_file(
@@ -438,7 +444,7 @@ class TestDjangoFileValidator:
         new_instance.full_clean()
 
     @staticmethod
-    def test_when_file_is_not_valid_and_return_none():
+    def test_django_file_validator_when_file_is_not_valid_and_return_none():
         """test when file is not valid and return none."""
         with pytest.raises(ValidationError):
             new_instance = TestModelWithDjangoFileValidator(
@@ -452,7 +458,7 @@ class TestDjangoFileValidator:
             new_instance.full_clean()
 
     @staticmethod
-    def test_when_file_size_is_none():
+    def test_django_file_validator_when_file_size_is_none():
         """test when file size is none."""
         new_instance = TestModelWithDjangoFileValidatorAndSizeIsNone(
             test_file=get_tmp_file(
@@ -465,7 +471,7 @@ class TestDjangoFileValidator:
         new_instance.full_clean()
 
     @staticmethod
-    def test_when_libraries_is_none():
+    def test_django_file_validator_when_libraries_is_none():
         """test when libraries is none."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsNone(
             test_file=get_tmp_file(
@@ -478,7 +484,7 @@ class TestDjangoFileValidator:
         new_instance.full_clean()
 
     @staticmethod
-    def test_when_libraries_is_not_supported():
+    def test_django_file_validator_when_libraries_is_not_supported():
         """test when libraries is not supported."""
         with pytest.raises(LibraryNotSupportedException):
 
@@ -495,7 +501,7 @@ class TestDjangoFileValidator:
                 )
 
     @staticmethod
-    def test_acceptable_mimes_is_not_none_and_all_mimes_is_equal():
+    def test_django_file_validator_acceptable_mimes_is_not_none_and_all_mimes_is_equal():
         """test when acceptable mimes is none."""
         with pytest.raises(MimesEqualException):
 
@@ -511,7 +517,7 @@ class TestDjangoFileValidator:
                 )
 
     @staticmethod
-    def test_eq_methode():
+    def test_django_file_validator_eq_methode():
         """test eq methode."""
         file_validator_one = DjangoFileValidator(
             acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
@@ -524,7 +530,7 @@ class TestDjangoFileValidator:
         assert file_validator_one == file_validator_two
 
     @staticmethod
-    def test_hash_method():
+    def test_django_file_validator_hash_method():
         """Test for __hash__ method in FileValidator."""
         test_file = DjangoFileValidator(
             max_upload_file_size=1000,
@@ -533,7 +539,7 @@ class TestDjangoFileValidator:
         assert hash(test_file) == 1000
 
     @staticmethod
-    def test_acceptable_types_when_type_not_supported():
+    def test_django_file_validator_acceptable_types_when_type_not_supported():
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(TypeNotSupportedException):
@@ -549,18 +555,83 @@ class TestDjangoFileValidator:
                     ],
                 )
 
-    # @staticmethod
-    # def test_acceptable_types_and_acceptable_mimes_is_none():
-    #     """test when acceptable mimes is none."""
-    #     with pytest.raises(EmptyParametersException):
-    #             new_instance = TestFileModelWithDjangoFileValidatorAndNoneParameters(
-    #                 test_file=get_tmp_file(
-    #                     file_name=PNG_OBJECT["name"],
-    #                     file_path=PNG_FILE,
-    #                     file_mime_type=PNG_OBJECT["mime"],
-    #                 ),
-    #             )
-    #             new_instance.full_clean()
+    @staticmethod
+    def test_django_file_validator_when_library_is_python_magic():
+        """Test django file validator when the library is python magic."""
+        new_instance = TestModelWithDjangoFileValidatorAndLibraryIsPythonMagic(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT["name"],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT["mime"],
+            ),
+        )
+
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_when_library_is_pure_magic():
+        """Test django file validator when the library is pure magic."""
+        new_instance = TestModelWithDjangoFileValidatorAndLibraryIsPureMagic(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT["name"],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT["mime"],
+            ),
+        )
+
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_when_library_is_mimetypes():
+        """Test django file validator when the library is mimetypes."""
+        new_instance = TestModelWithDjangoFileValidatorAndLibraryIsMimetypes(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT["name"],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT["mime"],
+            ),
+        )
+
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_when_library_is_filetype():
+        """Test django file validator when the library is mimetypes."""
+        new_instance = TestModelWithDjangoFileValidatorAndLibraryIsFiletype(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT["name"],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT["mime"],
+            ),
+        )
+
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_when_library_is_django():
+        """Test django file validator when the library is mimetypes."""
+        new_instance = TestModelWithDjangoFileValidatorAndLibraryIsDjango(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT["name"],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT["mime"],
+            ),
+        )
+
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_when_acceptable_types_is_fill():
+        """Test django file validator when the library is mimetypes."""
+        new_instance = TestModelWithDjangoFileValidatorWithAcceptableType(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT["name"],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT["mime"],
+            ),
+        )
+
+        new_instance.full_clean()
 
 
 class TestFileValidatorDjango:
@@ -870,6 +941,19 @@ class TestFileMimeValidator:
         file_validator.validate_mime()
 
 
+class TestFileValidator:
+    """Test."""
+
+    @staticmethod
+    def test_size_validator():
+        """
+        :return:
+        """
+        with pytest.raises(SizeValidationException):
+            file_validator = FileValidator(max_upload_file_size=1, file_path=PNG_FILE)
+            file_validator.validate_size()
+
+
 class TestGuessTheType:
     """test for guess_the_type function in utils.py."""
 
@@ -950,12 +1034,3 @@ class TestUtils:
     @staticmethod
     def test_is_type_supported__when_use_valid_type():
         is_type_supported(acceptable_types=["font"])
-
-
-def test_size_validator():
-    """
-    :return:
-    """
-    with pytest.raises(SizeValidationException):
-        file_validator = FileValidator(max_upload_file_size=1, file_path=PNG_FILE)
-        file_validator.validate_size()
