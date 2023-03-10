@@ -31,6 +31,10 @@ class MimesEmptyException(Exception):
     """Raised when the mime list is empty."""
 
 
+class MimesEqualException(Exception):
+    """Raised when the mime list is empty."""
+
+
 class TypeNotSupportedException(Exception):
     """Raised when the type not supported, supported types: image, audio,
     video, archive, font."""
