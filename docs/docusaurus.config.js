@@ -90,6 +90,12 @@ const config = {
                         position: 'right',
                         className: 'header-github-link',
                     },
+                    {
+                        type: 'docsVersionDropdown',
+                        position: 'right',
+                        dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+                        dropdownActiveClassDisabled: true,
+                    },
                 ],
             },
             footer: {
