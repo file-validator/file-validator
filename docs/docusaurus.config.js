@@ -73,6 +73,12 @@ const config = {
                 },
                 items: [
                     {
+                        type: 'docsVersionDropdown',
+                        position: 'left',
+                        dropdownItemsAfter: [{to: '/', label: 'All versions'}],
+                        dropdownActiveClassDisabled: true,
+                    },
+                    {
                         type: 'doc',
                         docId: 'intro',
                         position: 'left',
@@ -82,12 +88,6 @@ const config = {
                         href: 'https://github.com/file-validator/',
                         position: 'right',
                         className: 'header-github-link',
-                    },
-                    {
-                        type: 'docsVersionDropdown',
-                        position: 'right',
-                        dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
-                        dropdownActiveClassDisabled: true,
                     },
                 ],
             },
