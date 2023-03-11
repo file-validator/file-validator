@@ -41,6 +41,7 @@ const config = {
             ({
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
+
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl:
@@ -52,6 +53,13 @@ const config = {
                     // Remove this to remove the "edit this page" links.
                     editUrl:
                         'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+                    lastVersion: 'current',
+                    versions: {
+                        current: {
+                            label: '1.0.0',
+                            path: '1.0.0',
+                        },
+                    },
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
@@ -74,7 +82,7 @@ const config = {
                 items: [
                     {
                         type: 'docsVersionDropdown',
-                        position: 'left',
+                        position: 'right',
                         dropdownItemsAfter: [{to: '/', label: 'All versions'}],
                         dropdownActiveClassDisabled: true,
                     },
