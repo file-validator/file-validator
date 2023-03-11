@@ -42,7 +42,7 @@ const config = {
                 lastVersion: 'current',
                 versions: {
                     current: {
-                        label: 'Last Version', path: '/',
+                        label: '1.X.X', path: '/',
                     },
                 },
             }, blog: {
