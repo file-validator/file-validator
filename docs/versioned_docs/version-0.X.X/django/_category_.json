@@ -1,8 +1,0 @@
-{
-  "label": "\uD83D\uDCCC Django",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "In this section we will discuss Validators, Fields and Forms related to Django."
-  }
-}
