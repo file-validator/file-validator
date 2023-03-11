@@ -36,6 +36,7 @@ def all_mimes_is_equal(acceptable_mimes: list):
         mimes_is_equal = next(group, True) and not next(group, False)
         if mimes_is_equal:
             raise MimesEqualException(colored(MIMES_IS_EQUAL, "red"))
+    return None
 
 
 def is_library_supported(library: str):
