@@ -96,7 +96,7 @@ class TestIsTypeSupported:
     """Tests for is_type_supported function."""
 
     @staticmethod
-    def test_is_type_supported():
+    def test_is_type_supported_when_type_not_support():
         """Test is_type_supported function when use the not valid type."""
         with pytest.raises(TypeNotSupportedException):
             is_type_supported(acceptable_types=["bad_type"])
