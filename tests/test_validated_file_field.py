@@ -17,6 +17,7 @@ from tests.fixtures import (
     get_tmp_file,
     JPEG_FILE,
     JPEG_OBJECT,
+    MIME,
     MP3_OBJECT,
     PNG_FILE,
     PNG_OBJECT,
@@ -49,7 +50,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -61,7 +62,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -75,7 +76,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT["name"],
                 file_path=JPEG_FILE,
-                file_mime_type=JPEG_OBJECT["mime"],
+                file_mime_type=JPEG_OBJECT[MIME],
             ),
         )
 
@@ -87,13 +88,13 @@ class TestValidatedFileFieldModel:
         """test deconstruct method."""
         my_field_instance = ValidatedFileField(
             libraries=[ALL],
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
             max_upload_file_size=1000000,
         )
         _name, _path, _args, _kwargs = my_field_instance.deconstruct()
         new_instance = ValidatedFileField(
             libraries=[ALL],
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
             max_upload_file_size=1000000,
         )
         assert my_field_instance.libraries, new_instance.libraries
@@ -118,7 +119,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -146,7 +147,7 @@ class TestValidatedFileFieldModel:
                 test_file = ValidatedFileField(
                     libraries=[ALL],
                     max_upload_file_size=1000000,
-                    acceptable_mimes=[BAD_OBJECT["mime"], BAD_OBJECT["mime"]],
+                    acceptable_mimes=[BAD_OBJECT[MIME], BAD_OBJECT[MIME]],
                 )
 
     @staticmethod
@@ -156,7 +157,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -169,7 +170,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -182,7 +183,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -195,7 +196,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -208,7 +209,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -221,7 +222,7 @@ class TestValidatedFileFieldModel:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
         _my_field_instance.full_clean()
@@ -235,7 +236,7 @@ class TestValidatedFileFieldModel:
                 test_file=get_tmp_file(
                     file_name=JPEG_OBJECT["name"],
                     file_path=JPEG_FILE,
-                    file_mime_type=JPEG_OBJECT["mime"],
+                    file_mime_type=JPEG_OBJECT[MIME],
                 ),
             )
             _my_field_instance.full_clean()

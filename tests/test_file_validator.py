@@ -13,6 +13,7 @@ from tests.fixtures import (
     JPEG_FILE,
     JPEG_OBJECT,
     MAGIC_FILE,
+    MIME,
     MP3_FILE,
     PNG_FILE,
     PNG_OBJECT,
@@ -29,13 +30,13 @@ class TestFileValidatorByPythonMagic:
     ):
         """Test python_magic method library when file is valid."""
         file_validator = FileValidator(
-            acceptable_mimes=[JPEG_OBJECT["mime"]],
+            acceptable_mimes=[JPEG_OBJECT[MIME]],
             file_path=jpeg,
         )
         result_of_validation = file_validator.python_magic()
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
-        assert result_of_validation["file_mime"] == JPEG_OBJECT["mime"]
+        assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
         assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
         assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
 
@@ -49,7 +50,7 @@ class TestFileValidatorByPythonMagic:
         """
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[PNG_OBJECT["mime"]],
+                acceptable_mimes=[PNG_OBJECT[MIME]],
                 file_path=jpeg,
             )
             file_validator.python_magic()
@@ -62,13 +63,13 @@ class TestFileValidatorByPythonMagic:
         """test file_validator_by_python_magic by path_magic file from .env
         file."""
         file_validator = FileValidator(
-            acceptable_mimes=[JPEG_OBJECT["mime"]],
+            acceptable_mimes=[JPEG_OBJECT[MIME]],
             file_path=jpeg,
         )
         result_of_validation = file_validator.python_magic()
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
-        assert result_of_validation["file_mime"] == JPEG_OBJECT["mime"]
+        assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
         assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
         assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
 
@@ -86,13 +87,13 @@ class TestFileValidatorByMimeTypes:
         :return: The result we expect to return is None, which means that everything is OK
         """
         file_validator = FileValidator(
-            acceptable_mimes=[JPEG_OBJECT["mime"]],
+            acceptable_mimes=[JPEG_OBJECT[MIME]],
             file_path=jpeg,
         )
         result_of_validation = file_validator.mimetypes()
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
-        assert result_of_validation["file_mime"] == JPEG_OBJECT["mime"]
+        assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
         assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
         assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
 
@@ -106,7 +107,7 @@ class TestFileValidatorByMimeTypes:
         """
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[PNG_OBJECT["mime"]],
+                acceptable_mimes=[PNG_OBJECT[MIME]],
                 file_path=jpeg,
             )
             file_validator.mimetypes()
@@ -118,7 +119,7 @@ class TestFileValidatorByMimeTypes:
         """
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[PNG_OBJECT["mime"]],
+                acceptable_mimes=[PNG_OBJECT[MIME]],
                 file_path=BAD_FILE,
             )
             file_validator.mimetypes()
@@ -134,13 +135,13 @@ class TestFileValidatorByPureMagic:
     ):
         """Test file_validator_by_pure_magic the library when file is valid."""
         file_validator = FileValidator(
-            acceptable_mimes=[JPEG_OBJECT["mime"]],
+            acceptable_mimes=[JPEG_OBJECT[MIME]],
             file_path=jpeg,
         )
         result_of_validation = file_validator.pure_magic()
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
-        assert result_of_validation["file_mime"] == JPEG_OBJECT["mime"]
+        assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
         assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
         assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
 
@@ -150,7 +151,7 @@ class TestFileValidatorByPureMagic:
         valid."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[JPEG_OBJECT["mime"]],
+                acceptable_mimes=[JPEG_OBJECT[MIME]],
                 file_path=PNG_FILE,
             )
             file_validator.pure_magic()
@@ -161,7 +162,7 @@ class TestFileValidatorByPureMagic:
         file."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[PNG_OBJECT["mime"]],
+                acceptable_mimes=[PNG_OBJECT[MIME]],
                 file_path=BAD_FILE,
             )
             file_validator.pure_magic()
@@ -177,13 +178,13 @@ class TestFileValidatorByFileType:
     ):
         """Test file_validator_by_filetype the library when file is valid."""
         file_validator = FileValidator(
-            acceptable_mimes=[JPEG_OBJECT["mime"]],
+            acceptable_mimes=[JPEG_OBJECT[MIME]],
             file_path=jpeg,
         )
         result_of_validation = file_validator.filetype()
         assert result_of_validation["status"] == OK
         assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
-        assert result_of_validation["file_mime"] == JPEG_OBJECT["mime"]
+        assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
         assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
         assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
 
@@ -195,7 +196,7 @@ class TestFileValidatorByFileType:
         valid."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[JPEG_OBJECT["mime"]],
+                acceptable_mimes=[JPEG_OBJECT[MIME]],
                 file_path=mp3_file,
             )
             file_validator.filetype()
@@ -205,7 +206,7 @@ class TestFileValidatorByFileType:
         """Test filetype library when it could not detect the mime file."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                acceptable_mimes=[PNG_OBJECT["mime"]],
+                acceptable_mimes=[PNG_OBJECT[MIME]],
                 file_path=BAD_FILE,
             )
             file_validator.filetype()
@@ -281,8 +282,8 @@ class TestFileValidatorDjango:
         valid."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
-                file_mime_guessed_by_django=JPEG_OBJECT["mime"],
-                acceptable_mimes=[PNG_OBJECT["mime"]],
+                file_mime_guessed_by_django=JPEG_OBJECT[MIME],
+                acceptable_mimes=[PNG_OBJECT[MIME]],
             )
             file_validator.django()
 
@@ -291,7 +292,7 @@ class TestFileValidatorDjango:
         """Test validate method when file_mime_guessed parameter by django is
         not fill."""
         file_validator = FileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME]],
             file_path=PNG_FILE,
         )
         file_validator.validate()
@@ -305,7 +306,7 @@ class TestFileMimeValidator:
         """Test file mime validation when mime file is valid."""
         file_validator = FileValidator(
             file_path=PNG_FILE,
-            acceptable_mimes=[PNG_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME]],
         )
         file_validator.validate_mime()
 
@@ -315,7 +316,7 @@ class TestFileMimeValidator:
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
                 file_path=PNG_FILE,
-                acceptable_mimes=[JPEG_OBJECT["mime"]],
+                acceptable_mimes=[JPEG_OBJECT[MIME]],
             )
             file_validator.validate_mime()
 
@@ -326,6 +327,6 @@ class TestFileMimeValidator:
         """Test file mime validation by path magic file from env file."""
         file_validator = FileValidator(
             file_path=PNG_FILE,
-            acceptable_mimes=[PNG_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME]],
         )
         file_validator.validate_mime()

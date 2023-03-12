@@ -7,7 +7,7 @@ from file_validator.exceptions import SizeValidationException
 from file_validator.models import FileSizeValidator
 from file_validator.validators import FileValidator
 
-from tests.fixtures import get_tmp_file, PNG_FILE, PNG_OBJECT
+from tests.fixtures import get_tmp_file, MIME, PNG_FILE, PNG_OBJECT
 from tests.project.app.models import (
     TestModelWithFileSizeValidator,
     TestModelWithFileSizeValidatorAndNotValidSize,
@@ -24,7 +24,7 @@ class TestFileSizeValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -38,7 +38,7 @@ class TestFileSizeValidator:
                 test_file=get_tmp_file(
                     file_name=PNG_OBJECT["name"],
                     file_path=PNG_FILE,
-                    file_mime_type=PNG_OBJECT["mime"],
+                    file_mime_type=PNG_OBJECT[MIME],
                 ),
             )
 

@@ -52,6 +52,8 @@ BAD_OBJECT: dict = {
     "extension": ".file",
 }
 
+MIME: str = "mime"
+
 TEMPLATE_EXPECTED_MESSAGE: str = (
     "{file_name} {current_file_mime} {mimes} {file_size} {max_file_size}"
 )
