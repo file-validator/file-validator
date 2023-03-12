@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from tests.project.app.models import TestModelWithValidatedFileField
+from tests.project.app.models import ModelWithValidatedFileField
 
-admin.site.register(TestModelWithValidatedFileField)
+admin.site.register(ModelWithValidatedFileField)

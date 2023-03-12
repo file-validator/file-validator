@@ -25,20 +25,20 @@ from tests.fixtures import (
     TYPE,
 )
 from tests.project.app.forms import (
-    TestForm,
-    TestFormWithCssClassAttribute,
-    TestFormWithoutAcceptAttribute,
+    FormWithCssClassAttribute,
+    FormWithoutAcceptAttribute,
+    FormWithValidatedFileField,
 )
 from tests.project.app.models import (
-    TestModelWithValidatedFileField,
-    TestModelWithValidatedFileFieldAndAllLibrary,
-    TestModelWithValidatedFileFieldAndDjangoLibrary,
-    TestModelWithValidatedFileFieldAndFileTypeLibrary,
-    TestModelWithValidatedFileFieldAndMimetypesLibrary,
-    TestModelWithValidatedFileFieldAndPureMagicLibrary,
-    TestModelWithValidatedFileFieldAndPythonMagicLibrary,
-    TestModelWithValidatedFileFieldWithAcceptableType,
-    TestModelWithValidatedFileFieldWithoutLibrary,
+    ModelWithValidatedFileField,
+    ModelWithValidatedFileFieldAndAllLibrary,
+    ModelWithValidatedFileFieldAndDjangoLibrary,
+    ModelWithValidatedFileFieldAndFileTypeLibrary,
+    ModelWithValidatedFileFieldAndMimetypesLibrary,
+    ModelWithValidatedFileFieldAndPureMagicLibrary,
+    ModelWithValidatedFileFieldAndPythonMagicLibrary,
+    ModelWithValidatedFileFieldWithAcceptableType,
+    ModelWithValidatedFileFieldWithoutLibrary,
 )
 
 
@@ -48,7 +48,7 @@ class TestValidatedFileFieldModel:
     @staticmethod
     def test_validated_file_field_with_all_libraries():
         """Test ValidatedFileField with all libraries."""
-        _my_field_instance = TestModelWithValidatedFileFieldAndAllLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldAndAllLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -60,7 +60,7 @@ class TestValidatedFileFieldModel:
     @staticmethod
     def test_validated_file_field_when_file_is_valid_and_return_none():
         """test ValidatedFileField when file is valid and return none."""
-        new_instance = TestModelWithValidatedFileField(
+        new_instance = ModelWithValidatedFileField(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -74,7 +74,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_when_file_is_not_valid_and_raise_validation_error():
         """test ValidatedFileField when file is not valid and raise validation
         error."""
-        new_instance = TestModelWithValidatedFileField(
+        new_instance = ModelWithValidatedFileField(
             test_file=get_tmp_file(
                 file_name=JPEG_OBJECT[NAME],
                 file_path=JPEG_FILE,
@@ -117,7 +117,7 @@ class TestValidatedFileFieldModel:
     @staticmethod
     def test_validated_file_field_libraries_is_none():
         """the test ValidatedFileField library is none."""
-        _my_field_instance = TestModelWithValidatedFileFieldWithoutLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldWithoutLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -155,7 +155,7 @@ class TestValidatedFileFieldModel:
     @staticmethod
     def test_validated_file_field_when_acceptable_types_is_fill():
         """Test ValidatedFileField when acceptable_types is fill."""
-        _my_field_instance = TestModelWithValidatedFileFieldWithAcceptableType(
+        _my_field_instance = ModelWithValidatedFileFieldWithAcceptableType(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -168,7 +168,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_when_library_is_python_magic():
         """Test ValidatedFileField when the library is python magic and the
         file is valid."""
-        _my_field_instance = TestModelWithValidatedFileFieldAndPythonMagicLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldAndPythonMagicLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -181,7 +181,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_when_library_is_pure_magic():
         """Test ValidatedFileField when the library is puremagic and file is
         valid."""
-        _my_field_instance = TestModelWithValidatedFileFieldAndPureMagicLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldAndPureMagicLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -194,7 +194,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_when_library_is_mimetypes():
         """Test ValidatedFileField when the library is mimetypes and file is
         valid."""
-        _my_field_instance = TestModelWithValidatedFileFieldAndMimetypesLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldAndMimetypesLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -207,7 +207,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_when_library_is_filetype():
         """Test ValidatedFileField when the library is filetype and file is
         valid."""
-        _my_field_instance = TestModelWithValidatedFileFieldAndFileTypeLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldAndFileTypeLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -220,7 +220,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_when_library_is_django():
         """Test ValidatedFileField when the library is django and file is
         valid."""
-        _my_field_instance = TestModelWithValidatedFileFieldAndDjangoLibrary(
+        _my_field_instance = ModelWithValidatedFileFieldAndDjangoLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -234,7 +234,7 @@ class TestValidatedFileFieldModel:
         """Test ValidatedFileField when the library is django and file is not
         valid."""
         with pytest.raises(ValidationError):
-            _my_field_instance = TestModelWithValidatedFileFieldAndDjangoLibrary(
+            _my_field_instance = ModelWithValidatedFileFieldAndDjangoLibrary(
                 test_file=get_tmp_file(
                     file_name=JPEG_OBJECT[NAME],
                     file_path=JPEG_FILE,
@@ -255,7 +255,7 @@ class TestValidatedFileFieldForm:
             file_dict = {
                 "test_file": SimpleUploadedFile(upload_file.name, upload_file.read()),
             }
-            form = TestForm({}, file_dict)
+            form = FormWithValidatedFileField({}, file_dict)
             assert form.is_valid()
             assert form.fields["test_file"].accept == "image/*"
             assert form.fields["test_file"].multiple is True
@@ -263,11 +263,11 @@ class TestValidatedFileFieldForm:
     @staticmethod
     def test_accept_attribute_is_none_in_form():
         """test accept attribute is none in form."""
-        form = TestFormWithoutAcceptAttribute()
+        form = FormWithoutAcceptAttribute()
         assert form.fields["test_file"].accept is None
 
     @staticmethod
     def test_css_class_attribute_in_form():
         """test css class attribute in form."""
-        form = TestFormWithCssClassAttribute()
+        form = FormWithCssClassAttribute()
         assert form.fields["test_file"].custom_css_class == "test-class"

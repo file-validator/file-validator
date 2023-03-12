@@ -9,8 +9,8 @@ from file_validator.validators import FileValidator
 
 from tests.fixtures import get_tmp_file, MIME, NAME, PNG_FILE, PNG_OBJECT
 from tests.project.app.models import (
-    TestModelWithFileSizeValidator,
-    TestModelWithFileSizeValidatorAndNotValidSize,
+    ModelWithFileSizeValidator,
+    ModelWithFileSizeValidatorAndNotValidSize,
 )
 
 
@@ -20,7 +20,7 @@ class TestFileSizeValidator:
     @staticmethod
     def test_file_size_is_valid():
         """test file size is valid."""
-        new_instance = TestModelWithFileSizeValidator(
+        new_instance = ModelWithFileSizeValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
@@ -34,7 +34,7 @@ class TestFileSizeValidator:
     def test_file_size_is_not_valid():
         """test file size is not valid."""
         with pytest.raises(ValidationError):
-            new_instance = TestModelWithFileSizeValidatorAndNotValidSize(
+            new_instance = ModelWithFileSizeValidatorAndNotValidSize(
                 test_file=get_tmp_file(
                     file_name=PNG_OBJECT[NAME],
                     file_path=PNG_FILE,
