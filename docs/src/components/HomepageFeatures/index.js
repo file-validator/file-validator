@@ -4,11 +4,11 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'File validation based on MIME',
+    title: 'File validation based on Magic Numbers, Extension and Size',
     Svg: require('@site/static/img/file-mimes.svg').default,
     description: (
       <>
-        You can validate files based on <code>MIME</code>  and their <code>magic numbers</code> using the File Validator library
+        You can validate files based on <code>MIME</code>, <code>magic numbers</code>, <code>Extension</code>  and Size using the File Validator library
       </>
     ),
   },
@@ -26,7 +26,7 @@ const FeatureList = [
     Svg: require('@site/static/img/django.svg').default,
     description: (
       <>
-        Provide <b>ValidatedFilefield</b> and <b>FileValidator</b> for file validation in Django
+        Provide <b>ValidatedFilefield</b> and <b>DjangoFileValidator</b> for file validation in Django
       </>
     ),
   },
