@@ -16,6 +16,7 @@ from tests.fixtures import (
     get_tmp_file,
     JPEG_FILE,
     JPEG_OBJECT,
+    MIME,
     MP3_OBJECT,
     PNG_FILE,
     PNG_OBJECT,
@@ -43,7 +44,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -57,7 +58,7 @@ class TestDjangoFileValidator:
                 test_file=get_tmp_file(
                     file_name=JPEG_OBJECT["name"],
                     file_path=JPEG_FILE,
-                    file_mime_type=JPEG_OBJECT["mime"],
+                    file_mime_type=JPEG_OBJECT[MIME],
                 ),
             )
 
@@ -70,7 +71,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -83,7 +84,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -100,7 +101,7 @@ class TestDjangoFileValidator:
                 test_file = models.FileField(
                     validators=[
                         DjangoFileValidator(
-                            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+                            acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
                             libraries=[BAD_OBJECT["name"]],
                         ),
                     ],
@@ -117,7 +118,7 @@ class TestDjangoFileValidator:
                 test_file = models.FileField(
                     validators=[
                         DjangoFileValidator(
-                            acceptable_mimes=[PNG_OBJECT["mime"], PNG_OBJECT["mime"]],
+                            acceptable_mimes=[PNG_OBJECT[MIME], PNG_OBJECT[MIME]],
                         ),
                     ],
                 )
@@ -126,11 +127,11 @@ class TestDjangoFileValidator:
     def test_django_file_validator_eq_methode():
         """test eq methode."""
         file_validator_one = DjangoFileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
             libraries=[ALL],
         )
         file_validator_two = DjangoFileValidator(
-            acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
             libraries=[ALL],
         )
         assert file_validator_one == file_validator_two
@@ -140,7 +141,7 @@ class TestDjangoFileValidator:
         """Test for __hash__ method in FileValidator."""
         test_file = DjangoFileValidator(
             max_upload_file_size=1000,
-            acceptable_mimes=[PNG_OBJECT["mime"]],
+            acceptable_mimes=[PNG_OBJECT[MIME]],
         )
         assert hash(test_file) == 1000
 
@@ -170,7 +171,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -183,7 +184,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -196,7 +197,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -209,7 +210,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -222,7 +223,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 
@@ -235,7 +236,7 @@ class TestDjangoFileValidator:
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT["name"],
                 file_path=PNG_FILE,
-                file_mime_type=PNG_OBJECT["mime"],
+                file_mime_type=PNG_OBJECT[MIME],
             ),
         )
 

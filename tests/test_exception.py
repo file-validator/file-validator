@@ -1,7 +1,7 @@
 """Tests for exception."""
 from file_validator.exceptions import error_message
 
-from tests.fixtures import EXPECTED_MESSAGE, PNG_OBJECT, TEMPLATE_EXPECTED_MESSAGE
+from tests.fixtures import EXPECTED_MESSAGE, MIME, PNG_OBJECT, TEMPLATE_EXPECTED_MESSAGE
 
 
 class TestException:
@@ -17,6 +17,6 @@ class TestException:
             file_size="20 MB",
             mimes=["image/png", "audio/mpeg"],
             max_file_size="10 MB",
-            current_file_mime=PNG_OBJECT["mime"],
+            current_file_mime=PNG_OBJECT[MIME],
         )
         assert EXPECTED_MESSAGE in message

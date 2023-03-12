@@ -17,6 +17,7 @@ from file_validator.utils import (
 
 from tests.fixtures import (
     BAD_FILE,
+    MIME,
     MP3_FILE,
     MP3_OBJECT,
     MP4_FILE,
@@ -80,12 +81,12 @@ class TestAllMimesIsEqual:
     def test_all_mimes_is_equal_when_mimes_is_equal():
         """test all_mimes_is_equal function in utils.py."""
         with pytest.raises(MimesEqualException):
-            all_mimes_is_equal([PNG_OBJECT["mime"], PNG_OBJECT["mime"]])
+            all_mimes_is_equal([PNG_OBJECT[MIME], PNG_OBJECT[MIME]])
 
     @staticmethod
     def test_all_mimes_is_equal_when_mimes_is_not_equal():
         """test all_mimes_is_equal function in utils.py."""
-        all_mimes_is_equal([PNG_OBJECT["mime"], MP3_OBJECT["mime"]])
+        all_mimes_is_equal([PNG_OBJECT[MIME], MP3_OBJECT[MIME]])
 
 
 class TestIsTypeSupported:
@@ -118,7 +119,7 @@ class TestParametersAreEmpty:
         """Test parameters_are_empty when acceptable_types and acceptable_mimes
         is not none."""
         parameters_are_empty(
-            acceptable_types=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+            acceptable_types=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
             acceptable_mimes=[PNG_OBJECT["type"], MP3_OBJECT["type"]],
         )
 
@@ -133,7 +134,7 @@ class TestGenerateInformationAboutFile:
             status=OK,
             library=FILETYPE,
             file_name=PNG_OBJECT["name"],
-            file_mime=PNG_OBJECT["mime"],
+            file_mime=PNG_OBJECT[MIME],
             file_type=IMAGE,
             file_extension=PNG_OBJECT["extension"],
         )
@@ -142,7 +143,7 @@ class TestGenerateInformationAboutFile:
         assert result["file_type"] == IMAGE
         assert result["library"] == FILETYPE
         assert result["file_name"] == PNG_OBJECT["name"]
-        assert result["file_mime"] == PNG_OBJECT["mime"]
+        assert result["file_mime"] == PNG_OBJECT[MIME]
         assert result["file_extension"] == PNG_OBJECT["extension"]
 
     @staticmethod
