@@ -18,8 +18,10 @@ from tests.fixtures import (
     JPEG_OBJECT,
     MIME,
     MP3_OBJECT,
+    NAME,
     PNG_FILE,
     PNG_OBJECT,
+    TYPE,
 )
 from tests.project.app.models import (
     TestModelWithDjangoFileValidator,
@@ -42,7 +44,7 @@ class TestDjangoFileValidator:
         """test when file is valid and return none."""
         new_instance = TestModelWithDjangoFileValidator(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -56,7 +58,7 @@ class TestDjangoFileValidator:
         with pytest.raises(ValidationError):
             new_instance = TestModelWithDjangoFileValidator(
                 test_file=get_tmp_file(
-                    file_name=JPEG_OBJECT["name"],
+                    file_name=JPEG_OBJECT[NAME],
                     file_path=JPEG_FILE,
                     file_mime_type=JPEG_OBJECT[MIME],
                 ),
@@ -69,7 +71,7 @@ class TestDjangoFileValidator:
         """test when file size is none."""
         new_instance = TestModelWithDjangoFileValidatorAndSizeIsNone(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -82,7 +84,7 @@ class TestDjangoFileValidator:
         """test when libraries is none."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsNone(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -102,7 +104,7 @@ class TestDjangoFileValidator:
                     validators=[
                         DjangoFileValidator(
                             acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
-                            libraries=[BAD_OBJECT["name"]],
+                            libraries=[BAD_OBJECT[NAME]],
                         ),
                     ],
                 )
@@ -159,7 +161,7 @@ class TestDjangoFileValidator:
                         DjangoFileValidator(
                             libraries=[ALL],
                             max_upload_file_size=1000000,
-                            acceptable_types=[BAD_OBJECT["type"]],
+                            acceptable_types=[BAD_OBJECT[TYPE]],
                         ),
                     ],
                 )
@@ -169,7 +171,7 @@ class TestDjangoFileValidator:
         """Test django file validator when the library is python magic."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsPythonMagic(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -182,7 +184,7 @@ class TestDjangoFileValidator:
         """Test django file validator when the library is pure magic."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsPureMagic(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -195,7 +197,7 @@ class TestDjangoFileValidator:
         """Test django file validator when the library is mimetypes."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsMimetypes(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -208,7 +210,7 @@ class TestDjangoFileValidator:
         """Test django file validator when the library is mimetypes."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsFiletype(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -221,7 +223,7 @@ class TestDjangoFileValidator:
         """Test django file validator when the library is mimetypes."""
         new_instance = TestModelWithDjangoFileValidatorAndLibraryIsDjango(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -234,7 +236,7 @@ class TestDjangoFileValidator:
         """Test django file validator when the library is mimetypes."""
         new_instance = TestModelWithDjangoFileValidatorWithAcceptableType(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),

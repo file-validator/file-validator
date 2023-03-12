@@ -10,13 +10,16 @@ from file_validator.validators import FileValidator
 
 from tests.fixtures import (
     BAD_FILE,
+    EXTENSION,
     JPEG_FILE,
     JPEG_OBJECT,
     MAGIC_FILE,
     MIME,
     MP3_FILE,
+    NAME,
     PNG_FILE,
     PNG_OBJECT,
+    TYPE,
 )
 
 
@@ -35,10 +38,10 @@ class TestFileValidatorByPythonMagic:
         )
         result_of_validation = file_validator.python_magic()
         assert result_of_validation["status"] == OK
-        assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
+        assert result_of_validation["file_name"] == JPEG_OBJECT[NAME]
         assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
-        assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
-        assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
+        assert result_of_validation["file_type"] == JPEG_OBJECT[TYPE]
+        assert result_of_validation["file_extension"] == JPEG_OBJECT[EXTENSION]
 
     @staticmethod
     def test_file_validator_by_python_magic_library_when_file_is_not_valid(
@@ -68,10 +71,10 @@ class TestFileValidatorByPythonMagic:
         )
         result_of_validation = file_validator.python_magic()
         assert result_of_validation["status"] == OK
-        assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
+        assert result_of_validation["file_name"] == JPEG_OBJECT[NAME]
         assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
-        assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
-        assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
+        assert result_of_validation["file_type"] == JPEG_OBJECT[TYPE]
+        assert result_of_validation["file_extension"] == JPEG_OBJECT[EXTENSION]
 
 
 class TestFileValidatorByMimeTypes:
@@ -92,10 +95,10 @@ class TestFileValidatorByMimeTypes:
         )
         result_of_validation = file_validator.mimetypes()
         assert result_of_validation["status"] == OK
-        assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
+        assert result_of_validation["file_name"] == JPEG_OBJECT[NAME]
         assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
-        assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
-        assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
+        assert result_of_validation["file_type"] == JPEG_OBJECT[TYPE]
+        assert result_of_validation["file_extension"] == JPEG_OBJECT[EXTENSION]
 
     @staticmethod
     def test_file_validator_by_mimetypes_library_when_file_is_not_valid(
@@ -140,10 +143,10 @@ class TestFileValidatorByPureMagic:
         )
         result_of_validation = file_validator.pure_magic()
         assert result_of_validation["status"] == OK
-        assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
+        assert result_of_validation["file_name"] == JPEG_OBJECT[NAME]
         assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
-        assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
-        assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
+        assert result_of_validation["file_type"] == JPEG_OBJECT[TYPE]
+        assert result_of_validation["file_extension"] == JPEG_OBJECT[EXTENSION]
 
     @staticmethod
     def test_file_validator_by_pure_magic_library_when_file_is_not_valid():
@@ -183,10 +186,10 @@ class TestFileValidatorByFileType:
         )
         result_of_validation = file_validator.filetype()
         assert result_of_validation["status"] == OK
-        assert result_of_validation["file_name"] == JPEG_OBJECT["name"]
+        assert result_of_validation["file_name"] == JPEG_OBJECT[NAME]
         assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
-        assert result_of_validation["file_type"] == JPEG_OBJECT["type"]
-        assert result_of_validation["file_extension"] == JPEG_OBJECT["extension"]
+        assert result_of_validation["file_type"] == JPEG_OBJECT[TYPE]
+        assert result_of_validation["file_extension"] == JPEG_OBJECT[EXTENSION]
 
     @staticmethod
     def test_file_validator_by_filetype_library_when_file_is_not_valid(
@@ -220,7 +223,7 @@ class TestFileExtensionValidator:
         """Test file extension validator when file is valid."""
         file_validator = FileValidator(
             file_path=PNG_FILE,
-            acceptable_extensions=[PNG_OBJECT["extension"]],
+            acceptable_extensions=[PNG_OBJECT[EXTENSION]],
         )
         file_validator.validate_extension()
 
@@ -230,7 +233,7 @@ class TestFileExtensionValidator:
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
                 file_path=PNG_FILE,
-                acceptable_extensions=[JPEG_OBJECT["extension"]],
+                acceptable_extensions=[JPEG_OBJECT[EXTENSION]],
             )
             file_validator.validate_extension()
 
@@ -270,7 +273,7 @@ class TestFileValidatorByType:
         result_of_validation = file_validator.validate_type()
         assert result_of_validation["status"] == OK
         assert result_of_validation["library"] == FILETYPE
-        assert result_of_validation["file_name"] == PNG_OBJECT["name"]
+        assert result_of_validation["file_name"] == PNG_OBJECT[NAME]
 
 
 class TestFileValidatorDjango:
