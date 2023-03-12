@@ -19,8 +19,10 @@ from tests.fixtures import (
     JPEG_OBJECT,
     MIME,
     MP3_OBJECT,
+    NAME,
     PNG_FILE,
     PNG_OBJECT,
+    TYPE,
 )
 from tests.project.app.forms import (
     TestForm,
@@ -48,7 +50,7 @@ class TestValidatedFileFieldModel:
         """Test ValidatedFileField with all libraries."""
         _my_field_instance = TestModelWithValidatedFileFieldAndAllLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -60,7 +62,7 @@ class TestValidatedFileFieldModel:
         """test ValidatedFileField when file is valid and return none."""
         new_instance = TestModelWithValidatedFileField(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -74,7 +76,7 @@ class TestValidatedFileFieldModel:
         error."""
         new_instance = TestModelWithValidatedFileField(
             test_file=get_tmp_file(
-                file_name=JPEG_OBJECT["name"],
+                file_name=JPEG_OBJECT[NAME],
                 file_path=JPEG_FILE,
                 file_mime_type=JPEG_OBJECT[MIME],
             ),
@@ -117,7 +119,7 @@ class TestValidatedFileFieldModel:
         """the test ValidatedFileField library is none."""
         _my_field_instance = TestModelWithValidatedFileFieldWithoutLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -134,7 +136,7 @@ class TestValidatedFileFieldModel:
                 test_file = ValidatedFileField(
                     libraries=[ALL],
                     max_upload_file_size=1000000,
-                    acceptable_types=[BAD_OBJECT["type"]],
+                    acceptable_types=[BAD_OBJECT[TYPE]],
                 )
 
     @staticmethod
@@ -155,7 +157,7 @@ class TestValidatedFileFieldModel:
         """Test ValidatedFileField when acceptable_types is fill."""
         _my_field_instance = TestModelWithValidatedFileFieldWithAcceptableType(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -168,7 +170,7 @@ class TestValidatedFileFieldModel:
         file is valid."""
         _my_field_instance = TestModelWithValidatedFileFieldAndPythonMagicLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -181,7 +183,7 @@ class TestValidatedFileFieldModel:
         valid."""
         _my_field_instance = TestModelWithValidatedFileFieldAndPureMagicLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -194,7 +196,7 @@ class TestValidatedFileFieldModel:
         valid."""
         _my_field_instance = TestModelWithValidatedFileFieldAndMimetypesLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -207,7 +209,7 @@ class TestValidatedFileFieldModel:
         valid."""
         _my_field_instance = TestModelWithValidatedFileFieldAndFileTypeLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -220,7 +222,7 @@ class TestValidatedFileFieldModel:
         valid."""
         _my_field_instance = TestModelWithValidatedFileFieldAndDjangoLibrary(
             test_file=get_tmp_file(
-                file_name=PNG_OBJECT["name"],
+                file_name=PNG_OBJECT[NAME],
                 file_path=PNG_FILE,
                 file_mime_type=PNG_OBJECT[MIME],
             ),
@@ -234,7 +236,7 @@ class TestValidatedFileFieldModel:
         with pytest.raises(ValidationError):
             _my_field_instance = TestModelWithValidatedFileFieldAndDjangoLibrary(
                 test_file=get_tmp_file(
-                    file_name=JPEG_OBJECT["name"],
+                    file_name=JPEG_OBJECT[NAME],
                     file_path=JPEG_FILE,
                     file_mime_type=JPEG_OBJECT[MIME],
                 ),

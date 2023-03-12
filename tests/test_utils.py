@@ -17,13 +17,16 @@ from file_validator.utils import (
 
 from tests.fixtures import (
     BAD_FILE,
+    EXTENSION,
     MIME,
     MP3_FILE,
     MP3_OBJECT,
     MP4_FILE,
+    NAME,
     PNG_FILE,
     PNG_OBJECT,
     TTF_FILE,
+    TYPE,
     ZIP_FILE,
 )
 
@@ -120,7 +123,7 @@ class TestParametersAreEmpty:
         is not none."""
         parameters_are_empty(
             acceptable_types=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
-            acceptable_mimes=[PNG_OBJECT["type"], MP3_OBJECT["type"]],
+            acceptable_mimes=[PNG_OBJECT[TYPE], MP3_OBJECT[TYPE]],
         )
 
 
@@ -133,18 +136,18 @@ class TestGenerateInformationAboutFile:
         result = generate_information_about_file(
             status=OK,
             library=FILETYPE,
-            file_name=PNG_OBJECT["name"],
+            file_name=PNG_OBJECT[NAME],
             file_mime=PNG_OBJECT[MIME],
             file_type=IMAGE,
-            file_extension=PNG_OBJECT["extension"],
+            file_extension=PNG_OBJECT[EXTENSION],
         )
 
         assert result["status"] == OK
         assert result["file_type"] == IMAGE
         assert result["library"] == FILETYPE
-        assert result["file_name"] == PNG_OBJECT["name"]
+        assert result["file_name"] == PNG_OBJECT[NAME]
         assert result["file_mime"] == PNG_OBJECT[MIME]
-        assert result["file_extension"] == PNG_OBJECT["extension"]
+        assert result["file_extension"] == PNG_OBJECT[EXTENSION]
 
     @staticmethod
     def test_generate_information_about_file_when_parameters_is_none():
