@@ -8,17 +8,29 @@ In the [0.X.X](https://file-validator.github.io/docs/0.X.X/intro) version, each 
 
 In the new version you can validate files based on extension, mime and size separately
 
-
-You must first import `FileValidator` to use
+## How Used?
+### First Imported
+You must first import `FileValidator` to use:
 ```python
 from file_validator.validators import FileValidator
 ```
 
 
+### Create Instance
+At this point you should make an instance from the `FileValidator` class:
 ```python
 file_validator = FileValidator(
+    acceptable_extensions=[".png"],
+    max_upload_file_size=1000000,
+    acceptable_types=["image", "audio"],
     acceptable_mimes=["image/png"],
     file_path="path/to/file",
 )
-result_of_validation = file_validator.python_magic()
+```
+
+### File Validation Using The **python-magic** Library
+If you want to perform validation operations by the `Python-Magic` Library, you should use the `python_magic()` method as follows:
+
+```python
+file_validator.python_magic()
 ```
