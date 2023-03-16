@@ -128,7 +128,8 @@ class ValidatedFileField(FileField):
                         file_validator.django()
             if self.acceptable_types is not None:
                 file_validator.validate_type()
-
+            if self.max_upload_file_size is not None:
+                file_validator.validate_size()
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
@@ -230,6 +231,8 @@ class DjangoFileValidator:
                         file_validator.django()
             if self.acceptable_types is not None:
                 file_validator.validate_type()
+            if self.max_upload_file_size is not None:
+                file_validator.validate_size()
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
