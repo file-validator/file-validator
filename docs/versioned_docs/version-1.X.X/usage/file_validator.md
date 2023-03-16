@@ -84,3 +84,9 @@ If you want to validate the files based on their `size`, you should use the `val
 ```python
 file_validator.validate_size()
 ```
+
+### File Validation Based On The type
+If you want to validate the files based on their `type` such `image`, `audio`, `video` and etc..., you should use the `validate_type()` method:
+```python
+file_validator.validate_type()
+```
