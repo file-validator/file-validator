@@ -57,3 +57,11 @@ If you want to perform validation operations by the `filetype` Library, you shou
 ```python
 file_validator.filetype()
 ```
+
+
+### File Validation Using The **All** Library
+If you want to perform validation operations by the `All` libraries , you should use the `filetype()` method as follows:
+
+```python
+file_validator.validate()
+```
