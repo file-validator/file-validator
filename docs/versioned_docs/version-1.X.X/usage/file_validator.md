@@ -78,3 +78,9 @@ If you want to validate the files based on their `extension`, you should use the
 ```python
 file_validator.validate_extension()
 ```
+
+### File Validation Based On The Size
+If you want to validate the files based on their `size`, you should use the `validate_size()` method:
+```python
+file_validator.validate_size()
+```
