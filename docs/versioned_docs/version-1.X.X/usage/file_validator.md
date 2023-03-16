@@ -49,3 +49,11 @@ If you want to perform validation operations by the `mimetypes` Library, you sho
 ```python
 file_validator.mimetypes()
 ```
+
+
+### File Validation Using The **filetype** Library
+If you want to perform validation operations by the `filetype` Library, you should use the `filetype()` method as follows:
+
+```python
+file_validator.filetype()
+```
