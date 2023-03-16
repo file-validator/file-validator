@@ -2,8 +2,8 @@
 
 PYTHON_MAGIC: str = "python_magic"
 PURE_MAGIC: str = "pure_magic"
-FILETYPE: str = "filetype"
 MIMETYPES: str = "mimetypes"
+FILETYPE: str = "filetype"
 DEFAULT: str = "default"
 DJANGO: str = "django"
 SIZE: str = "size"

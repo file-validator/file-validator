@@ -29,8 +29,16 @@ file_validator = FileValidator(
 ```
 
 ### File Validation Using The **python-magic** Library
-If you want to perform validation operations by the `Python-Magic` Library, you should use the `python_magic()` method as follows:
+If you want to perform validation operations by the `python-magic` Library, you should use the `python_magic()` method as follows:
 
 ```python
 file_validator.python_magic()
+```
+
+
+### File Validation Using The **pure-magic** Library
+If you want to perform validation operations by the `pure-magic` Library, you should use the `pure_magic()` method as follows:
+
+```python
+file_validator.pure_magic()
 ```
