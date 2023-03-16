@@ -42,3 +42,10 @@ If you want to perform validation operations by the `pure-magic` Library, you sh
 ```python
 file_validator.pure_magic()
 ```
+
+### File Validation Using The **mimetypes** Library
+If you want to perform validation operations by the `mimetypes` Library, you should use the `mimetypes()` method as follows:
+
+```python
+file_validator.mimetypes()
+```
