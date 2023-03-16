@@ -65,3 +65,10 @@ If you want to perform validation operations by the `All` libraries , you should
 ```python
 file_validator.validate()
 ```
+
+
+### File Validation Based On The Mime
+If you want to validate the files based on their `MIME` and their `magic numbers`, you should use the `validate_mime()` method:
+```python
+file_validator.validate_mime()
+```
