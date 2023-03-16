@@ -63,7 +63,7 @@ class FileValidator:
         self.libraries = libraries
 
     def validate_extension(self):
-        """Test."""
+        """This method for validating the extension of file."""
         current_file = Path(self.file_path)
         file_extension = current_file.suffix
         if file_extension not in self.acceptable_extensions:
@@ -80,7 +80,7 @@ class FileValidator:
         return result_of_validation
 
     def validate_size(self):
-        """Return.e."""
+        """This method for validating the size of file."""
         file_size = os.path.getsize(self.file_path)
         if (
             self.max_upload_file_size is not None
@@ -103,7 +103,7 @@ class FileValidator:
         return result_of_validation
 
     def validate_type(self):
-        """Testttgtg."""
+        """This method for validating the type of file."""
         for acceptable_type in self.acceptable_types:
             if acceptable_type.lower() not in SUPPORTED_TYPES:
                 raise TypeNotSupportedException(colored(TYPE_NOT_SUPPORTED, "red"))
@@ -126,7 +126,7 @@ class FileValidator:
         return result_of_validation
 
     def validate_mime(self):
-        """Test."""
+        """This method for validating the mime of file."""
         load_dotenv()
         operating_system_name = platform.system()
         path_magic_file = os.environ.get("path_magic_file")
@@ -150,7 +150,6 @@ class FileValidator:
             for file_signature in file_signatures:
                 file_mimes_by_pure_magic.append(file_signature.mime_type)
         guessed_mime_by_pure_magic = file_mimes_by_pure_magic[0]
-
         guessed_mime_by_mimetypes = guess_type(self.file_path)[0]
         guessed_mime_by_filetype = guess(self.file_path).MIME
         guessed_mimes = [
@@ -169,7 +168,8 @@ class FileValidator:
                 )
 
     def validate(self):
-        """Test."""
+        """This method for validating file based on mime using all
+        libraries."""
         validation_data = {}
 
         validation_data_filetype = self.filetype()
@@ -191,7 +191,8 @@ class FileValidator:
         return validation_data
 
     def python_magic(self):
-        """Test."""
+        """This method for validating file based on mime using python-magic
+        library."""
         load_dotenv()
         operating_system_name = platform.system()
         path_magic_file = os.environ.get("path_magic_file")
@@ -226,7 +227,8 @@ class FileValidator:
         return result_of_validation
 
     def pure_magic(self):
-        """Test."""
+        """This method for validating file based on mime using the pure-magic
+        library."""
         try:
             with open(self.file_path, "rb") as file:
                 file_signatures = puremagic.magic_stream(file)
@@ -258,7 +260,8 @@ class FileValidator:
         return result_of_validation
 
     def mimetypes(self):
-        """Test."""
+        """This method for validating file based on mime using the mimetypes
+        library."""
         file_mime = guess_type(self.file_path)[0]
         if file_mime is None:
             raise FileValidationException(colored(MIME_NOT_VALID, "red"))
@@ -285,7 +288,8 @@ class FileValidator:
         return result_of_validation
 
     def filetype(self):
-        """Test."""
+        """This method for validating file based on mime using the filetype
+        library."""
         try:
             file_mime = guess(self.file_path).MIME
         except AttributeError as error:
@@ -313,7 +317,8 @@ class FileValidator:
         return result_of_validation
 
     def django(self):
-        """Return."""
+        """This method for validating file based on mime using data from
+        django."""
         if self.file_mime_guessed_by_django not in self.acceptable_mimes:
             raise FileValidationException(
                 colored(
