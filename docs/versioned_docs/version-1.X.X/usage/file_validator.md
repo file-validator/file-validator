@@ -72,3 +72,9 @@ If you want to validate the files based on their `MIME` and their `magic numbers
 ```python
 file_validator.validate_mime()
 ```
+
+### File Validation Based On The Extension
+If you want to validate the files based on their `extension`, you should use the `validate_extension()` method:
+```python
+file_validator.validate_extension()
+```
