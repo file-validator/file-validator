@@ -57,3 +57,36 @@ If you want to perform validation operations by the `filetype` Library, you shou
 ```python
 file_validator.filetype()
 ```
+
+
+### File Validation Using The **All** Library
+If you want to perform validation operations by the `All` libraries , you should use the `filetype()` method as follows:
+
+```python
+file_validator.validate()
+```
+
+
+### File Validation Based On The Mime
+If you want to validate the files based on their `MIME` and their `magic numbers`, you should use the `validate_mime()` method:
+```python
+file_validator.validate_mime()
+```
+
+### File Validation Based On The Extension
+If you want to validate the files based on their `extension`, you should use the `validate_extension()` method:
+```python
+file_validator.validate_extension()
+```
+
+### File Validation Based On The Size
+If you want to validate the files based on their `size`, you should use the `validate_size()` method:
+```python
+file_validator.validate_size()
+```
+
+### File Validation Based On The type
+If you want to validate the files based on their `type` such `image`, `audio`, `video` and etc..., you should use the `validate_type()` method:
+```python
+file_validator.validate_type()
+```
