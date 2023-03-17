@@ -2,9 +2,9 @@
 sidebar_position: 2
 ---
 
-# File Validator
+# Django File Validator
 
-File Validator falls into the Validators category and another feature provided for file validation in Django
+Django File Validator falls into the Validators category and another feature provided for file validation in Django
 
 ## Parameters
 :::info
@@ -14,6 +14,7 @@ File Validator falls into the Validators category and another feature provided f
 |----------------------|:----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | libraries            | `list`  `optional`         | The value of libraries should be a list of libraries with which you want to perform the validation operation. <br/> **Example** :     `libraries=["filetype","python_magic", "filetype"]` <br/> defaults If you do not select any library, it will perform the validation operation with `django` by default, Supported libraries for validation operations: `python_magic`, `pure_magic`, `filetype`, `mimetypes`, `all`, `default` <br/> If you use `all`, validation operations will be performed with all libraries and if you use `default`, validation operations will only be done with `Django` |
 | acceptable_mimes     | `list`                      | The mimes you want the file to be checked based on. <br/> **example**: `acceptable_mimes=['audio/mpeg', 'video/mp4']`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| acceptable_types     | `list`                      | The types you want the file to be checked based on. <br/> **example**: `acceptable_types=['audio', 'video']`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | max_upload_file_size | `int`    `optional`         | If you want the file size to be checked, the file size must be in bytes, <br/> **example**: `max_upload_file_size=1048576`  (1MB) <br/> defaults to `None`                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 :::
@@ -27,6 +28,7 @@ File Validator falls into the Validators category and another feature provided f
 | If the mime list is empty, raised a `value error`                                                                                                                         |
 | If the library you entered is not supported, raised a` value error`, <br/> **Supported library:** `filetype`, `mimetypes`, `pure_magic`, `python_magic`, `all`, `default` |
 | if file not valid raises `ValidationError`                                                                                                                                |
+| At least one of the parameters of `acceptable_mimes` or `acceptable_types` must be filled else `EmptyParametersException` error occurs                                                                                |
 
 :::
 
@@ -61,29 +63,30 @@ desired size in bytes:
 :::
 
 
-## How Use FileValidator?
+## How Use DjangoFileValidator?
 
 
 To use FileValidator you must act as follows:
 
-1.First, import the `FileValidator` to your Django model as follows:
+1.First, import the `DjangoFileValidator` to your Django model as follows:
 
 ```python
 from django.db import models
-from file_validator.models import FileValidator
+from file_validator.models import DjangoFileValidator
 ```
 2. In the next step we have to give it to our model as follows:
 
 ```python
 from django.db import models
-from file_validator.models import FileValidator
+from file_validator.models import DjangoFileValidator
 
 class TestFileModel(models.Model):
     test_file = models.FileField(
         validators=[
-            FileValidator(
+            DjangoFileValidator(
                 libraries=["all"], # => validation operations will be performed with all libraries
                 acceptable_mimes=['audio/mpeg', 'video/mp4'], # => The mimes you want the file to be checked based on.
+                acceptable_types=['audio', 'video'], # => The types you want the file to be checked based on.
                 max_upload_file_size=10485760  # => 10 MB
             )
         ]
