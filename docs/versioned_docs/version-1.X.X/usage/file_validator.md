@@ -29,7 +29,7 @@ file_validator = FileValidator(
 ```
 
 ### python-magic Library
-If you want to perform validation operations by the `python-magic` Library, you should use the `python_magic()` method as follows:
+If you want to perform file validation operations by the `python-magic` Library, you should use the `python_magic()` method as follows:
 
 ```python
 file_validator.python_magic()
@@ -37,14 +37,14 @@ file_validator.python_magic()
 
 
 ### pure-magic Library
-If you want to perform validation operations by the `pure-magic` Library, you should use the `pure_magic()` method as follows:
+If you want to perform file validation operations by the `pure-magic` Library, you should use the `pure_magic()` method as follows:
 
 ```python
 file_validator.pure_magic()
 ```
 
 ### mimetypes Library
-If you want to perform validation operations by the `mimetypes` Library, you should use the `mimetypes()` method as follows:
+If you want to perform file validation operations by the `mimetypes` Library, you should use the `mimetypes()` method as follows:
 
 ```python
 file_validator.mimetypes()
@@ -52,7 +52,7 @@ file_validator.mimetypes()
 
 
 ### filetype Library
-If you want to perform validation operations by the `filetype` Library, you should use the `filetype()` method as follows:
+If you want to perform file validation operations by the `filetype` Library, you should use the `filetype()` method as follows:
 
 ```python
 file_validator.filetype()
@@ -60,10 +60,16 @@ file_validator.filetype()
 
 
 ### All Library
-If you want to perform validation operations by the `All` libraries , you should use the `validate()` method as follows:
+If you want to perform file validation operations by the `All` libraries , you should use the `validate()` method as follows:
 
 ```python
 file_validator.validate()
+```
+
+### File Validation Based On The **Extension**
+If you want to validate the files based on their `extension`, you should use the `validate_extension()` method:
+```python
+file_validator.validate_extension()
 ```
 
 
@@ -73,11 +79,13 @@ If you want to validate the files based on their `MIME` and their `magic numbers
 file_validator.validate_mime()
 ```
 
-### File Validation Based On The **Extension**
-If you want to validate the files based on their `extension`, you should use the `validate_extension()` method:
+
+### File Validation Based On The **type**
+If you want to validate the files based on their `type` such `image`, `audio`, `video` and etc..., you should use the `validate_type()` method:
 ```python
-file_validator.validate_extension()
+file_validator.validate_type()
 ```
+
 
 ### File Validation Based On The **Size**
 If you want to validate the files based on their `size`, you should use the `validate_size()` method:
@@ -114,11 +122,3 @@ desired size in bytes:
 
 
 :::
-
-
-
-### File Validation Based On The **type**
-If you want to validate the files based on their `type` such `image`, `audio`, `video` and etc..., you should use the `validate_type()` method:
-```python
-file_validator.validate_type()
-```
