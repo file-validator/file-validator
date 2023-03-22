@@ -3,20 +3,25 @@ sidebar_position: 4
 ---
 
 # Validated File Field
-Using `ValidatedFilefield` you can perform file validation operations at the model level.
 
+Using `ValidatedFilefield` you can perform file validation operations at the model level.
 
 Before we go to the `Validatedfilefield` tutorial, let's first get acquainted with `ValidatedFilefield` parameters
 
 ## Parameters
-:::info
 
+:::info
 
 | Parameters           | Type                        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |----------------------|:----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| libraries            | `list`  `optional`         | The value of libraries should be a list of libraries with which you want to perform the validation operation. <br/> **Example** :     `libraries=["filetype","python_magic", "filetype"]` <br/> defaults If you do not select any library, it will perform the validation operation with `django` by default, Supported libraries for validation operations: `python_magic`, `pure_magic`, `filetype`, `mimetypes`, `all`, `default` <br/> If you use `all`, validation operations will be performed with all libraries and if you use `default`, validation operations will only be done with `Django` |
-| acceptable_mimes     | `list`                      | The mimes you want the file to be checked based on. <br/> **example**: `acceptable_mimes=['audio/mpeg', 'video/mp4']`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| max_upload_file_size | `int`    `optional`         | If you want the file size to be checked, the file size must be in bytes, <br/> **example**: `max_upload_file_size=1048576`  (1MB) <br/> defaults to `None`                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| libraries            | `list`  `optional`         | The value of libraries should be a list of libraries with which you want to perform the validation operation. <br/> **
+Example** :     `libraries=["filetype","python_magic", "filetype"]` <br/> defaults If you do not select any library, it will perform the validation operation with `django` by default, Supported libraries for validation operations: `python_magic`, `pure_magic`, `filetype`, `mimetypes`, `all`, `default` <br/> If you use `all`, validation operations will be performed with all libraries and if you use `default`, validation operations will only be done with `Django` |
+| acceptable_mimes     | `list`                      | The mimes you want the file to be checked based on. <br/> **
+example**: `acceptable_mimes=['audio/mpeg', 'video/mp4']`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| acceptable_types     | `list`                      | The types you want the file to be checked based on. <br/> **
+example**: `acceptable_types=['audio', 'video']`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| max_upload_file_size | `int`    `optional`         | If you want the file size to be checked, the file size must be in bytes, <br/> **
+example**: `max_upload_file_size=1048576`  (1MB) <br/> defaults to `None`                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 :::
 
@@ -24,11 +29,15 @@ Before we go to the `Validatedfilefield` tutorial, let's first get acquainted wi
 
 :::info
 
-| Returns:                                                                                                                                                                  |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| If the mime list is empty, raised a `value error`                                                                                                                         |
-| If the library you entered is not supported, raised a` value error`, <br/> **Supported library:** `filetype`, `mimetypes`, `pure_magic`, `python_magic`, `all`, `default` |
-| if file not valid raises `ValidationError`                                                                                                                                |
+| Returns:                                                                                                                                                                                                         |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| If the mime list is **
+empty**, raised a `value error`                                                                                                                                                            |
+| If the library you entered is not supported, raised a` value error`, <br/> **Supported
+library:** `filetype`, `mimetypes`, `pure_magic`, `python_magic`, `all`, `default`                                        |
+| if file not valid raises `ValidationError`                                                                                                                                                                       |
+| At least one of the parameters of `acceptable_mimes` or `acceptable_types` must be filled else `EmptyParametersException` error occurs                                                                           |
+| If the type you enter in `acceptable_types` is not supported by the file-validator library, it will cause `TypeNotSupportedException` error, supported types are `audio`, `video`, `image`, `font` and `archive` |
 
 :::
 
@@ -36,10 +45,8 @@ Before we go to the `Validatedfilefield` tutorial, let's first get acquainted wi
 
 :::note
 
-To choose the size you want the files to be validated based
-on, you can take help from the table below or enter your
+To choose the size you want the files to be validated based on, you can take help from the table below or enter your
 desired size in bytes:
-
 
 | Size   |              Bytes              |
 |--------|:-------------------------------:|
@@ -57,14 +64,9 @@ desired size in bytes:
 | 2 GB   |          2147483648 B           |
 |        |                                 |
 
-
-
-
 :::
 
-
 ## How Use ValidatedFilefield?
-
 
 To use `ValidatedFilefield` you must act as follows:
 
@@ -74,16 +76,19 @@ To use `ValidatedFilefield` you must act as follows:
 from django.db import models
 from file_validator.models import ValidatedFileField
 ```
+
 2. In the next step we have to give it to our model as follows:
 
 ```python
 from django.db import models
 from file_validator.models import ValidatedFileField
 
+
 class TestFileModel(models.Model):
     test_file = ValidatedFileField(
-        libraries=["all"], # => validation operations will be performed with all libraries
-        acceptable_mimes=['audio/mpeg', 'video/mp4'], # => The mimes you want the file to be checked based on.
+        libraries=["all"],  # => validation operations will be performed with all libraries
+        acceptable_mimes=['audio/mpeg', 'video/mp4'],  # => The mimes you want the file to be checked based on.
+        acceptable_types=['audio', 'video'],  # => The types you want the file to be checked based on.
         max_upload_file_size=10485760  # => 10 MB
     )
 ```
@@ -93,6 +98,7 @@ class TestFileModel(models.Model):
 ```
 python manage.py makemigrations
 ```
+
 ```
 python manage.py migrate
 ```
