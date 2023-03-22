@@ -28,7 +28,7 @@ file_validator = FileValidator(
 )
 ```
 
-### File Validation Using The **python-magic** Library
+### python-magic Library
 If you want to perform validation operations by the `python-magic` Library, you should use the `python_magic()` method as follows:
 
 ```python
@@ -36,14 +36,14 @@ file_validator.python_magic()
 ```
 
 
-### File Validation Using The **pure-magic** Library
+### pure-magic Library
 If you want to perform validation operations by the `pure-magic` Library, you should use the `pure_magic()` method as follows:
 
 ```python
 file_validator.pure_magic()
 ```
 
-### File Validation Using The **mimetypes** Library
+### mimetypes Library
 If you want to perform validation operations by the `mimetypes` Library, you should use the `mimetypes()` method as follows:
 
 ```python
@@ -51,7 +51,7 @@ file_validator.mimetypes()
 ```
 
 
-### File Validation Using The **filetype** Library
+### filetype Library
 If you want to perform validation operations by the `filetype` Library, you should use the `filetype()` method as follows:
 
 ```python
@@ -59,7 +59,7 @@ file_validator.filetype()
 ```
 
 
-### File Validation Using The **All** Library
+### All Library
 If you want to perform validation operations by the `All` libraries , you should use the `validate()` method as follows:
 
 ```python
