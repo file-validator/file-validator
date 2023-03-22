@@ -85,7 +85,7 @@ class TestFileModel(models.Model):
     test_file = models.FileField(
         validators=[
             DjangoFileValidator(
-                libraries=["python_magic", "filetype"], # => validation operations will be performed with all libraries
+                libraries=["python_magic", "filetype"], # => validation operations will be performed with python-magic and filetype libraries
                 acceptable_mimes=['audio/mpeg', 'video/mp4', 'image/png'], # => The mimes you want the file to be checked based on.
                 acceptable_types=['audio', 'video', 'image'], # => The types you want the file to be checked based on.
                 max_upload_file_size=10485760  # => 10 MB
