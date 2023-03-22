@@ -23,13 +23,13 @@ Django File Validator falls into the Validators category and another feature pro
 
 :::info
 
-| Returns:                                                                                                                                                                  |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| If the mime list is empty, raised a `value error`                                                                                                                         |
-| If the library you entered is not supported, raised a` value error`, <br/> **Supported library:** `filetype`, `mimetypes`, `pure_magic`, `python_magic`, `all`, `default` |
-| if file not valid raises `ValidationError`                                                                                                                                |
-| At least one of the parameters of `acceptable_mimes` or `acceptable_types` must be filled else `EmptyParametersException` error occurs                                    |
-| If the type you enter in `acceptable_types` is not supported by the file-validator library, it will cause `TypeNotSupportedException` error                                                         |
+| Returns:                                                                                                                                                                                                         |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| If the mime list is **empty**, raised a `value error`                                                                                                                                                            |
+| If the library you entered is not supported, raised a` value error`, <br/> **Supported library:** `filetype`, `mimetypes`, `pure_magic`, `python_magic`, `all`, `default`                                        |
+| if file not valid raises `ValidationError`                                                                                                                                                                       |
+| At least one of the parameters of `acceptable_mimes` or `acceptable_types` must be filled else `EmptyParametersException` error occurs                                                                           |
+| If the type you enter in `acceptable_types` is not supported by the file-validator library, it will cause `TypeNotSupportedException` error, supported types are `audio`, `video`, `image`, `font` and `archive` |
 
 :::
 
