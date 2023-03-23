@@ -46,40 +46,61 @@ class EmptyParametersException(Exception):
 
 
 def error_message(
-    mimes=None,
-    file_size=None,
-    max_file_size=None,
-    message=CUSTOM_ERROR_MESSAGE,
-    file_name=DEFAULT_FILE_NAME,
+    current_file_extension=None,
+    current_file_name=DEFAULT_FILE_NAME,
+    current_file_size=None,
+    current_file_mime=None,
+    current_file_type=None,
     **kwargs
 ) -> str:
     """
-    :type file_name: str
-    :param file_name: Returns the name of the file to be validated
-    :type mimes: list
-    :param mimes: It returns the mimes on which the file is to be validated
-    :type file_size: str
-    :param file_size: It returns the file size on which the file is to be validated
-    :type max_file_size: str
-    :param max_file_size: Returns the maximum file size to be validated and the user can upload,
+    :type current_file_name: str
+    :param current_file_name: Returns the name of the file to be validated
+    :type current_file_mime: list
+    :param current_file_mime: It returns current file mime
+    :type current_file_type: str
+    :param current_file_type: It returns the file size on which the file is to be validated
+    :type current_file_size: str
+    :param current_file_size: It returns the file size on which the file is to be validated
+    :type current_file_extension: str
+    :param current_file_extension: It returns current file extention
         If you have not confirmed the file size, it will return 0 by default
     :param message: The error message to be shown to the user when the file is not valid
     :return: return your error message or default error message
     """
     file_mimes = ""
-    current_file_mime = kwargs.get("current_file_mime")
-    if mimes is not None:
-        for mime in mimes:
-            if mime == mimes[-1]:
+    file_types = ""
+    message = kwargs.get("message")
+    max_file_size = kwargs.get("max_file_size")
+    acceptable_mimes = kwargs.get("acceptable_mimes")
+    acceptable_types = kwargs.get("acceptable_types")
+    acceptable_extensions = kwargs.get("acceptable_extensions")
+    if message is None:
+        message = CUSTOM_ERROR_MESSAGE
+    if acceptable_mimes is not None:
+        for mime in acceptable_mimes:
+            if mime == acceptable_mimes[-1]:
                 file_mimes += str(mime)
             else:
                 file_mimes += str(mime)
                 file_mimes += ", "
 
+    if acceptable_types is not None:
+        for file_type in acceptable_types:
+            if file_type == acceptable_types[-1]:
+                file_types += str(file_type)
+            else:
+                file_types += str(file_type)
+                file_types += ", "
+
     return message.format(
-        mimes=file_mimes,
-        file_size=file_size,
         max_file_size=max_file_size,
-        file_name=file_name,
+        acceptable_mimes=file_mimes,
+        acceptable_types=file_types,
+        acceptable_extensions=acceptable_extensions,
+        current_file_size=current_file_size,
+        current_file_name=current_file_name,
         current_file_mime=current_file_mime,
+        current_file_type=current_file_type,
+        current_file_extension=current_file_extension,
     )
