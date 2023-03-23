@@ -133,13 +133,14 @@ class ValidatedFileField(FileField):
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
-                    mimes=self.acceptable_mimes,
-                    file_name=current_file.name,
-                    file_size=naturalsize(file_size),
+                    acceptable_mimes=self.acceptable_mimes,
+                    acceptable_types=self.acceptable_types,
+                    current_file_name=current_file.name,
+                    current_file_size=naturalsize(file_size),
+                    current_file_mime=file_mime_guessed_by_django,
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
                     else 0,
-                    current_file_mime=file_mime_guessed_by_django,
                 ),
             ) from error
         setattr(data, "validation_data", file_validator.result_of_validation)
@@ -236,13 +237,14 @@ class DjangoFileValidator:
         except (FileValidationException, SizeValidationException) as error:
             raise ValidationError(
                 error_message(
-                    mimes=self.acceptable_mimes,
-                    file_name=current_file.name,
-                    file_size=naturalsize(file_size),
+                    acceptable_mimes=self.acceptable_mimes,
+                    acceptable_types=self.acceptable_types,
+                    current_file_name=current_file.name,
+                    current_file_size=naturalsize(file_size),
+                    current_file_mime=file_mime_guessed_by_django,
                     max_file_size=naturalsize(self.max_upload_file_size)
                     if self.max_upload_file_size is not None
                     else 0,
-                    current_file_mime=file_mime_guessed_by_django,
                 ),
             ) from error
 
@@ -293,7 +295,7 @@ class FileSizeValidator:
         except SizeValidationException as error:
             raise ValidationError(
                 error_message(
-                    file_name=current_file.name,
+                    current_file_name=current_file.name,
                     file_size=naturalsize(file_size),
                     max_file_size=naturalsize(self.max_upload_file_size),
                     message=FILE_SIZE_IS_NOT_VALID,
