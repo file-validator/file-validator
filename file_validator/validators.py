@@ -17,6 +17,7 @@ from puremagic import PureError
 from termcolor import colored
 
 from file_validator.constants import (
+    DEFAULT_ERROR_MESSAGE,
     DJANGO,
     FILE_EXTENSION_NOT_VALID,
     FILE_SIZE_IS_NOT_VALID,
@@ -69,7 +70,11 @@ class FileValidator:
         if file_extension not in self.acceptable_extensions:
             raise FileValidationException(
                 colored(
-                    FILE_EXTENSION_NOT_VALID.format(file_extension=file_extension),
+                    error_message(
+                        current_file_name=current_file.name,
+                        acceptable_mimes=self.acceptable_mimes,
+                        acceptable_types=self.acceptable_types,
+                    ),
                     "red",
                 ),
             )
@@ -130,6 +135,7 @@ class FileValidator:
         load_dotenv()
         operating_system_name = platform.system()
         path_magic_file = os.environ.get("path_magic_file")
+        current_file = Path(self.file_path)
         if path_magic_file and operating_system_name == "Windows":
             with open(self.file_path, "rb") as file:
                 magic.Magic(magic_file=path_magic_file)
@@ -162,7 +168,12 @@ class FileValidator:
             if file_mime not in guessed_mimes:
                 raise FileValidationException(
                     colored(
-                        MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime),
+                        DEFAULT_ERROR_MESSAGE.format(
+                            file_mime=file_mime,
+                            file_name=current_file.name,
+                            acceptable_mimes=self.acceptable_mimes,
+                            acceptable_types=self.acceptable_types,
+                        ),
                         "red",
                     ),
                 )
@@ -196,6 +207,9 @@ class FileValidator:
         load_dotenv()
         operating_system_name = platform.system()
         path_magic_file = os.environ.get("path_magic_file")
+        current_file = Path(self.file_path)
+        file_name = current_file.name
+        file_extension = current_file.suffix
         if path_magic_file and operating_system_name == "Windows":
             with open(self.file_path, "rb") as file:
                 magic.Magic(magic_file=path_magic_file)
@@ -203,18 +217,22 @@ class FileValidator:
         else:
             with open(self.file_path, "rb") as file:
                 file_mime = magic.from_buffer(file.read(2048), mime=True)
-
+        file_type = file_mime.split("/")[0]
         if file_mime not in self.acceptable_mimes:
             raise FileValidationException(
                 colored(
-                    MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime),
+                    error_message(
+                        current_file_extension=current_file.suffix,
+                        current_file_mime=file_mime,
+                        current_file_type=file_type,
+                        current_file_name=current_file.name,
+                        acceptable_mimes=self.acceptable_mimes,
+                        acceptable_types=self.acceptable_types,
+                    ),
                     "red",
                 ),
             )
-        current_file = Path(self.file_path)
-        file_type = file_mime.split("/")[0]
-        file_name = current_file.name
-        file_extension = current_file.suffix
+
         result_of_validation = generate_information_about_file(
             status=OK,
             library=PYTHON_MAGIC,
@@ -229,6 +247,7 @@ class FileValidator:
     def pure_magic(self):
         """This method for validating file based on mime using the pure-magic
         library."""
+        current_file = Path(self.file_path)
         try:
             with open(self.file_path, "rb") as file:
                 file_signatures = puremagic.magic_stream(file)
@@ -239,15 +258,22 @@ class FileValidator:
             raise FileValidationException(colored(MIME_NOT_VALID, "red")) from error
 
         file_mime = file_mimes[0]
+        file_type = file_mime.split("/")[0]
         if file_mime not in self.acceptable_mimes:
             raise FileValidationException(
                 colored(
-                    MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime),
+                    error_message(
+                        current_file_extension=current_file.suffix,
+                        current_file_mime=file_mime,
+                        current_file_type=file_type,
+                        current_file_name=current_file.name,
+                        acceptable_mimes=self.acceptable_mimes,
+                        acceptable_types=self.acceptable_types,
+                    ),
                     "red",
                 ),
             )
-        current_file = Path(self.file_path)
-        file_type = file_mime.split("/")[0]
+
         result_of_validation = generate_information_about_file(
             status=OK,
             library=PURE_MAGIC,
@@ -262,20 +288,26 @@ class FileValidator:
     def mimetypes(self):
         """This method for validating file based on mime using the mimetypes
         library."""
+        current_file = Path(self.file_path)
         file_mime = guess_type(self.file_path)[0]
+        file_type = file_mime.split("/")[0]
         if file_mime is None:
             raise FileValidationException(colored(MIME_NOT_VALID, "red"))
-
         if file_mime not in self.acceptable_mimes:
             raise FileValidationException(
                 colored(
-                    MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime),
+                    error_message(
+                        current_file_extension=current_file.suffix,
+                        current_file_mime=file_mime,
+                        current_file_type=file_type,
+                        current_file_name=current_file.name,
+                        acceptable_mimes=self.acceptable_mimes,
+                        acceptable_types=self.acceptable_types,
+                    ),
                     "red",
                 ),
             )
 
-        current_file = Path(self.file_path)
-        file_type = file_mime.split("/")[0]
         result_of_validation = generate_information_about_file(
             status=OK,
             library=MIMETYPES,
@@ -290,21 +322,27 @@ class FileValidator:
     def filetype(self):
         """This method for validating file based on mime using the filetype
         library."""
+        current_file = Path(self.file_path)
         try:
             file_mime = guess(self.file_path).MIME
         except AttributeError as error:
             raise FileValidationException(colored(MIME_NOT_VALID, "red")) from error
-
+        file_type = file_mime.split("/")[0]
         if file_mime not in self.acceptable_mimes:
             raise FileValidationException(
                 colored(
-                    MIME_NOT_VALID_WITH_MIME_NAME.format(file_mime=file_mime),
+                    error_message(
+                        current_file_extension=current_file.suffix,
+                        current_file_mime=file_mime,
+                        current_file_type=file_type,
+                        current_file_name=current_file.name,
+                        acceptable_mimes=self.acceptable_mimes,
+                        acceptable_types=self.acceptable_types,
+                    ),
                     "red",
                 ),
             )
 
-        current_file = Path(self.file_path)
-        file_type = file_mime.split("/")[0]
         result_of_validation = generate_information_about_file(
             status=OK,
             library=FILETYPE,
@@ -319,17 +357,21 @@ class FileValidator:
     def django(self):
         """This method for validating file based on mime using data from
         django."""
+        current_file = Path(self.file_path)
+        file_type = self.file_mime_guessed_by_django.split("/")[0]
         if self.file_mime_guessed_by_django not in self.acceptable_mimes:
             raise FileValidationException(
                 colored(
-                    MIME_NOT_VALID_WITH_MIME_NAME.format(
+                    DEFAULT_ERROR_MESSAGE.format(
                         file_mime=self.file_mime_guessed_by_django,
+                        file_type=file_type,
+                        file_name=current_file.name,
+                        acceptable_mimes=self.acceptable_mimes,
+                        acceptable_types=self.acceptable_types,
                     ),
                     "red",
                 ),
             )
-        current_file = Path(self.file_path)
-        file_type = self.file_mime_guessed_by_django.split("/")[0]
         result_of_validation = generate_information_about_file(
             status=OK,
             file_name=current_file.name,
