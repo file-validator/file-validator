@@ -18,6 +18,7 @@ from termcolor import colored
 
 from file_validator.constants import (
     DJANGO,
+    ERROR_MESSAGE_FOR_EXTENSION_VALIDATION,
     ERROR_MESSAGE_FOR_MIME_VALIDATION,
     ERROR_MESSAGE_FOR_TYPE_VALIDATION,
     FILE_EXTENSION_NOT_VALID,
@@ -31,7 +32,7 @@ from file_validator.constants import (
     PYTHON_MAGIC,
     SIZE,
     SUPPORTED_TYPES,
-    TYPE_NOT_SUPPORTED, ERROR_MESSAGE_FOR_EXTENSION_VALIDATION,
+    TYPE_NOT_SUPPORTED,
 )
 from file_validator.exceptions import (
     error_message,
