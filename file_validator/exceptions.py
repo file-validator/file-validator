@@ -44,6 +44,7 @@ class EmptyParametersException(Exception):
     """Raised when the type not supported, supported types: image, audio,
     video, archive, font."""
 
+
 def convert_list_to_readable_string(object_list) -> str:
     """convert a list of objects to a readable string"""
     result = ""
@@ -92,7 +93,9 @@ def error_message(
         message = CUSTOM_ERROR_MESSAGE
 
     if acceptable_extensions is not None:
-        file_extensions = convert_list_to_readable_string(object_list=acceptable_extensions)
+        file_extensions = convert_list_to_readable_string(
+            object_list=acceptable_extensions
+        )
 
     if acceptable_types is not None:
         file_types = convert_list_to_readable_string(object_list=acceptable_types)
