@@ -287,6 +287,7 @@ class TestFileValidatorDjango:
             file_validator = FileValidator(
                 file_mime_guessed_by_django=JPEG_OBJECT[MIME],
                 acceptable_mimes=[PNG_OBJECT[MIME]],
+                file_path=JPEG_FILE
             )
             file_validator.django()
 
