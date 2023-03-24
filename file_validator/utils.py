@@ -131,4 +131,3 @@ def set_the_acceptable_mimes(acceptable_mimes):
             result.append(mime)
         return result
     return None
-
