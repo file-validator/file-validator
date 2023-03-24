@@ -131,3 +131,14 @@ def set_the_acceptable_mimes(acceptable_mimes):
             result.append(mime)
         return result
     return None
+
+
+def convert_list_to_readable_string(list):
+    result = ""
+    for value in list:
+        if value == list[-1]:
+            result += str(value)
+        else:
+            result += str(value)
+            result += ", "
+    return result
