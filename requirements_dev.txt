@@ -18,5 +18,7 @@ puremagic>=1.14
 humanize>=4.4.0
 python-dotenv>=0.21.0
 pre-commit>=3.1.0
+build>=0.10.0
+click>=8.0.2
 # python-magic-bin>=0.4.14 #if run on Windows un-comment the following line
 # python-magic>=0.4.27  # else other platforms un-comment the following line
