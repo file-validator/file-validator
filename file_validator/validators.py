@@ -173,8 +173,8 @@ class FileValidator:
             guessed_mime_by_mimetypes,
             guessed_mime_by_filetype,
         ]
-        for file_mime in self.acceptable_mimes:
-            if file_mime not in guessed_mimes:
+        for file_mime in guessed_mimes:
+            if file_mime not in self.acceptable_mimes:
                 raise FileValidationException(
                     colored(
                         error_message(
