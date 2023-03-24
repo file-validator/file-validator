@@ -18,6 +18,8 @@ from termcolor import colored
 
 from file_validator.constants import (
     DJANGO,
+    ERROR_MESSAGE_FOR_MIME_VALIDATION,
+    ERROR_MESSAGE_FOR_TYPE_VALIDATION,
     FILE_EXTENSION_NOT_VALID,
     FILE_SIZE_IS_NOT_VALID,
     FILETYPE,
@@ -29,7 +31,7 @@ from file_validator.constants import (
     PYTHON_MAGIC,
     SIZE,
     SUPPORTED_TYPES,
-    TYPE_NOT_SUPPORTED, ERROR_MESSAGE_FOR_MIME_VALIDATION, ERROR_MESSAGE_FOR_TYPE_VALIDATION,
+    TYPE_NOT_SUPPORTED,
 )
 from file_validator.exceptions import (
     error_message,
@@ -118,7 +120,7 @@ class FileValidator:
                         current_file_name=current_file.name,
                         current_file_type=file_type,
                         acceptable_mimes=self.acceptable_mimes,
-                        message=ERROR_MESSAGE_FOR_TYPE_VALIDATION
+                        message=ERROR_MESSAGE_FOR_TYPE_VALIDATION,
                     ),
                     "red",
                 ),
@@ -175,7 +177,7 @@ class FileValidator:
                             current_file_name=current_file.name,
                             current_file_mime=file_mime,
                             acceptable_mimes=self.acceptable_mimes,
-                            message=ERROR_MESSAGE_FOR_MIME_VALIDATION
+                            message=ERROR_MESSAGE_FOR_MIME_VALIDATION,
                         ),
                         "red",
                     ),
