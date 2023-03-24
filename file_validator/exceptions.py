@@ -46,7 +46,7 @@ class EmptyParametersException(Exception):
 
 
 def convert_list_to_readable_string(object_list) -> str:
-    """convert a list of objects to a readable string"""
+    """Convert a list of objects to a readable string."""
     result = ""
     for value in object_list:
         if value == object_list[-1]:
@@ -94,7 +94,7 @@ def error_message(
 
     if acceptable_extensions is not None:
         file_extensions = convert_list_to_readable_string(
-            object_list=acceptable_extensions
+            object_list=acceptable_extensions,
         )
 
     if acceptable_types is not None:
