@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 from file_validator.constants import DEFAULT_ERROR_MESSAGE, DEFAULT_FILE_NAME
+from file_validator.utils import convert_list_to_readable_string
 
 try:
     # Get Error Message From Django Setting
@@ -68,36 +69,32 @@ def error_message(
     :param message: The error message to be shown to the user when the file is not valid
     :return: return your error message or default error message
     """
-    file_mimes = ""
-    file_types = ""
+    file_mimes = None
+    file_types = None
+    file_extensions = None
     message = kwargs.get("message")
     max_file_size = kwargs.get("max_file_size")
     acceptable_mimes = kwargs.get("acceptable_mimes")
     acceptable_types = kwargs.get("acceptable_types")
     acceptable_extensions = kwargs.get("acceptable_extensions")
+
     if message is None:
         message = CUSTOM_ERROR_MESSAGE
-    if acceptable_mimes is not None:
-        for mime in acceptable_mimes:
-            if mime == acceptable_mimes[-1]:
-                file_mimes += str(mime)
-            else:
-                file_mimes += str(mime)
-                file_mimes += ", "
+
+    if acceptable_extensions is not None:
+        file_extensions = convert_list_to_readable_string(list=acceptable_extensions)
 
     if acceptable_types is not None:
-        for file_type in acceptable_types:
-            if file_type == acceptable_types[-1]:
-                file_types += str(file_type)
-            else:
-                file_types += str(file_type)
-                file_types += ", "
+        file_types = convert_list_to_readable_string(list=acceptable_types)
+
+    if acceptable_mimes is not None:
+        file_mimes = convert_list_to_readable_string(list=acceptable_mimes)
 
     return message.format(
         max_file_size=max_file_size,
         acceptable_mimes=file_mimes,
         acceptable_types=file_types,
-        acceptable_extensions=acceptable_extensions,
+        acceptable_extensions=file_extensions,
         current_file_size=current_file_size,
         current_file_name=current_file_name,
         current_file_mime=current_file_mime,
