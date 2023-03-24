@@ -303,9 +303,9 @@ class FileValidator:
         library."""
         current_file = Path(self.file_path)
         file_mime = guess_type(self.file_path)[0]
-        file_type = file_mime.split("/")[0]
         if file_mime is None:
             raise FileValidationException(colored(MIME_NOT_VALID, "red"))
+        file_type = file_mime.split("/")[0]
 
         if file_mime not in self.acceptable_mimes:
             raise FileValidationException(

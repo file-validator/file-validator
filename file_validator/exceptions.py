@@ -3,7 +3,6 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 from file_validator.constants import DEFAULT_ERROR_MESSAGE, DEFAULT_FILE_NAME
-from file_validator.utils import convert_list_to_readable_string
 
 try:
     # Get Error Message From Django Setting
@@ -45,6 +44,17 @@ class EmptyParametersException(Exception):
     """Raised when the type not supported, supported types: image, audio,
     video, archive, font."""
 
+def convert_list_to_readable_string(object_list) -> str:
+    """convert a list of objects to a readable string"""
+    result = ""
+    for value in object_list:
+        if value == object_list[-1]:
+            result += str(value)
+        else:
+            result += str(value)
+            result += ", "
+    return result
+
 
 def error_message(
     current_file_extension=None,
@@ -82,13 +92,13 @@ def error_message(
         message = CUSTOM_ERROR_MESSAGE
 
     if acceptable_extensions is not None:
-        file_extensions = convert_list_to_readable_string(list=acceptable_extensions)
+        file_extensions = convert_list_to_readable_string(object_list=acceptable_extensions)
 
     if acceptable_types is not None:
-        file_types = convert_list_to_readable_string(list=acceptable_types)
+        file_types = convert_list_to_readable_string(object_list=acceptable_types)
 
     if acceptable_mimes is not None:
-        file_mimes = convert_list_to_readable_string(list=acceptable_mimes)
+        file_mimes = convert_list_to_readable_string(object_list=acceptable_mimes)
 
     return message.format(
         max_file_size=max_file_size,
