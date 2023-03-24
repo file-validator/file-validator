@@ -31,7 +31,7 @@ from file_validator.constants import (
     PYTHON_MAGIC,
     SIZE,
     SUPPORTED_TYPES,
-    TYPE_NOT_SUPPORTED,
+    TYPE_NOT_SUPPORTED, ERROR_MESSAGE_FOR_EXTENSION_VALIDATION,
 )
 from file_validator.exceptions import (
     error_message,
@@ -71,7 +71,12 @@ class FileValidator:
         if file_extension not in self.acceptable_extensions:
             raise FileValidationException(
                 colored(
-                    FILE_EXTENSION_NOT_VALID.format(file_extension=file_extension),
+                    error_message(
+                        current_file_name=current_file.name,
+                        current_file_extension=file_extension,
+                        acceptable_extensions=self.acceptable_extensions,
+                        message=ERROR_MESSAGE_FOR_EXTENSION_VALIDATION,
+                    ),
                     "red",
                 ),
             )
