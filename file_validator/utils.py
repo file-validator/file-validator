@@ -80,7 +80,7 @@ def generate_information_about_file(
     return result
 
 
-def guess_the_type(file_path: str):
+def guess_the_type(file_path: str) -> str:
     """This function is used to guess the overall type of file such image,
     audio, video, font and archive."""
     if is_video(file_path):
@@ -132,13 +132,3 @@ def set_the_acceptable_mimes(acceptable_mimes):
         return result
     return None
 
-
-def convert_list_to_readable_string(list):
-    result = ""
-    for value in list:
-        if value == list[-1]:
-            result += str(value)
-        else:
-            result += str(value)
-            result += ", "
-    return result
