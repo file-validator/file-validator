@@ -53,8 +53,8 @@ ERROR_MESSAGE_FOR_TYPE_VALIDATION: str = (
 )
 ERROR_MESSAGE_FOR_EXTENSION_VALIDATION: str = (
     "{current_file_name} is not valid\n"
-    "acceptable mimes: {acceptable_extensions}\n"
-    "your file mime: {current_file_extension}\n"
+    "acceptable extensions: {acceptable_extensions}\n"
+    "your file extension: {current_file_extension}\n"
 )
 DEFAULT_FILE_NAME: str = "file"
 MAX_UPLOAD_SIZE_IS_EMPTY: str = "max_upload_file_size is empty"
