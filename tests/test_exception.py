@@ -18,11 +18,11 @@ class TestException:
         """We test whether this error message function returns the expected
         message or not."""
         message = error_message(
-            message=TEMPLATE_EXPECTED_MESSAGE,
-            file_name=PNG_OBJECT[NAME],
-            file_size="20 MB",
-            mimes=["image/png", "audio/mpeg"],
-            max_file_size="10 MB",
+            current_file_name=PNG_OBJECT[NAME],
+            current_file_size="20 MB",
             current_file_mime=PNG_OBJECT[MIME],
+            acceptable_mimes=["image/png", "audio/mpeg"],
+            max_file_size="10 MB",
+            message=TEMPLATE_EXPECTED_MESSAGE,
         )
         assert EXPECTED_MESSAGE in message
