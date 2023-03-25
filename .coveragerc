@@ -4,6 +4,7 @@ branch = True
 include = file_validator/*
 omit = *tests*
 disable_warnings=include-ignored
+relative_files = True
 
 [report]
 # Regexes for lines to exclude from consideration
