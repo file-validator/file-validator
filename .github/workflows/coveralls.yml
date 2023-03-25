@@ -41,6 +41,8 @@ jobs:
     - name: Test with pytest --cov=./ 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: matrix.os == 'windows-latest'
+        path_magic_file: "https://github.com/file-validator/file-validator/blob/master/tests/files/magic.mgc"
       run: |
         pytest --cov=./ 
         coverage xml -i
