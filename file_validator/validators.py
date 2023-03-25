@@ -95,8 +95,8 @@ class FileValidator:
         ):
             raise SizeValidationException(
                 error_message(
-                    current_file_name=current_file.name,
                     current_file_size=naturalsize(file_size),
+                    current_file_name=current_file.name,
                     max_file_size=naturalsize(self.max_upload_file_size),
                     message=FILE_SIZE_IS_NOT_VALID,
                 ),
