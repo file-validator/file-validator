@@ -35,12 +35,12 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: pip install python-magic-bin==0.4.14
 
-    - name: Test with pytest --cov=./ 
+    - name: Test with pytest --cov=./
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         path_magic_file: ${{ github.workspace }}\\tests\\files\\magic.mgc
       run: |
-        pytest --cov=./ 
+        pytest --cov=./
         coverage xml -i
         coveralls --service=github
 
