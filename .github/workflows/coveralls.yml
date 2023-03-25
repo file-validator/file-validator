@@ -5,12 +5,10 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}  # Continue after failures
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.8","3.9","3.10", "3.11"]
-        experimental: [false]  # These versions must pass.
 
 
     steps:
@@ -41,7 +39,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: matrix.os == 'windows-latest'
-        path_magic_file: "fileـvalidator/tests/files/magic.mgc"
+        path_magic_file: ${{ github.workspace }}/fileـvalidator/tests/files/magic.mgc
       run: |
         pytest --cov=./ 
         coverage xml -i
