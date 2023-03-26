@@ -22,6 +22,7 @@ class TestException:
             current_file_size="20 MB",
             current_file_mime=PNG_OBJECT[MIME],
             acceptable_mimes=["image/png", "audio/mpeg"],
+            acceptable_types=["image", "audio"],
             max_file_size="10 MB",
             message=TEMPLATE_EXPECTED_MESSAGE,
         )
