@@ -58,8 +58,10 @@ BAD_OBJECT: dict = {
 }
 
 
-TEMPLATE_EXPECTED_MESSAGE: str = "{current_file_name} {current_file_mime} {acceptable_mimes} {current_file_size} {max_file_size}"
-EXPECTED_MESSAGE: str = "test.png image/png image/png, audio/mpeg 20 MB 10 MB"
+TEMPLATE_EXPECTED_MESSAGE: str = "{current_file_name} {current_file_mime} {acceptable_mimes} {acceptable_types} {current_file_size} {max_file_size}"
+EXPECTED_MESSAGE: str = (
+    "test.png image/png image/png, audio/mpeg image, audio 20 MB 10 MB"
+)
 TEST_LIBRARY: str = "test_library"
 
 
