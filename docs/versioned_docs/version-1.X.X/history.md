@@ -173,3 +173,7 @@ sidebar_position: 8
 1.0.0
 ------------------
 * In the 0.X.X version, each of the File Validats was a separate function but in this version they are all become a class  In the new version you can validate files based on extension, mime and size separately
+
+1.0.1
+------------------
+* fixing to wrong use acceptable_mimes instead of guessed_mimes in [#166](https://github.com/file-validator/file-validator/pull/166)
