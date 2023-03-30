@@ -169,3 +169,7 @@ sidebar_position: 8
 0.3.4 (2023-03-03)
 ------------------
 * refactored and improved code [#75](https://github.com/file-validator/file-validator/pull/75)
+
+1.0.0
+------------------
+* In the 0.X.X version, each of the File Validats was a separate function but in this version they are all become a class  In the new version you can validate files based on extension, mime and size separately
