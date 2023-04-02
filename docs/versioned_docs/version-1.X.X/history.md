@@ -181,3 +181,7 @@ sidebar_position: 8
 1.0.2
 ------------------
 * fix and modified error message for validate extension method in [#167](https://github.com/file-validator/file-validator/pull/168)
+
+1.0.3
+------------------
+* fixing error message parameters name in [#169](https://github.com/file-validator/file-validator/pull/169)
