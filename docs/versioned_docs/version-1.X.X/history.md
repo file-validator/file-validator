@@ -185,3 +185,7 @@ sidebar_position: 8
 1.0.3
 ------------------
 * fixing error message parameters name in [#169](https://github.com/file-validator/file-validator/pull/169)
+
+1.0.4
+------------------
+* fixing problem for getting file size in drf in [#170](https://github.com/file-validator/file-validator/pull/170)
