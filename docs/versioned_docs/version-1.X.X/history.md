@@ -177,3 +177,7 @@ sidebar_position: 8
 1.0.1
 ------------------
 * fixing to wrong use acceptable_mimes instead of guessed_mimes in [#166](https://github.com/file-validator/file-validator/pull/166)
+
+1.0.2
+------------------
+* fix and modified error message for validate extension method in [#167](https://github.com/file-validator/file-validator/pull/168)
