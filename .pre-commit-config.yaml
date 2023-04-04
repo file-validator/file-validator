@@ -30,7 +30,7 @@ repos:
     -   id: autoflake
 
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.5.1
+  rev: v1.6.0
   hooks:
     - id: docformatter
       args: [--in-place]
