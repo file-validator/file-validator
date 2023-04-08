@@ -9,6 +9,22 @@ In the [0.X.X](https://file-validator.github.io/docs/0.X.X/intro) version, each 
 In the new version you can validate files based on extension, mime and size separately
 
 ## How Used?
+
+### Parameters explanation
+:::info
+
+
+| Parameters            | Type                | Description                                                                                                                                                |
+|-----------------------|:--------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| max_upload_file_size  | `int`    `optional` | If you want the file size to be checked, the file size must be in bytes, <br/> **example**: `max_upload_file_size=1048576`  (1MB) <br/> defaults to `None` |
+| acceptable_extensions | `list`  `optional`  | The extensions you want the file to be checked based on. <br/> **example**: `acceptable_extensions=[".png"]`                                               |
+| acceptable_types      | `list`              | The types you want the file to be checked based on. <br/> **example**: `acceptable_types=['audio', 'video']`                                               |
+| acceptable_mimes      | `list`              | The mimes you want the file to be checked based on. <br/> **example**: `acceptable_mimes=['audio/mpeg', 'video/mp4']`                                      |
+| file_path             | `string`            | The file path that you want to be validated                                                                                                                |
+
+:::
+
+
 ### First Imported
 You must first import `FileValidator` to use:
 ```python
