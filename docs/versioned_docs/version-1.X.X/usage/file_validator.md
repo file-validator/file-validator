@@ -10,21 +10,6 @@ In the new version you can validate files based on extension, mime and size sepa
 
 ## How Used?
 
-### Parameters explanation
-:::info
-
-
-| Parameters            | Type                | Description                                                                                                                                                |
-|-----------------------|:--------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| max_upload_file_size  | `int`    `optional` | If you want the file size to be checked, the file size must be in bytes, <br/> **example**: `max_upload_file_size=1048576`  (1MB) <br/> defaults to `None` |
-| acceptable_extensions | `list`  `optional`  | The extensions you want the file to be checked based on. <br/> **example**: `acceptable_extensions=[".png"]`                                               |
-| acceptable_types      | `list`              | The types you want the file to be checked based on. <br/> **example**: `acceptable_types=['audio', 'video']`                                               |
-| acceptable_mimes      | `list`              | The mimes you want the file to be checked based on. <br/> **example**: `acceptable_mimes=['audio/mpeg', 'video/mp4']`                                      |
-| file_path             | `string`            | The file path that you want to be validated                                                                                                                |
-
-:::
-
-
 ### First Imported
 You must first import `FileValidator` to use:
 ```python
@@ -43,6 +28,20 @@ file_validator = FileValidator(
     file_path="path/to/file",
 )
 ```
+
+#### Parameters explanation
+:::info
+
+
+| Parameters            | Type                | Description                                                                                                                                                |
+|-----------------------|:--------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| max_upload_file_size  | `int`    `optional` | If you want the file size to be checked, the file size must be in bytes, <br/> **example**: `max_upload_file_size=1048576`  (1MB) <br/> defaults to `None` |
+| acceptable_extensions | `list`  `optional`  | The extensions you want the file to be checked based on. <br/> **example**: `acceptable_extensions=[".png"]`                                               |
+| acceptable_types      | `list`              | The types you want the file to be checked based on. <br/> **example**: `acceptable_types=['audio', 'video']`                                               |
+| acceptable_mimes      | `list`              | The mimes you want the file to be checked based on. <br/> **example**: `acceptable_mimes=['audio/mpeg', 'video/mp4']`                                      |
+| file_path             | `string`            | The file path that you want to be validated                                                                                                                |
+
+:::
 
 ### python-magic Library
 If you want to perform file validation operations by the `python-magic` Library, you should use the `python_magic()` method as follows:
