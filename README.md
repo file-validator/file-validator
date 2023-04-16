@@ -33,6 +33,7 @@
 [![Workflow for Codecov](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml)
 [![Python package](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml)
 [![CodeQL](https://github.com/file-validator/file-validator/actions/workflows/codeql.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/codeql.yml)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/file-validator/file-validator.svg)](http://isitmaintained.com/project/file-validator/file-validator "Percentage of issues still open")
 
 ## What Is File Validator? ✅
 
