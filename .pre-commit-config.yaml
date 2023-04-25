@@ -25,12 +25,12 @@ repos:
 
 
 -   repo: https://github.com/PyCQA/autoflake
-    rev: v2.1.0
+    rev: v2.1.1
     hooks:
     -   id: autoflake
 
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.6.0
+  rev: v1.6.3
   hooks:
     - id: docformatter
       args: [--in-place]
