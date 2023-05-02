@@ -15,11 +15,11 @@ from tests.project.app.models import (
 
 
 class TestFileSizeValidator:
-    """test file size validator."""
+    """Test file size validator."""
 
     @staticmethod
     def test_file_size_is_valid():
-        """test file size is valid."""
+        """Test file size is valid."""
         new_instance = ModelWithFileSizeValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
@@ -32,7 +32,7 @@ class TestFileSizeValidator:
 
     @staticmethod
     def test_file_size_is_not_valid():
-        """test file size is not valid."""
+        """Test file size is not valid."""
         with pytest.raises(ValidationError):
             new_instance = ModelWithFileSizeValidatorAndNotValidSize(
                 test_file=get_tmp_file(
@@ -46,7 +46,7 @@ class TestFileSizeValidator:
 
     @staticmethod
     def test_max_upload_file_size_is_none():
-        """test max upload file size is none."""
+        """Test max upload file size is none."""
         with pytest.raises(SizeValidationException):
 
             class _TestFileModelWithFileValidatorNotMaxUploadSize(models.Model):
@@ -54,7 +54,7 @@ class TestFileSizeValidator:
 
     @staticmethod
     def test_eq_method():
-        """test eq method."""
+        """Test eq method."""
         file_validator_one = FileSizeValidator(max_upload_file_size=10485760)
         file_validator_two = FileSizeValidator(max_upload_file_size=10485760)
         assert file_validator_one == file_validator_two

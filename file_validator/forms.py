@@ -1,11 +1,11 @@
-"""this file provides forms for django."""
+"""This file provides forms for django."""
 from django import forms
 
 from file_validator.widgets import FileInputWidget
 
 
 class ValidatedFileField(forms.FileField):
-    """validated file filed for django."""
+    """Validated file filed for django."""
 
     widget = FileInputWidget
 

@@ -149,7 +149,7 @@ class ValidatedFileField(FileField):
 
 @deconstructible
 class DjangoFileValidator:
-    """file validator for django."""
+    """File validator for django."""
 
     def __init__(
         self,
@@ -263,7 +263,7 @@ class DjangoFileValidator:
 
 @deconstructible
 class FileSizeValidator:
-    """size validator for django."""
+    """Size validator for django."""
 
     def __init__(
         self,
