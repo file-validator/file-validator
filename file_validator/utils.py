@@ -1,4 +1,4 @@
-"""utils for file validator."""
+"""Utils for file validator."""
 from itertools import groupby
 
 from filetype import is_archive, is_audio, is_font, is_image, is_video
@@ -61,7 +61,7 @@ def generate_information_about_file(
     file_mime=None,
     **kwargs
 ) -> dict:
-    """generates information about file validated."""
+    """Generates information about file validated."""
     result = {}
     file_type = kwargs.get("file_type")
     if status is not None:
@@ -97,7 +97,7 @@ def guess_the_type(file_path: str) -> str:
 
 
 def parameters_are_empty(acceptable_types: list, acceptable_mimes: list):
-    """this function check whether parameters are empty or no?"""
+    """This function check whether parameters are empty or no?"""
     if acceptable_types is None and acceptable_mimes is None:
         raise EmptyParametersException(colored(PARAMETERS_ARE_EMPTY, "red"))
 

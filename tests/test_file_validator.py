@@ -63,7 +63,7 @@ class TestFileValidatorByPythonMagic:
         self,
         jpeg=JPEG_FILE,
     ):
-        """test file_validator_by_python_magic by path_magic file from .env
+        """Test file_validator_by_python_magic by path_magic file from .env
         file."""
         file_validator = FileValidator(
             acceptable_mimes=[JPEG_OBJECT[MIME]],
@@ -239,11 +239,11 @@ class TestFileExtensionValidator:
 
 
 class TestFileValidatorByType:
-    """tests for file_validator_by_type function."""
+    """Tests for file_validator_by_type function."""
 
     @staticmethod
     def test_file_validator_by_type_when_type_is_not_supported():
-        """test for file_validator_by_type when type is not supported."""
+        """Test for file_validator_by_type when type is not supported."""
         with pytest.raises(TypeNotSupportedException):
             file_validator = FileValidator(
                 acceptable_types=["test_type"],
@@ -253,7 +253,7 @@ class TestFileValidatorByType:
 
     @staticmethod
     def test_file_validator_by_type_when_return_file_validation_exception():
-        """test for file_validator_by_type when return file validation
+        """Test for file_validator_by_type when return file validation
         exception."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
@@ -264,7 +264,7 @@ class TestFileValidatorByType:
 
     @staticmethod
     def test_file_validator_by_type_when_return_validation_data_and_file_is_valid():
-        """test for file_validator_by_type when return validation data and file
+        """Test for file_validator_by_type when return validation data and file
         is valid."""
         file_validator = FileValidator(
             acceptable_types=[IMAGE, AUDIO],

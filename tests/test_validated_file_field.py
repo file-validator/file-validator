@@ -43,7 +43,7 @@ from tests.project.app.models import (
 
 
 class TestValidatedFileFieldModel:
-    """tests for ValidatedFileField."""
+    """Tests for ValidatedFileField."""
 
     @staticmethod
     def test_validated_file_field_with_all_libraries():
@@ -59,7 +59,7 @@ class TestValidatedFileFieldModel:
 
     @staticmethod
     def test_validated_file_field_when_file_is_valid_and_return_none():
-        """test ValidatedFileField when file is valid and return none."""
+        """Test ValidatedFileField when file is valid and return none."""
         new_instance = ModelWithValidatedFileField(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
@@ -72,7 +72,7 @@ class TestValidatedFileFieldModel:
 
     @staticmethod
     def test_validated_file_field_when_file_is_not_valid_and_raise_validation_error():
-        """test ValidatedFileField when file is not valid and raise validation
+        """Test ValidatedFileField when file is not valid and raise validation
         error."""
         new_instance = ModelWithValidatedFileField(
             test_file=get_tmp_file(
@@ -87,7 +87,7 @@ class TestValidatedFileFieldModel:
 
     @staticmethod
     def test_validated_file_field_deconstruct_method():
-        """test deconstruct method."""
+        """Test deconstruct method."""
         my_field_instance = ValidatedFileField(
             libraries=[ALL],
             acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
@@ -105,7 +105,7 @@ class TestValidatedFileFieldModel:
 
     @staticmethod
     def test_validated_file_field_acceptable_mimes_is_none():
-        """test acceptable mimes in ValidatedFileField is none."""
+        """Test acceptable mimes in ValidatedFileField is none."""
         with pytest.raises(EmptyParametersException):
 
             class _TestFileMimeModel(models.Model):
@@ -116,7 +116,7 @@ class TestValidatedFileFieldModel:
 
     @staticmethod
     def test_validated_file_field_libraries_is_none():
-        """the test ValidatedFileField library is none."""
+        """The test ValidatedFileField library is none."""
         _my_field_instance = ModelWithValidatedFileFieldWithoutLibrary(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
@@ -245,11 +245,11 @@ class TestValidatedFileFieldModel:
 
 
 class TestValidatedFileFieldForm:
-    """test for ValidatedFileField Forms."""
+    """Test for ValidatedFileField Forms."""
 
     @staticmethod
     def test_accept_attribute_in_form():
-        """test accept attribute in form."""
+        """Test accept attribute in form."""
         with open(PNG_FILE, "rb") as file:
             upload_file = file
             file_dict = {
@@ -262,12 +262,12 @@ class TestValidatedFileFieldForm:
 
     @staticmethod
     def test_accept_attribute_is_none_in_form():
-        """test accept attribute is none in form."""
+        """Test accept attribute is none in form."""
         form = FormWithoutAcceptAttribute()
         assert form.fields["test_file"].accept is None
 
     @staticmethod
     def test_css_class_attribute_in_form():
-        """test css class attribute in form."""
+        """Test css class attribute in form."""
         form = FormWithCssClassAttribute()
         assert form.fields["test_file"].custom_css_class == "test-class"

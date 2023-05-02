@@ -41,7 +41,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_when_file_is_valid_and_return_none():
-        """test when file is valid and return none."""
+        """Test when file is valid and return none."""
         new_instance = ModelWithDjangoFileValidator(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
@@ -54,7 +54,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_when_file_is_not_valid_and_return_none():
-        """test when file is not valid and return none."""
+        """Test when file is not valid and return none."""
         with pytest.raises(ValidationError):
             new_instance = ModelWithDjangoFileValidator(
                 test_file=get_tmp_file(
@@ -68,7 +68,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_when_file_size_is_none():
-        """test when file size is none."""
+        """Test when file size is none."""
         new_instance = ModelWithDjangoFileValidatorAndSizeIsNone(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
@@ -81,7 +81,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_when_libraries_is_none():
-        """test when libraries is none."""
+        """Test when libraries is none."""
         new_instance = ModelWithDjangoFileValidatorAndLibraryIsNone(
             test_file=get_tmp_file(
                 file_name=PNG_OBJECT[NAME],
@@ -94,7 +94,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_when_libraries_is_not_supported():
-        """test when libraries is not supported."""
+        """Test when libraries is not supported."""
         with pytest.raises(LibraryNotSupportedException):
 
             class _TestFileModelWithFileValidatorNotSupportedLibrary(models.Model):
@@ -111,7 +111,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_acceptable_mimes_is_not_none_and_all_mimes_is_equal():
-        """test when acceptable mimes is none."""
+        """Test when acceptable mimes is none."""
         with pytest.raises(MimesEqualException):
 
             class _TestFileModelWithDjangoFileValidatorAndNoneParameters(models.Model):
@@ -127,7 +127,7 @@ class TestDjangoFileValidator:
 
     @staticmethod
     def test_django_file_validator_eq_methode():
-        """test eq methode."""
+        """Test eq methode."""
         file_validator_one = DjangoFileValidator(
             acceptable_mimes=[PNG_OBJECT[MIME], MP3_OBJECT[MIME]],
             libraries=[ALL],

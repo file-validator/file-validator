@@ -32,42 +32,42 @@ from tests.fixtures import (
 
 
 class TestGuessTheType:
-    """test for guess_the_type function in utils.py."""
+    """Test for guess_the_type function in utils.py."""
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_invalid_and_return_none():
-        """test guesses the type function when file is invalid and return
+        """Test guesses the type function when file is invalid and return
         none."""
         file_type = guess_the_type(file_path=BAD_FILE)
         assert file_type is None
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_archive():
-        """test guesses the type function when file is archive."""
+        """Test guesses the type function when file is archive."""
         file_type = guess_the_type(file_path=ZIP_FILE)
         assert file_type is ARCHIVE
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_image():
-        """test guesses the type function when file is image."""
+        """Test guesses the type function when file is image."""
         file_type = guess_the_type(file_path=PNG_FILE)
         assert file_type is IMAGE
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_video():
-        """test guesses the type function when file is video."""
+        """Test guesses the type function when file is video."""
         file_type = guess_the_type(file_path=MP4_FILE)
         assert file_type is VIDEO
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_audio():
-        """test guesses the type function when file is audio."""
+        """Test guesses the type function when file is audio."""
         file_type = guess_the_type(file_path=MP3_FILE)
         assert file_type is AUDIO
 
     @staticmethod
     def test_guess_the_type_function_when_file_is_font():
-        """test guesses the type function when file is font."""
+        """Test guesses the type function when file is font."""
         file_type = guess_the_type(file_path=TTF_FILE)
         assert file_type is FONT
 
@@ -82,13 +82,13 @@ class TestAllMimesIsEqual:
 
     @staticmethod
     def test_all_mimes_is_equal_when_mimes_is_equal():
-        """test all_mimes_is_equal function in utils.py."""
+        """Test all_mimes_is_equal function in utils.py."""
         with pytest.raises(MimesEqualException):
             all_mimes_is_equal([PNG_OBJECT[MIME], PNG_OBJECT[MIME]])
 
     @staticmethod
     def test_all_mimes_is_equal_when_mimes_is_not_equal():
-        """test all_mimes_is_equal function in utils.py."""
+        """Test all_mimes_is_equal function in utils.py."""
         all_mimes_is_equal([PNG_OBJECT[MIME], MP3_OBJECT[MIME]])
 
 
@@ -128,11 +128,11 @@ class TestParametersAreEmpty:
 
 
 class TestGenerateInformationAboutFile:
-    """test for generate_information_about_file function in utils.py."""
+    """Test for generate_information_about_file function in utils.py."""
 
     @staticmethod
     def test_generate_information_about_file_when_parameters_is_fill():
-        """test generates information about file when parameters are fill."""
+        """Test generates information about file when parameters are fill."""
         result = generate_information_about_file(
             status=OK,
             library=FILETYPE,
@@ -151,7 +151,7 @@ class TestGenerateInformationAboutFile:
 
     @staticmethod
     def test_generate_information_about_file_when_parameters_is_none():
-        """test generates information about file when parameters are none."""
+        """Test generates information about file when parameters are none."""
         with pytest.raises(KeyError):
             result = generate_information_about_file()
 
