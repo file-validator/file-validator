@@ -32,7 +32,6 @@ class ModelWithValidatedFileFieldAndDjangoLibrary(models.Model):
         libraries=[DJANGO],
         acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
         max_upload_file_size=1000000,
-        file_mime_guessed_by_django=PNG_OBJECT["mime"],
     )
 
 
