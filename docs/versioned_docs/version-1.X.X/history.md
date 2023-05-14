@@ -193,3 +193,7 @@ sidebar_position: 8
 1.0.5
 ------------------
 * fix 'File' object has no attribute 'content_type' error [#191](https://github.com/file-validator/file-validator/pull/191)
+
+1.0.6
+------------------
+* fix Not apply "null=True" and "blank=True" in ValidatedFileField [#191](https://github.com/file-validator/file-validator/pull/195)
