@@ -70,7 +70,7 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/file-validator/file-validator",
-    version="1.0.5",
+    version="1.0.6",
     zip_safe=False,
     project_urls={
         "Documentation": "https://file-validator.github.io/",
