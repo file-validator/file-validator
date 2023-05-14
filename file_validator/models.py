@@ -87,7 +87,7 @@ class ValidatedFileField(FileField):
 
         is_type_supported(acceptable_types=self.acceptable_types)
 
-        super(ValidatedFileField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
