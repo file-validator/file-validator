@@ -44,7 +44,7 @@ class ValidatedFileField(FileField):
         return a ValidationError.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         :type acceptable_mimes: list
         :param acceptable_mimes: The mimes you want the file to be checked
@@ -69,10 +69,10 @@ class ValidatedFileField(FileField):
             pure_magic, python_magic
         :raises ValidationError: if file not valid
         """
-        self.max_upload_file_size: int = kwargs.get("max_upload_file_size")
-        self.acceptable_mimes: list = kwargs.get("acceptable_mimes")
-        self.acceptable_types: list = kwargs.get("acceptable_types")
-        libraries: list = kwargs.get("libraries")
+        self.max_upload_file_size: int = kwargs.pop("max_upload_file_size", None)
+        self.acceptable_mimes: list = kwargs.pop("acceptable_mimes", None)
+        self.acceptable_types: list = kwargs.pop("acceptable_types", None)
+        libraries: list = kwargs.pop("libraries", None)
 
         parameters_are_empty(
             acceptable_mimes=self.acceptable_mimes,
@@ -87,7 +87,7 @@ class ValidatedFileField(FileField):
 
         is_type_supported(acceptable_types=self.acceptable_types)
 
-        super().__init__()
+        super(ValidatedFileField, self).__init__(*args, **kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
