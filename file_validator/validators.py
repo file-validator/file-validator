@@ -373,29 +373,40 @@ class FileValidator:
     def django(self):
         """This method for validating file based on mime using data from
         django."""
-        current_file = Path(self.file_path)
-        file_type = self.file_mime_guessed_by_django.split("/")[0]
-        if self.file_mime_guessed_by_django not in self.acceptable_mimes:
-            raise FileValidationException(
-                colored(
-                    error_message(
-                        current_file_extension=current_file.suffix,
-                        current_file_name=current_file.name,
-                        current_file_mime=self.file_mime_guessed_by_django,
-                        current_file_type=file_type,
-                        acceptable_mimes=self.acceptable_mimes,
-                        acceptable_types=self.acceptable_types,
-                        acceptable_extensions=self.acceptable_extensions,
+        try:
+            current_file = Path(self.file_path)
+            file_type = self.file_mime_guessed_by_django.split("/")[0]
+            if self.file_mime_guessed_by_django not in self.acceptable_mimes:
+                raise FileValidationException(
+                    colored(
+                        error_message(
+                            current_file_extension=current_file.suffix,
+                            current_file_name=current_file.name,
+                            current_file_mime=self.file_mime_guessed_by_django,
+                            current_file_type=file_type,
+                            acceptable_mimes=self.acceptable_mimes,
+                            acceptable_types=self.acceptable_types,
+                            acceptable_extensions=self.acceptable_extensions,
+                        ),
+                        "red",
                     ),
-                    "red",
-                ),
+                )
+            result_of_validation = generate_information_about_file(
+                status=OK,
+                file_name=current_file.name,
+                file_mime=self.file_mime_guessed_by_django,
+                file_type=file_type,
+                file_extension=current_file.suffix,
             )
-        result_of_validation = generate_information_about_file(
-            status=OK,
-            file_name=current_file.name,
-            file_mime=self.file_mime_guessed_by_django,
-            file_type=file_type,
-            file_extension=current_file.suffix,
-        )
-        self.result_of_validation.update({DJANGO: result_of_validation})
-        return result_of_validation
+            self.result_of_validation.update({DJANGO: result_of_validation})
+            return result_of_validation
+        except AttributeError:
+            result_of_validation = generate_information_about_file(
+                status="Fail",
+                file_name=current_file.name,
+                file_mime="NOT_FOUND",
+                file_type="NOT_FOUND",
+                file_extension=current_file.suffix,
+            )
+            self.result_of_validation.update({DJANGO: result_of_validation})
+            return result_of_validation

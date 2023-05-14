@@ -100,7 +100,10 @@ class ValidatedFileField(FileField):
     def clean(self, *args, **kwargs):
         data = super().clean(*args, **kwargs)
         current_file = data.file
-        file_mime_guessed_by_django = current_file.content_type
+        try:
+            file_mime_guessed_by_django = current_file.content_type
+        except AttributeError:
+            file_mime_guessed_by_django = None
         file_size = data.size
         file_path = TemporaryUploadedFile.temporary_file_path(current_file)
         try:
@@ -205,7 +208,10 @@ class DjangoFileValidator:
         current_file = value.file
         file_size = value.size
         file_path = TemporaryUploadedFile.temporary_file_path(current_file)
-        file_mime_guessed_by_django = current_file.content_type
+        try:
+            file_mime_guessed_by_django = current_file.content_type
+        except AttributeError:
+            file_mime_guessed_by_django = None
         try:
             file_validator = FileValidator(
                 file_path=file_path,
