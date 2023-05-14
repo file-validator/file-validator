@@ -196,4 +196,4 @@ sidebar_position: 8
 
 1.0.6
 ------------------
-* fix Not apply "null=True" and "blank=True" in ValidatedFileField [#191](https://github.com/file-validator/file-validator/pull/195)
+* fix Not apply "null=True" and "blank=True" in ValidatedFileField [#195](https://github.com/file-validator/file-validator/pull/195)
