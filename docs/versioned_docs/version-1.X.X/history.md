@@ -197,3 +197,7 @@ sidebar_position: 8
 1.0.6
 ------------------
 * fix Not apply "null=True" and "blank=True" in ValidatedFileField [#195](https://github.com/file-validator/file-validator/pull/195)
+
+1.0.7, 1.0.8
+------------------
+* added extras_require to setup.py [#201](https://github.com/file-validator/file-validator/pull/201)
