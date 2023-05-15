@@ -14,6 +14,12 @@ To install File Validator, run this command in your terminal:
 pip install file-validator
 ```
 
+And when you want to use Validators for **`Django`** use the following command:
+
+```
+pip install file-validator[django]
+```
+
 :::caution
 
 After installing file validator, we need to install **libmagic**, which you need to install using the following command:
