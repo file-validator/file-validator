@@ -52,6 +52,9 @@ setup(
         ],
     },
     install_requires=requirements,
+    extras_require={
+        "django": ["django"],
+    },
     license="MIT license",
     long_description=readme + "\n\n" + history,
     long_description_content_type="text/markdown",
@@ -70,7 +73,7 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/file-validator/file-validator",
-    version="1.0.6",
+    version="1.0.7",
     zip_safe=False,
     project_urls={
         "Documentation": "https://file-validator.github.io/",
