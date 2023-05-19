@@ -201,3 +201,7 @@ sidebar_position: 8
 1.0.7, 1.0.8
 ------------------
 * added extras_require to setup.py [#201](https://github.com/file-validator/file-validator/pull/201)
+
+1.0.9
+------------------
+* fix module not found error no module named django [#205](https://github.com/file-validator/file-validator/pull/205)
