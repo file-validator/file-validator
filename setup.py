@@ -16,7 +16,7 @@ requirements = [
     "python-dotenv==0.21.1",
     "python-magic-bin==0.4.14 ; platform_system == 'Windows'",
     "python-magic==0.4.27 ; platform_system != 'Windows'",
-    "django"
+    "django",
 ]
 
 
