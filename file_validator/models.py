@@ -39,34 +39,30 @@ from file_validator.validators import FileValidator
 
 
 class ValidatedFileField(FileField):
-    """
-    :return: If everything is OK, it will return None, otherwise it will
-        return a ValidationError.
-    """
+    """:return: If everything is OK, it will return None, otherwise it will
+    return a ValidationError."""
 
     def __init__(self, *args, **kwargs):
-        """
-        :type acceptable_mimes: list
-        :param acceptable_mimes: The mimes you want the file to be checked
-            based on, example: image/png
-        :type acceptable_types: list
-        :param acceptable_types: The types you want the file to be checked based on, example: font,
-            audio, video, image, archive
-        :type max_upload_file_size: int, optional
-        :param max_upload_file_size: If you want the file size to be checked,
-            the file size must be in bytes,
-            example: file_size=1048576 (1MB), defaults to 0, optional
-        :type libraries: list, optional
-        :param libraries: The value of libraries should be a list of libraries
-            with which you want to perform the validation operation, example:
-            libraries=["filetype","python_magic"] defaults If you do not select
-            any library, it will perform the validation operation with django by
-            default, Supported libraries for validation operations:
-            python_magic, pure_magic, filetype, mimetypes, all, default
+        """:type acceptable_mimes: list :param acceptable_mimes: The mimes you
+        want the file to be checked based on, example: image/png :type
+        acceptable_types: list :param acceptable_types: The types you want the
+        file to be checked based on, example: font, audio, video, image,
+        archive :type max_upload_file_size: int, optional :param
+        max_upload_file_size: If you want the file size to be checked, the file
+        size must be in bytes, example: file_size=1048576 (1MB), defaults to 0,
+        optional :type libraries: list, optional :param libraries: The value of
+        libraries should be a list of libraries with which you want to perform
+        the validation operation, example:
+
+        libraries=["filetype","python_magic"] defaults If you do not
+        select     any library, it will perform the validation operation
+        with django by     default, Supported libraries for validation
+        operations:     python_magic, pure_magic, filetype, mimetypes,
+        all, default
         :raises ValueError: If the mime list is empty, raised a value error
         :raises ValueError: If the library you entered is not supported,
-            raised a value error, Supported library: filetype, mimetypes,
-            pure_magic, python_magic
+                raised a value error, Supported library: filetype,
+                mimetypes,             pure_magic, python_magic
         :raises ValidationError: if file not valid
         """
         self.max_upload_file_size: int = kwargs.pop("max_upload_file_size", None)
@@ -161,30 +157,28 @@ class DjangoFileValidator:
         acceptable_types: list = None,
         max_upload_file_size: int = None,
     ):
-        """
-        :type acceptable_mimes: list
-        :param acceptable_mimes: The mimes you want the file to be checked
-            based on, example: image/png
-        :type acceptable_types: list
-        :param acceptable_types: The types you want the file to be checked based on, example: font,
-            audio, video, image, archive
-        :type max_upload_file_size: int, optional
-        :param max_upload_file_size: If you want the file size to be checked,
-            the file size must be in bytes,
-            example: file_size=1048576 (1MB), defaults to 0, optional
-        :type libraries: list, optional
-        :param libraries: The value of libraries should be a list of libraries
-            with which you want to perform the validation operation, example:
-            libraries=["filetype","python_magic"] defaults If you do not select
-            any library, it will perform the validation operation with django by
-            default, Supported libraries for validation operations:
-            python_magic, pure_magic, filetype, mimetypes, all, default
+        """:type acceptable_mimes: list :param acceptable_mimes: The mimes you
+        want the file to be checked based on, example: image/png :type
+        acceptable_types: list :param acceptable_types: The types you want the
+        file to be checked based on, example: font, audio, video, image,
+        archive :type max_upload_file_size: int, optional :param
+        max_upload_file_size: If you want the file size to be checked, the file
+        size must be in bytes, example: file_size=1048576 (1MB), defaults to 0,
+        optional :type libraries: list, optional :param libraries: The value of
+        libraries should be a list of libraries with which you want to perform
+        the validation operation, example:
+
+        libraries=["filetype","python_magic"] defaults If you do not
+        select     any library, it will perform the validation operation
+        with django by     default, Supported libraries for validation
+        operations:     python_magic, pure_magic, filetype, mimetypes,
+        all, default
         :raises ValueError: If the mime list is empty, raised a value error
         :raises ValueError: If the library you entered is not supported,
-            raised a value error, Supported library: filetype, mimetypes,
-            pure_magic, python_magic
-        :return: If everything is OK, it will return None, otherwise it will
-            return a ValidationError.
+                raised a value error, Supported library: filetype,
+                mimetypes,             pure_magic, python_magic
+        :return: If everything is OK, it will return None, otherwise it
+                will             return a ValidationError.
         """
         self.max_upload_file_size = None
         self.acceptable_types: list = acceptable_types
@@ -275,14 +269,11 @@ class FileSizeValidator:
         self,
         max_upload_file_size: int = None,
     ):
-        """
-        :type max_upload_file_size: int
-        :param max_upload_file_size: If you want the file size to be checked,
-            the file size must be in bytes,
-            example: file_size=1048576 (1MB), defaults to 0, optional
-        :return: If everything is OK, it will return None, otherwise it will
-            return a ValidationError.
-        """
+        """:type max_upload_file_size: int :param max_upload_file_size: If you
+        want the file size to be checked, the file size must be in bytes,
+        example: file_size=1048576 (1MB), defaults to 0, optional :return: If
+        everything is OK, it will return None, otherwise it will return a
+        ValidationError."""
         if max_upload_file_size is None:
             raise SizeValidationException(colored(MAX_UPLOAD_SIZE_IS_EMPTY, "red"))
 

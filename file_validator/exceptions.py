@@ -65,21 +65,17 @@ def error_message(
     current_file_type=None,
     **kwargs
 ) -> str:
-    """
-    :type current_file_name: str
-    :param current_file_name: Returns the name of the file to be validated
-    :type current_file_mime: list
-    :param current_file_mime: It returns current file mime
-    :type current_file_type: str
-    :param current_file_type: It returns the file size on which the file is to be validated
-    :type current_file_size: str
-    :param current_file_size: It returns the file size on which the file is to be validated
-    :type current_file_extension: str
-    :param current_file_extension: It returns current file extention
-        If you have not confirmed the file size, it will return 0 by default
-    :param message: The error message to be shown to the user when the file is not valid
-    :return: return your error message or default error message
-    """
+    """:type current_file_name: str :param current_file_name: Returns the name
+    of the file to be validated :type current_file_mime: list :param
+    current_file_mime: It returns current file mime :type current_file_type:
+    str :param current_file_type: It returns the file size on which the file is
+    to be validated :type current_file_size: str :param current_file_size: It
+    returns the file size on which the file is to be validated :type
+    current_file_extension: str :param current_file_extension: It returns
+    current file extention If you have not confirmed the file size, it will
+    return 0 by default :param message: The error message to be shown to the
+    user when the file is not valid :return: return your error message or
+    default error message."""
     file_mimes = None
     file_types = None
     file_extensions = None
