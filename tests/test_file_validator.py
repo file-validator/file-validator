@@ -47,10 +47,9 @@ class TestFileValidatorByPythonMagic:
     def test_file_validator_by_python_magic_library_when_file_is_not_valid(
         jpeg=JPEG_FILE,
     ):
-        """
-        :param jpeg: It is a fixture for jpeg files
-        :return: The result we expect is a return value error, which means that the file is invalid
-        """
+        """:param jpeg: It is a fixture for jpeg files :return: The result we
+        expect is a return value error, which means that the file is
+        invalid."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
                 acceptable_mimes=[PNG_OBJECT[MIME]],
@@ -85,10 +84,8 @@ class TestFileValidatorByMimeTypes:
     def test_file_validator_by_mimetypes_library_when_file_is_valid(
         jpeg=JPEG_FILE,
     ):
-        """
-        :param jpeg: It is a fixture for jpeg files
-        :return: The result we expect to return is None, which means that everything is OK
-        """
+        """:param jpeg: It is a fixture for jpeg files :return: The result we
+        expect to return is None, which means that everything is OK."""
         file_validator = FileValidator(
             acceptable_mimes=[JPEG_OBJECT[MIME]],
             file_path=jpeg,
@@ -104,10 +101,9 @@ class TestFileValidatorByMimeTypes:
     def test_file_validator_by_mimetypes_library_when_file_is_not_valid(
         jpeg=JPEG_FILE,
     ):
-        """
-        :param jpeg: It is a fixture for jpeg files
-        :return: The result we expect is a return value error, which means that the file is invalid
-        """
+        """:param jpeg: It is a fixture for jpeg files :return: The result we
+        expect is a return value error, which means that the file is
+        invalid."""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
                 acceptable_mimes=[PNG_OBJECT[MIME]],
@@ -117,9 +113,7 @@ class TestFileValidatorByMimeTypes:
 
     @staticmethod
     def test_mimetypes_library_when_it_could_not_detect_the_mime_file():
-        """
-        :return:
-        """
+        """:return:"""
         with pytest.raises(FileValidationException):
             file_validator = FileValidator(
                 acceptable_mimes=[PNG_OBJECT[MIME]],

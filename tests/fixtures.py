@@ -66,10 +66,8 @@ TEST_LIBRARY: str = "test_library"
 
 
 def get_test_file(file_name) -> str:
-    """
-    :param file_name: The name of the test file
-    :return: It should return the path of the test file that is in the project
-    """
+    """:param file_name: The name of the test file :return: It should return
+    the path of the test file that is in the project."""
     test_directory = os.path.dirname(os.path.realpath(__file__))
     test_files_directory = os.path.join(test_directory, "files", file_name)
     return test_files_directory
@@ -86,11 +84,8 @@ BAD_FILE: str = get_test_file(BAD_OBJECT[NAME])
 
 
 def get_tmp_file(file_name, file_path, file_mime_type):
-    """
-    :param file_name: The name of the test file
-    :param file_path: The path of the test file
-    :param file_mime_type: The mime of the test file
-    """
+    """:param file_name: The name of the test file :param file_path: The path
+    of the test file :param file_mime_type: The mime of the test file."""
     tmp_file = TemporaryUploadedFile(file_name, file_mime_type, 0, None)
     with open(file_path, encoding="utf-8") as file:
         tmp_file.file = file
