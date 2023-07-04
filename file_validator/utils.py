@@ -59,7 +59,7 @@ def generate_information_about_file(
     file_name=None,
     file_extension=None,
     file_mime=None,
-    **kwargs
+    **kwargs,
 ) -> dict:
     """Generates information about file validated."""
     result = {}

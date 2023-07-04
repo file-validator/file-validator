@@ -63,7 +63,7 @@ def error_message(
     current_file_size=None,
     current_file_mime=None,
     current_file_type=None,
-    **kwargs
+    **kwargs,
 ) -> str:
     """:type current_file_name: str :param current_file_name: Returns the name
     of the file to be validated :type current_file_mime: list :param

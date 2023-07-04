@@ -52,7 +52,7 @@ class FileValidator:
         libraries: list = None,
         acceptable_mimes: list = None,
         max_upload_file_size: int = None,
-        **kwargs
+        **kwargs,
     ):
         self.file_mime_guessed_by_django = kwargs.get("file_mime_guessed_by_django")
         self.acceptable_extensions = kwargs.get("acceptable_extensions")
