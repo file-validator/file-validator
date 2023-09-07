@@ -304,7 +304,7 @@ class TestFileValidatorDjango:
     @staticmethod
     def test_file_validation_by_django_when_raise_attribute_error():
         """Test FileValidator when the library is django and file is not
-        valid."""
+        valid and raise attribute error"""
 
         file_validator = FileValidator(
             acceptable_mimes=[PNG_OBJECT[MIME]],
