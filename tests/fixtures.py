@@ -3,6 +3,9 @@ import os
 
 from django.core.files.uploadedfile import TemporaryUploadedFile
 
+FAIL: str = "Fail"
+NOT_FOUND: str = "NOT_FOUND"
+
 MIME: str = "mime"
 NAME: str = "name"
 TYPE: str = "type"

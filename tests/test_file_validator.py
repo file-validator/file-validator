@@ -11,12 +11,14 @@ from file_validator.validators import FileValidator
 from tests.fixtures import (
     BAD_FILE,
     EXTENSION,
+    FAIL,
     JPEG_FILE,
     JPEG_OBJECT,
     MAGIC_FILE,
     MIME,
     MP3_FILE,
     NAME,
+    NOT_FOUND,
     PNG_FILE,
     PNG_OBJECT,
     TYPE,
@@ -294,6 +296,30 @@ class TestFileValidatorDjango:
             file_path=PNG_FILE,
         )
         file_validator.validate()
+
+    @staticmethod
+    def test_file_validation_by_django_when_raise_attribute_error():
+        """Test FileValidator when the library is django and file is not valid
+        and raise attribute error."""
+
+        file_validator = FileValidator(
+            acceptable_mimes=[PNG_OBJECT[MIME]],
+            file_path=PNG_FILE,
+        )
+        file_validator.django()
+        assert file_validator.result_of_validation is not None
+        assert file_validator.result_of_validation["django"] is not None
+        assert file_validator.result_of_validation["django"]["status"] == FAIL
+        assert (
+            file_validator.result_of_validation["django"]["file_name"]
+            == PNG_OBJECT[NAME]
+        )
+        assert file_validator.result_of_validation["django"]["file_type"] == NOT_FOUND
+        assert file_validator.result_of_validation["django"]["file_mime"] == NOT_FOUND
+        assert (
+            file_validator.result_of_validation["django"]["file_extension"]
+            == PNG_OBJECT[EXTENSION]
+        )
 
 
 class TestFileMimeValidator:
