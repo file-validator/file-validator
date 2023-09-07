@@ -107,7 +107,6 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_acceptable_mimes_is_none():
         """Test acceptable mimes in ValidatedFileField is none."""
         with pytest.raises(EmptyParametersException):
-
             class _TestFileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -131,7 +130,6 @@ class TestValidatedFileFieldModel:
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(TypeNotSupportedException):
-
             class _FileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -144,7 +142,6 @@ class TestValidatedFileFieldModel:
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(MimesEqualException):
-
             class _FileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
