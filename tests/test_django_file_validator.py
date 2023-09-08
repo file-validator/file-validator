@@ -243,3 +243,18 @@ class TestDjangoFileValidator:
         )
 
         new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_when_file_mime_guessed_by_django_is_none():
+        """Test django_file_validator when file_mime_guessed_by_django is
+        none."""
+        new_instance = ModelWithDjangoFileValidator(
+            test_file=get_tmp_file(
+                file_name=PNG_OBJECT[NAME],
+                file_path=PNG_FILE,
+                file_mime_type=PNG_OBJECT[MIME],
+            ),
+        )
+
+        del new_instance.test_file.file.content_type
+        new_instance.full_clean()

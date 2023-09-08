@@ -243,6 +243,20 @@ class TestValidatedFileFieldModel:
             )
             _my_field_instance.full_clean()
 
+    @staticmethod
+    def test_validated_file_field_when_file_mime_guessed_by_django_is_none():
+        """Test ValidatedFileField when the library is django and file is not
+        valid."""
+        _my_field_instance = ModelWithValidatedFileFieldAndDjangoLibrary(
+            test_file=get_tmp_file(
+                file_name=JPEG_OBJECT[NAME],
+                file_path=JPEG_FILE,
+                file_mime_type=JPEG_OBJECT[MIME],
+            ),
+        )
+        del _my_field_instance.test_file.file.content_type
+        _my_field_instance.full_clean()
+
 
 class TestValidatedFileFieldForm:
     """Test for ValidatedFileField Forms."""
