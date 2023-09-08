@@ -11,7 +11,6 @@ from file_validator.exceptions import (
     TypeNotSupportedException,
 )
 from file_validator.models import ValidatedFileField
-
 from tests.fixtures import (
     BAD_OBJECT,
     get_tmp_file,
@@ -107,7 +106,6 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_acceptable_mimes_is_none():
         """Test acceptable mimes in ValidatedFileField is none."""
         with pytest.raises(EmptyParametersException):
-
             class _TestFileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -131,7 +129,6 @@ class TestValidatedFileFieldModel:
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(TypeNotSupportedException):
-
             class _FileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -144,7 +141,6 @@ class TestValidatedFileFieldModel:
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(MimesEqualException):
-
             class _FileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -242,6 +238,20 @@ class TestValidatedFileFieldModel:
                 ),
             )
             _my_field_instance.full_clean()
+
+    @staticmethod
+    def test_validated_file_field_when_file_mime_guessed_by_django_is_none():
+        """Test ValidatedFileField when the library is django and file is not
+        valid."""
+        _my_field_instance = ModelWithValidatedFileFieldAndDjangoLibrary(
+            test_file=get_tmp_file(
+                file_name=JPEG_OBJECT[NAME],
+                file_path=JPEG_FILE,
+                file_mime_type=JPEG_OBJECT[MIME],
+            ),
+        )
+        del _my_field_instance.test_file.file.content_type
+        _my_field_instance.full_clean()
 
 
 class TestValidatedFileFieldForm:
