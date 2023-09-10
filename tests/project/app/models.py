@@ -90,6 +90,15 @@ class ModelWithValidatedFileFieldWithAcceptableType(models.Model):
     )
 
 
+class ModelWithValidatedFileFieldWithoutMaxUploadFileSize(models.Model):
+    """File Model With ValidatedFileField."""
+
+    test_file = ValidatedFileField(
+        libraries=["all"],
+        acceptable_mimes=[PNG_OBJECT["mime"], MP3_OBJECT["mime"]],
+    )
+
+
 # DjangoFileValidator
 class ModelWithDjangoFileValidator(models.Model):
     test_file = models.FileField(
