@@ -11,6 +11,7 @@ from file_validator.exceptions import (
     TypeNotSupportedException,
 )
 from file_validator.models import ValidatedFileField
+
 from tests.fixtures import (
     BAD_OBJECT,
     get_tmp_file,
@@ -37,7 +38,8 @@ from tests.project.app.models import (
     ModelWithValidatedFileFieldAndPureMagicLibrary,
     ModelWithValidatedFileFieldAndPythonMagicLibrary,
     ModelWithValidatedFileFieldWithAcceptableType,
-    ModelWithValidatedFileFieldWithoutLibrary, ModelWithValidatedFileFieldWithoutMaxUploadFileSize,
+    ModelWithValidatedFileFieldWithoutLibrary,
+    ModelWithValidatedFileFieldWithoutMaxUploadFileSize,
 )
 
 
@@ -106,6 +108,7 @@ class TestValidatedFileFieldModel:
     def test_validated_file_field_acceptable_mimes_is_none():
         """Test acceptable mimes in ValidatedFileField is none."""
         with pytest.raises(EmptyParametersException):
+
             class _TestFileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -129,6 +132,7 @@ class TestValidatedFileFieldModel:
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(TypeNotSupportedException):
+
             class _FileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
@@ -141,6 +145,7 @@ class TestValidatedFileFieldModel:
         """Test acceptable types in ValidatedFileField when the type not
         supported."""
         with pytest.raises(MimesEqualException):
+
             class _FileMimeModel(models.Model):
                 test_file = ValidatedFileField(
                     libraries=[ALL],
