@@ -37,7 +37,8 @@ from tests.project.app.models import (
     ModelWithValidatedFileFieldAndPureMagicLibrary,
     ModelWithValidatedFileFieldAndPythonMagicLibrary,
     ModelWithValidatedFileFieldWithAcceptableType,
-    ModelWithValidatedFileFieldWithoutLibrary, ModelWithValidatedFileFieldWithoutMaxUploadFileSize,
+    ModelWithValidatedFileFieldWithoutLibrary,
+    ModelWithValidatedFileFieldWithoutMaxUploadFileSize,
 )
 
 
