@@ -10,4 +10,4 @@ jobs:
       - uses: actions/checkout@v3
       - uses: isbang/compose-action@v1.5.1
         with:
-          compose-file: "/home/runner/work/file-validator/file-validator/docker-compose.yml"
+          compose-file: "docker-compose.yml"
