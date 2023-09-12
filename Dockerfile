@@ -4,7 +4,7 @@ WORKDIR /src
 
 COPY . /src
 
-RUN pip install -r requirements_test.txt
-RUN pip install -r requirements_dev.txt
+RUN pip install --no-cache-dir -r requirements_test.txt
+RUN pip install --no-cache-dir -r requirements_dev.txt
 
 RUN pytest --cov
