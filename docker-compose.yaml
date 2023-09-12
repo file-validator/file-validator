@@ -1,0 +1,3 @@
+services:
+    file_validator:
+        build: .
