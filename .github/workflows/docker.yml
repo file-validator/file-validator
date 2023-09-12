@@ -2,9 +2,12 @@ name: Test with docker
 
 on: [push]
 
-steps:
-  # need checkout before using compose-action
-  - uses: actions/checkout@v3
-  - uses: isbang/compose-action@v1.5.1
-    with:
-      compose-file: "./docker-compose.yml"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      # need checkout before using compose-action
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: "./docker-compose.yml"
