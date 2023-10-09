@@ -147,7 +147,7 @@ jobs:
             base-path: '.'
             debug: true
   codeql:
-      needs: [ coveralls_finish ]
+    needs: [coveralls_finish]
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
@@ -178,7 +178,7 @@ jobs:
           with:
             category: "/language:${{ matrix.language }}"
   dependency-review:
-      needs: [ coveralls_finish ]
+    needs: [coveralls_finish]
     permissions:
       checks: write
       pull-requests: write
@@ -188,7 +188,7 @@ jobs:
       -   uses: actions/checkout@v1
       -   uses: ArtiomTr/jest-coverage-report-action@v2
   pylint:
-      needs: [ coveralls_finish ]
+    needs: [coveralls_finish]
     runs-on: ubuntu-latest
     strategy:
       matrix:
