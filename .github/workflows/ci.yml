@@ -208,6 +208,16 @@ jobs:
           run: |
             pylint $(git ls-files './file_validator')
 
+  black:
+      needs: [coveralls_finish]
+      name: Python Black
+      runs-on: ubuntu-latest
+      steps:
+          -   uses: actions/checkout@v3
+          -   name: Python Black
+              uses: cytopia/docker-black@0.8
+              with:
+                  path: './file_validator'
   deploy:
     needs: pylint
     runs-on: ubuntu-latest
