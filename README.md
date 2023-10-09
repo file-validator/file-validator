@@ -30,12 +30,6 @@
 [![codecov](https://codecov.io/gh/file-validator/file-validator/graph/badge.svg?token=13ZVSJWH8M)](https://codecov.io/gh/file-validator/file-validator)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/42a2c09a967148f59c50fcf0f025daa8)](https://app.codacy.com/gh/file-validator/file-validator/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
-[![black](https://github.com/file-validator/file-validator/actions/workflows/black.yml/badge.svg?branch=master)](https://github.com/file-validator/file-validator/actions/workflows/black.yml)
-[![docs](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/deploy.yml)
-[![Pylint](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/pylint.yml)
-[![Workflow for Codecov](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/Codecov.yml)
-[![Python package](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/python-package.yml)
-[![CodeQL](https://github.com/file-validator/file-validator/actions/workflows/codeql.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/codeql.yml)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/file-validator/file-validator.svg)](http://isitmaintained.com/project/file-validator/file-validator "Percentage of issues still open")
 
 
