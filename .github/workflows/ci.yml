@@ -177,16 +177,6 @@ jobs:
           uses: github/codeql-action/analyze@v2
           with:
             category: "/language:${{ matrix.language }}"
-  dependency-review:
-    needs: [coveralls_finish]
-    permissions:
-      checks: write
-      pull-requests: write
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      -   uses: actions/checkout@v1
-      -   uses: ArtiomTr/jest-coverage-report-action@v2
   pylint:
     needs: [coveralls_finish]
     runs-on: ubuntu-latest
