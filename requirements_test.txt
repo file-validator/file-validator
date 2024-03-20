@@ -7,7 +7,7 @@ tox==3.14.0
 Sphinx==1.8.5
 twine==1.14.0
 pytest==6.2.4
-black==21.7b0
+black==24.3.0
 pytest-cov>=3.0.0
 filetype>=1.1.0
 termcolor>=1.1.0
