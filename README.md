@@ -83,7 +83,7 @@ Can you ask your questions through [this link](https://github.com/orgs/file-vali
 Can you read the documentation through [this link](https://file-validator.github.io)
 
 
-## Contributors
+## Contributors 
 
 <a href="https://github.com/file-validator/file-validator/graphs/contributors">
   <img width='250' src="https://contrib.rocks/image?repo=file-validator/file-validator" />
