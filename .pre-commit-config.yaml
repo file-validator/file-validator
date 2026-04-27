@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
@@ -11,12 +11,12 @@ repos:
     -   id: check-builtin-literals
 
 -   repo: https://github.com/asottile/add-trailing-comma
-    rev: v3.1.0
+    rev: v4.0.0
     hooks:
     -   id: add-trailing-comma
 
 -   repo: https://github.com/omnilib/ufmt
-    rev: v2.3.0
+    rev: v2.9.1
     hooks:
       - id: ufmt
         additional_dependencies:
@@ -25,12 +25,12 @@ repos:
 
 
 -   repo: https://github.com/PyCQA/autoflake
-    rev: v2.2.1
+    rev: v2.3.3
     hooks:
     -   id: autoflake
 
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.7.5
+  rev: v1.7.8
   hooks:
     - id: docformatter
       args: [--in-place]
