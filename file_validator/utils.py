@@ -1,4 +1,5 @@
 """Utils for file validator."""
+
 from itertools import groupby
 
 from filetype import is_archive, is_audio, is_font, is_image, is_video
