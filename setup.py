@@ -13,7 +13,7 @@ requirements = [
     "filetype==1.1.0",
     "termcolor==1.1.0",
     "puremagic==1.14",
-    "python-dotenv==0.21.1",
+    "python-dotenv==1.2.2",
     "python-magic-bin==0.4.14 ; platform_system == 'Windows'",
     "python-magic==0.4.27 ; platform_system != 'Windows'",
     "django",
