@@ -25,11 +25,7 @@
 [![python-versions](https://img.shields.io/pypi/pyversions/file-validator?color=light)](https://pypi.org/project/file-validator/)
 [![Downloads](https://static.pepy.tech/personalized-badge/file-validator?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/file-validator)
 [![djangopackages](https://img.shields.io/badge/djangopackages-pass-brightgreen)](https://djangopackages.org/packages/p/file-validator/)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/file-validator/file-validator/master.svg)](https://results.pre-commit.ci/latest/github/file-validator/file-validator/master)
 [![DeepSource](https://deepsource.io/gh/file-validator/file-validator.svg/?label=active+issues&show_trend=true&token=0lNzvy0mQJqkT_aLu8BKzEXs)](https://deepsource.io/gh/file-validator/file-validator/?ref=repository-badge)
-[![codecov](https://codecov.io/gh/file-validator/file-validator/graph/badge.svg?token=13ZVSJWH8M)](https://codecov.io/gh/file-validator/file-validator)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/42a2c09a967148f59c50fcf0f025daa8)](https://app.codacy.com/gh/file-validator/file-validator/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![CodeFactor](https://www.codefactor.io/repository/github/file-validator/file-validator/badge)](https://www.codefactor.io/repository/github/file-validator/file-validator)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/file-validator/file-validator.svg)](http://isitmaintained.com/project/file-validator/file-validator "Percentage of issues still open")
 [![ci](https://github.com/file-validator/file-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/file-validator/file-validator/actions/workflows/ci.yml)
 
