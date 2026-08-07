@@ -36,9 +36,12 @@ jobs:
       -   name: install python-magic-bin when os is windows
           if: matrix.os == 'windows-latest'
           run: pip install python-magic-bin==0.4.14
-      -   name: install python-magic-bin when os is mac
+      -   name: install libmagic when os is mac
           if: matrix.os == 'macos-latest'
-          run: pip install python-magic-bin==0.4.14
+          run: brew install libmagic
+      -   name: install python-magic when os is mac
+          if: matrix.os == 'macos-latest'
+          run: pip install python-magic==0.4.27
       -   name: Lint with flake8
           run: |
             # stop the build if there are Python syntax errors or undefined names
@@ -75,9 +78,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -   name: Checkout
-          uses: actions/checkout@v2
+          uses: actions/checkout@v4
       -   name: Set up Python 3.8
-          uses: actions/setup-python@v2
+          uses: actions/setup-python@v5
           with:
             python-version: '3.8'
       -   name: Install dependencies
@@ -120,9 +123,12 @@ jobs:
       -   name: install python-magic-bin when os is windows
           if: matrix.os == 'windows-latest'
           run: pip install python-magic-bin==0.4.14
-      -   name: install python-magic-bin when os is mac
+      -   name: install libmagic when os is mac
           if: matrix.os == 'macos-latest'
-          run: pip install python-magic-bin==0.4.14
+          run: brew install libmagic
+      -   name: install python-magic when os is mac
+          if: matrix.os == 'macos-latest'
+          run: pip install python-magic==0.4.27
 
       -   name: Test with pytest --cov=./
           env:
