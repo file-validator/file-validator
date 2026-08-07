@@ -16,10 +16,7 @@ from django.utils.deconstruct import deconstructible
 from humanize import naturalsize
 from termcolor import colored
 
-from file_validator.constants import (
-    FILE_SIZE_IS_NOT_VALID,
-    MAX_UPLOAD_SIZE_IS_EMPTY,
-)
+from file_validator.constants import FILE_SIZE_IS_NOT_VALID, MAX_UPLOAD_SIZE_IS_EMPTY
 from file_validator.exceptions import (
     error_message,
     FileValidationException,
@@ -39,12 +36,12 @@ def get_temporary_file_path(current_file) -> str:
     """Return a real filesystem path for an uploaded file.
 
     Django keeps small uploads (smaller than
-    ``FILE_UPLOAD_MAX_MEMORY_SIZE``) in memory as ``InMemoryUploadedFile``
-    instances, which have no file on disk, so ``temporary_file_path()``
-    raises on them. Their contents are spooled to a temporary file (keeping
-    the original extension) so the path-based validators can inspect them.
-    Files that are already on disk (``TemporaryUploadedFile``) are returned
-    as-is.
+    ``FILE_UPLOAD_MAX_MEMORY_SIZE``) in memory as
+    ``InMemoryUploadedFile`` instances, which have no file on disk, so
+    ``temporary_file_path()`` raises on them. Their contents are spooled
+    to a temporary file (keeping the original extension) so the path-
+    based validators can inspect them. Files that are already on disk
+    (``TemporaryUploadedFile``) are returned as-is.
     """
     if isinstance(current_file, TemporaryUploadedFile):
         return current_file.temporary_file_path()

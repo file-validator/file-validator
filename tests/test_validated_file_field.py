@@ -1,4 +1,5 @@
 """Tests for ValidatedFileField."""
+
 import pytest
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -362,8 +363,7 @@ class TestValidatedFileFieldWithInMemoryUploads:
 
     @staticmethod
     def test_file_size_validator_with_in_memory_file_when_size_is_not_valid():
-        """Test FileSizeValidator with an in-memory upload that is too
-        big."""
+        """Test FileSizeValidator with an in-memory upload that is too big."""
         with open(PNG_FILE, "rb") as file:
             uploaded_file = SimpleUploadedFile(
                 name=PNG_OBJECT[NAME],

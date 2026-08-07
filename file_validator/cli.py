@@ -2,6 +2,7 @@
 
 Installed as the ``file_validator`` console script (see ``setup.py``).
 """
+
 import argparse
 import sys
 
@@ -22,9 +23,7 @@ def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser for the command line interface."""
     parser = argparse.ArgumentParser(
         prog="file_validator",
-        description=(
-            "Validate files by mime type, extension, magic numbers and size."
-        ),
+        description=("Validate files by mime type, extension, magic numbers and size."),
     )
     parser.add_argument(
         "path",
@@ -64,9 +63,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--django-mime",
-        help=(
-            "The content type guessed by Django (used with the django library)"
-        ),
+        help=("The content type guessed by Django (used with the django library)"),
     )
     parser.add_argument(
         "--version",
@@ -113,7 +110,7 @@ def main(argv=None) -> int:
     ):
         parser.error(
             "at least one of --mimes, --types, --extensions or --max-size "
-            "is required"
+            "is required",
         )
 
     try:

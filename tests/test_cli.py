@@ -1,14 +1,10 @@
 """Tests for the command line interface (file_validator.cli)."""
+
 import pytest
 
 from file_validator.cli import main
 
-from tests.fixtures import (
-    JPEG_FILE,
-    MP3_FILE,
-    PNG_FILE,
-    PNG_OBJECT,
-)
+from tests.fixtures import JPEG_FILE, MP3_FILE, PNG_FILE, PNG_OBJECT
 
 
 class TestCli:

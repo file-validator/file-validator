@@ -1,4 +1,5 @@
 """Module is related to tests."""
+
 import os
 from unittest import mock
 
@@ -84,9 +85,9 @@ class TestFileValidatorByPythonMagic:
         mocked_magic,
         jpeg=JPEG_FILE,
     ):
-        """The path_magic_file env var must actually be used: a Magic
-        instance configured with the custom magic file has to be created and
-        used for detection."""
+        """The path_magic_file env var must actually be used: a Magic instance
+        configured with the custom magic file has to be created and used for
+        detection."""
         mocked_instance = mocked_magic.return_value
         mocked_instance.from_buffer.return_value = JPEG_OBJECT[MIME]
         with mock.patch(
@@ -331,7 +332,6 @@ class TestFileValidatorDjango:
     def test_file_validation_by_django_when_raise_attribute_error():
         """Test FileValidator when the library is django and file is not valid
         and raise attribute error."""
-
         file_validator = FileValidator(
             acceptable_mimes=[PNG_OBJECT[MIME]],
             file_path=PNG_FILE,
