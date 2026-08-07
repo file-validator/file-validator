@@ -1,4 +1,5 @@
 """Tests for exception."""
+
 from file_validator.exceptions import error_message
 
 from tests.fixtures import (

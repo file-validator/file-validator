@@ -1,4 +1,5 @@
 """This file is for customizing errors and anything related to errors."""
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
