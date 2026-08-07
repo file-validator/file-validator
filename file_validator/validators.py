@@ -17,6 +17,7 @@ from puremagic import PureError
 from termcolor import colored
 
 from file_validator.constants import (
+    ALL,
     DJANGO,
     ERROR_MESSAGE_FOR_EXTENSION_VALIDATION,
     ERROR_MESSAGE_FOR_MIME_VALIDATION,
@@ -211,6 +212,23 @@ class FileValidator:
             validation_data.update({DJANGO: validation_data_django})
 
         return validation_data
+
+    def validate_by_libraries(self, libraries: list):
+        """Run mime validation for every requested library."""
+        for library in libraries:
+            if library == ALL:
+                self.validate()
+            elif library == PYTHON_MAGIC:
+                self.python_magic()
+            elif library == PURE_MAGIC:
+                self.pure_magic()
+            elif library == MIMETYPES:
+                self.mimetypes()
+            elif library == FILETYPE:
+                self.filetype()
+            else:
+                self.django()
+        return self.result_of_validation
 
     def python_magic(self):
         """This method for validating file based on mime using python-magic

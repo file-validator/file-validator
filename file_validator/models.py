@@ -17,13 +17,8 @@ from humanize import naturalsize
 from termcolor import colored
 
 from file_validator.constants import (
-    ALL,
     FILE_SIZE_IS_NOT_VALID,
-    FILETYPE,
     MAX_UPLOAD_SIZE_IS_EMPTY,
-    MIMETYPES,
-    PURE_MAGIC,
-    PYTHON_MAGIC,
 )
 from file_validator.exceptions import (
     error_message,
@@ -32,7 +27,6 @@ from file_validator.exceptions import (
 )
 from file_validator.utils import (
     all_mimes_is_equal,
-    is_library_supported,
     is_type_supported,
     parameters_are_empty,
     set_the_acceptable_mimes,
@@ -135,19 +129,7 @@ class ValidatedFileField(FileField):
                 file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
             if self.acceptable_mimes is not None:
-                for library in self.libraries:
-                    if library == ALL:
-                        file_validator.validate()
-                    elif library == PYTHON_MAGIC:
-                        file_validator.python_magic()
-                    elif library == PURE_MAGIC:
-                        file_validator.pure_magic()
-                    elif library == MIMETYPES:
-                        file_validator.mimetypes()
-                    elif library == FILETYPE:
-                        file_validator.filetype()
-                    else:
-                        file_validator.django()
+                file_validator.validate_by_libraries(self.libraries)
             if self.acceptable_types is not None:
                 file_validator.validate_type()
             if self.max_upload_file_size is not None:
@@ -239,20 +221,7 @@ class DjangoFileValidator:
                 file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
             if self.acceptable_mimes is not None:
-                for library in self.libraries:
-                    is_library_supported(library)
-                    if library == ALL:
-                        file_validator.validate()
-                    elif library == PYTHON_MAGIC:
-                        file_validator.python_magic()
-                    elif library == PURE_MAGIC:
-                        file_validator.pure_magic()
-                    elif library == MIMETYPES:
-                        file_validator.mimetypes()
-                    elif library == FILETYPE:
-                        file_validator.filetype()
-                    else:
-                        file_validator.django()
+                file_validator.validate_by_libraries(self.libraries)
             if self.acceptable_types is not None:
                 file_validator.validate_type()
             if self.max_upload_file_size is not None:

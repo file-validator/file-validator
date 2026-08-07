@@ -8,13 +8,6 @@ import sys
 from termcolor import colored
 
 from file_validator import __version__
-from file_validator.constants import (
-    ALL,
-    FILETYPE,
-    MIMETYPES,
-    PURE_MAGIC,
-    PYTHON_MAGIC,
-)
 from file_validator.exceptions import (
     FileValidationException,
     LibraryNotSupportedException,
@@ -83,24 +76,6 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _dispatch(file_validator: FileValidator, libraries: list) -> dict:
-    """Run mime validation for every requested library."""
-    for library in libraries:
-        if library == ALL:
-            file_validator.validate()
-        elif library == PYTHON_MAGIC:
-            file_validator.python_magic()
-        elif library == PURE_MAGIC:
-            file_validator.pure_magic()
-        elif library == MIMETYPES:
-            file_validator.mimetypes()
-        elif library == FILETYPE:
-            file_validator.filetype()
-        else:
-            file_validator.django()
-    return file_validator.result_of_validation
-
-
 def validate_file(args) -> dict:
     """Run the requested validations and return the results."""
     file_validator = FileValidator(
@@ -119,7 +94,9 @@ def validate_file(args) -> dict:
     if args.extensions is not None:
         file_validator.validate_extension()
     if args.mimes is not None:
-        _dispatch(file_validator, set_the_library(args.libraries))
+        file_validator.validate_by_libraries(
+            set_the_library(args.libraries),
+        )
     return file_validator.result_of_validation
 
 
