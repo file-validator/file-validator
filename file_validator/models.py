@@ -6,6 +6,9 @@ there is a method to perform validation operations using all three
 libraries It is called safe mode
 """
 
+import tempfile
+from pathlib import Path
+
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db.models import FileField
@@ -36,6 +39,26 @@ from file_validator.utils import (
     set_the_library,
 )
 from file_validator.validators import FileValidator
+
+
+def get_temporary_file_path(current_file) -> str:
+    """Return a real filesystem path for an uploaded file.
+
+    Django keeps small uploads (smaller than
+    ``FILE_UPLOAD_MAX_MEMORY_SIZE``) in memory as ``InMemoryUploadedFile``
+    instances, which have no file on disk, so ``temporary_file_path()``
+    raises on them. Their contents are spooled to a temporary file (keeping
+    the original extension) so the path-based validators can inspect them.
+    Files that are already on disk (``TemporaryUploadedFile``) are returned
+    as-is.
+    """
+    if isinstance(current_file, TemporaryUploadedFile):
+        return current_file.temporary_file_path()
+    suffix = Path(current_file.name).suffix
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
+        for chunk in current_file.chunks():
+            temp_file.write(chunk)
+        return temp_file.name
 
 
 class ValidatedFileField(FileField):
@@ -101,7 +124,7 @@ class ValidatedFileField(FileField):
         except AttributeError:
             file_mime_guessed_by_django = None
         file_size = data.size
-        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        file_path = get_temporary_file_path(current_file)
         try:
             file_validator = FileValidator(
                 file_path=file_path,
@@ -201,7 +224,7 @@ class DjangoFileValidator:
     def __call__(self, value):
         current_file = value.file
         file_size = value.size
-        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        file_path = get_temporary_file_path(current_file)
         try:
             file_mime_guessed_by_django = current_file.content_type
         except AttributeError:
@@ -282,7 +305,7 @@ class FileSizeValidator:
     def __call__(self, value):
         current_file = value.file
         file_size = value.size
-        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        file_path = get_temporary_file_path(current_file)
         try:
             file_validator = FileValidator(
                 file_path=file_path,

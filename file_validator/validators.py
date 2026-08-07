@@ -147,10 +147,12 @@ class FileValidator:
         path_magic_file = os.environ.get("path_magic_file")
         if path_magic_file and operating_system_name == "Windows":
             with open(self.file_path, "rb") as file:
-                magic.Magic(magic_file=path_magic_file)
-                guessed_mime_by_python_magic = magic.from_buffer(
-                    file.read(2048),
+                magic_instance = magic.Magic(
+                    magic_file=path_magic_file,
                     mime=True,
+                )
+                guessed_mime_by_python_magic = magic_instance.from_buffer(
+                    file.read(2048),
                 )
         else:
             with open(self.file_path, "rb") as file:
@@ -221,8 +223,11 @@ class FileValidator:
         file_extension = current_file.suffix
         if path_magic_file and operating_system_name == "Windows":
             with open(self.file_path, "rb") as file:
-                magic.Magic(magic_file=path_magic_file)
-                file_mime = magic.from_buffer(file.read(2048), mime=True)
+                magic_instance = magic.Magic(
+                    magic_file=path_magic_file,
+                    mime=True,
+                )
+                file_mime = magic_instance.from_buffer(file.read(2048))
         else:
             with open(self.file_path, "rb") as file:
                 file_mime = magic.from_buffer(file.read(2048), mime=True)

@@ -30,6 +30,9 @@ from tests.project.app.forms import (
     FormWithValidatedFileField,
 )
 from tests.project.app.models import (
+    ModelWithDjangoFileValidator,
+    ModelWithFileSizeValidator,
+    ModelWithFileSizeValidatorAndNotValidSize,
     ModelWithValidatedFileField,
     ModelWithValidatedFileFieldAndAllLibrary,
     ModelWithValidatedFileFieldAndDjangoLibrary,
@@ -299,3 +302,76 @@ class TestValidatedFileFieldForm:
         """Test css class attribute in form."""
         form = FormWithCssClassAttribute()
         assert form.fields["test_file"].custom_css_class == "test-class"
+
+
+class TestValidatedFileFieldWithInMemoryUploads:
+    """These tests cover uploads that Django keeps in memory
+    (``InMemoryUploadedFile``, i.e. files smaller than
+    ``FILE_UPLOAD_MAX_MEMORY_SIZE``) which used to crash the validators with
+    ``ValueError``/``AttributeError``."""
+
+    @staticmethod
+    def test_validated_file_field_with_in_memory_file_when_file_is_valid():
+        """Test ValidatedFileField with an in-memory (small) upload."""
+        with open(PNG_FILE, "rb") as file:
+            uploaded_file = SimpleUploadedFile(
+                name=PNG_OBJECT[NAME],
+                content=file.read(),
+                content_type=PNG_OBJECT[MIME],
+            )
+        new_instance = ModelWithValidatedFileField(test_file=uploaded_file)
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_validated_file_field_with_in_memory_file_when_file_is_not_valid():
+        """Test ValidatedFileField with an in-memory upload that is not
+        valid."""
+        with open(JPEG_FILE, "rb") as file:
+            uploaded_file = SimpleUploadedFile(
+                name=JPEG_OBJECT[NAME],
+                content=file.read(),
+                content_type=JPEG_OBJECT[MIME],
+            )
+        new_instance = ModelWithValidatedFileField(test_file=uploaded_file)
+        with pytest.raises(ValidationError):
+            new_instance.full_clean()
+
+    @staticmethod
+    def test_django_file_validator_with_in_memory_file():
+        """Test DjangoFileValidator with an in-memory (small) upload."""
+        with open(PNG_FILE, "rb") as file:
+            uploaded_file = SimpleUploadedFile(
+                name=PNG_OBJECT[NAME],
+                content=file.read(),
+                content_type=PNG_OBJECT[MIME],
+            )
+        new_instance = ModelWithDjangoFileValidator(test_file=uploaded_file)
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_file_size_validator_with_in_memory_file():
+        """Test FileSizeValidator with an in-memory (small) upload."""
+        with open(PNG_FILE, "rb") as file:
+            uploaded_file = SimpleUploadedFile(
+                name=PNG_OBJECT[NAME],
+                content=file.read(),
+                content_type=PNG_OBJECT[MIME],
+            )
+        new_instance = ModelWithFileSizeValidator(test_file=uploaded_file)
+        new_instance.full_clean()
+
+    @staticmethod
+    def test_file_size_validator_with_in_memory_file_when_size_is_not_valid():
+        """Test FileSizeValidator with an in-memory upload that is too
+        big."""
+        with open(PNG_FILE, "rb") as file:
+            uploaded_file = SimpleUploadedFile(
+                name=PNG_OBJECT[NAME],
+                content=file.read(),
+                content_type=PNG_OBJECT[MIME],
+            )
+        new_instance = ModelWithFileSizeValidatorAndNotValidSize(
+            test_file=uploaded_file,
+        )
+        with pytest.raises(ValidationError):
+            new_instance.full_clean()
