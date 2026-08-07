@@ -240,6 +240,7 @@ jobs:
                   sarif_file: results.sarif
   deploy:
     needs: pylint
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       -   uses: actions/checkout@master
