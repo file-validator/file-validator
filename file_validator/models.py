@@ -6,6 +6,9 @@ there is a method to perform validation operations using all three
 libraries It is called safe mode
 """
 
+import tempfile
+from pathlib import Path
+
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db.models import FileField
@@ -13,15 +16,7 @@ from django.utils.deconstruct import deconstructible
 from humanize import naturalsize
 from termcolor import colored
 
-from file_validator.constants import (
-    ALL,
-    FILE_SIZE_IS_NOT_VALID,
-    FILETYPE,
-    MAX_UPLOAD_SIZE_IS_EMPTY,
-    MIMETYPES,
-    PURE_MAGIC,
-    PYTHON_MAGIC,
-)
+from file_validator.constants import FILE_SIZE_IS_NOT_VALID, MAX_UPLOAD_SIZE_IS_EMPTY
 from file_validator.exceptions import (
     error_message,
     FileValidationException,
@@ -29,13 +24,32 @@ from file_validator.exceptions import (
 )
 from file_validator.utils import (
     all_mimes_is_equal,
-    is_library_supported,
     is_type_supported,
     parameters_are_empty,
     set_the_acceptable_mimes,
     set_the_library,
 )
 from file_validator.validators import FileValidator
+
+
+def get_temporary_file_path(current_file) -> str:
+    """Return a real filesystem path for an uploaded file.
+
+    Django keeps small uploads (smaller than
+    ``FILE_UPLOAD_MAX_MEMORY_SIZE``) in memory as
+    ``InMemoryUploadedFile`` instances, which have no file on disk, so
+    ``temporary_file_path()`` raises on them. Their contents are spooled
+    to a temporary file (keeping the original extension) so the path-
+    based validators can inspect them. Files that are already on disk
+    (``TemporaryUploadedFile``) are returned as-is.
+    """
+    if isinstance(current_file, TemporaryUploadedFile):
+        return current_file.temporary_file_path()
+    suffix = Path(current_file.name).suffix
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
+        for chunk in current_file.chunks():
+            temp_file.write(chunk)
+        return temp_file.name
 
 
 class ValidatedFileField(FileField):
@@ -101,7 +115,7 @@ class ValidatedFileField(FileField):
         except AttributeError:
             file_mime_guessed_by_django = None
         file_size = data.size
-        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        file_path = get_temporary_file_path(current_file)
         try:
             file_validator = FileValidator(
                 file_path=file_path,
@@ -112,19 +126,7 @@ class ValidatedFileField(FileField):
                 file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
             if self.acceptable_mimes is not None:
-                for library in self.libraries:
-                    if library == ALL:
-                        file_validator.validate()
-                    elif library == PYTHON_MAGIC:
-                        file_validator.python_magic()
-                    elif library == PURE_MAGIC:
-                        file_validator.pure_magic()
-                    elif library == MIMETYPES:
-                        file_validator.mimetypes()
-                    elif library == FILETYPE:
-                        file_validator.filetype()
-                    else:
-                        file_validator.django()
+                file_validator.validate_by_libraries(self.libraries)
             if self.acceptable_types is not None:
                 file_validator.validate_type()
             if self.max_upload_file_size is not None:
@@ -201,7 +203,7 @@ class DjangoFileValidator:
     def __call__(self, value):
         current_file = value.file
         file_size = value.size
-        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        file_path = get_temporary_file_path(current_file)
         try:
             file_mime_guessed_by_django = current_file.content_type
         except AttributeError:
@@ -216,20 +218,7 @@ class DjangoFileValidator:
                 file_mime_guessed_by_django=file_mime_guessed_by_django,
             )
             if self.acceptable_mimes is not None:
-                for library in self.libraries:
-                    is_library_supported(library)
-                    if library == ALL:
-                        file_validator.validate()
-                    elif library == PYTHON_MAGIC:
-                        file_validator.python_magic()
-                    elif library == PURE_MAGIC:
-                        file_validator.pure_magic()
-                    elif library == MIMETYPES:
-                        file_validator.mimetypes()
-                    elif library == FILETYPE:
-                        file_validator.filetype()
-                    else:
-                        file_validator.django()
+                file_validator.validate_by_libraries(self.libraries)
             if self.acceptable_types is not None:
                 file_validator.validate_type()
             if self.max_upload_file_size is not None:
@@ -282,7 +271,7 @@ class FileSizeValidator:
     def __call__(self, value):
         current_file = value.file
         file_size = value.size
-        file_path = TemporaryUploadedFile.temporary_file_path(current_file)
+        file_path = get_temporary_file_path(current_file)
         try:
             file_validator = FileValidator(
                 file_path=file_path,

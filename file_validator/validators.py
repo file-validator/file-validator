@@ -17,6 +17,7 @@ from puremagic import PureError
 from termcolor import colored
 
 from file_validator.constants import (
+    ALL,
     DJANGO,
     ERROR_MESSAGE_FOR_EXTENSION_VALIDATION,
     ERROR_MESSAGE_FOR_MIME_VALIDATION,
@@ -147,10 +148,12 @@ class FileValidator:
         path_magic_file = os.environ.get("path_magic_file")
         if path_magic_file and operating_system_name == "Windows":
             with open(self.file_path, "rb") as file:
-                magic.Magic(magic_file=path_magic_file)
-                guessed_mime_by_python_magic = magic.from_buffer(
-                    file.read(2048),
+                magic_instance = magic.Magic(
+                    magic_file=path_magic_file,
                     mime=True,
+                )
+                guessed_mime_by_python_magic = magic_instance.from_buffer(
+                    file.read(2048),
                 )
         else:
             with open(self.file_path, "rb") as file:
@@ -210,6 +213,23 @@ class FileValidator:
 
         return validation_data
 
+    def validate_by_libraries(self, libraries: list):
+        """Run mime validation for every requested library."""
+        for library in libraries:
+            if library == ALL:
+                self.validate()
+            elif library == PYTHON_MAGIC:
+                self.python_magic()
+            elif library == PURE_MAGIC:
+                self.pure_magic()
+            elif library == MIMETYPES:
+                self.mimetypes()
+            elif library == FILETYPE:
+                self.filetype()
+            else:
+                self.django()
+        return self.result_of_validation
+
     def python_magic(self):
         """This method for validating file based on mime using python-magic
         library."""
@@ -221,8 +241,11 @@ class FileValidator:
         file_extension = current_file.suffix
         if path_magic_file and operating_system_name == "Windows":
             with open(self.file_path, "rb") as file:
-                magic.Magic(magic_file=path_magic_file)
-                file_mime = magic.from_buffer(file.read(2048), mime=True)
+                magic_instance = magic.Magic(
+                    magic_file=path_magic_file,
+                    mime=True,
+                )
+                file_mime = magic_instance.from_buffer(file.read(2048))
         else:
             with open(self.file_path, "rb") as file:
                 file_mime = magic.from_buffer(file.read(2048), mime=True)

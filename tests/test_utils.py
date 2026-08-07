@@ -1,4 +1,5 @@
 """Tests for utils.py."""
+
 import pytest
 
 from file_validator.constants import ARCHIVE, AUDIO, FILETYPE, FONT, IMAGE, OK, VIDEO

@@ -1,4 +1,5 @@
 """Module is related to tests."""
+
 import os
 from unittest import mock
 
@@ -76,6 +77,36 @@ class TestFileValidatorByPythonMagic:
         assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
         assert result_of_validation["file_type"] == JPEG_OBJECT[TYPE]
         assert result_of_validation["file_extension"] == JPEG_OBJECT[EXTENSION]
+
+    @mock.patch("file_validator.validators.magic.Magic")
+    @mock.patch.dict(os.environ, {"path_magic_file": MAGIC_FILE}, clear=True)
+    def test_file_validator_by_python_magic_uses_the_magic_file_instance(
+        self,
+        mocked_magic,
+        jpeg=JPEG_FILE,
+    ):
+        """The path_magic_file env var must actually be used: a Magic instance
+        configured with the custom magic file has to be created and used for
+        detection."""
+        mocked_instance = mocked_magic.return_value
+        mocked_instance.from_buffer.return_value = JPEG_OBJECT[MIME]
+        with mock.patch(
+            "file_validator.validators.platform.system",
+            return_value="Windows",
+        ):
+            file_validator = FileValidator(
+                acceptable_mimes=[JPEG_OBJECT[MIME]],
+                file_path=jpeg,
+            )
+            result_of_validation = file_validator.python_magic()
+
+        mocked_magic.assert_called_once_with(
+            magic_file=MAGIC_FILE,
+            mime=True,
+        )
+        mocked_instance.from_buffer.assert_called_once()
+        assert result_of_validation["status"] == OK
+        assert result_of_validation["file_mime"] == JPEG_OBJECT[MIME]
 
 
 class TestFileValidatorByMimeTypes:
@@ -301,7 +332,6 @@ class TestFileValidatorDjango:
     def test_file_validation_by_django_when_raise_attribute_error():
         """Test FileValidator when the library is django and file is not valid
         and raise attribute error."""
-
         file_validator = FileValidator(
             acceptable_mimes=[PNG_OBJECT[MIME]],
             file_path=PNG_FILE,
@@ -354,3 +384,29 @@ class TestFileMimeValidator:
             acceptable_mimes=[PNG_OBJECT[MIME]],
         )
         file_validator.validate_mime()
+
+    @mock.patch("file_validator.validators.magic.Magic")
+    @mock.patch.dict(os.environ, {"path_magic_file": MAGIC_FILE}, clear=True)
+    def test_file_mime_validation_uses_the_magic_file_instance(
+        self,
+        mocked_magic,
+    ):
+        """validate_mime must also use the Magic instance configured with the
+        custom magic file from the path_magic_file env var."""
+        mocked_instance = mocked_magic.return_value
+        mocked_instance.from_buffer.return_value = PNG_OBJECT[MIME]
+        with mock.patch(
+            "file_validator.validators.platform.system",
+            return_value="Windows",
+        ):
+            file_validator = FileValidator(
+                file_path=PNG_FILE,
+                acceptable_mimes=[PNG_OBJECT[MIME]],
+            )
+            file_validator.validate_mime()
+
+        mocked_magic.assert_called_once_with(
+            magic_file=MAGIC_FILE,
+            mime=True,
+        )
+        mocked_instance.from_buffer.assert_called_once()

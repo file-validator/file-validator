@@ -3,12 +3,11 @@ bump2version==0.5.11
 wheel==0.38.1
 watchdog
 flake8==3.7.8
-tox==3.14.0
 Sphinx==1.8.5
 twine==1.14.0
-pytest==6.2.4
+pytest==8.3.5
 black==21.7b0
-pytest-cov>=3.0.0
+pytest-cov==5.0.0
 filetype>=1.1.0
 termcolor>=1.1.0
 Django>=4.1
@@ -20,7 +19,7 @@ python-dotenv>=0.21.0
 pre-commit>=3.1.0
 build>=0.10.0
 click>=8.0.2
-coverage>=6.5.0
+coverage>=6.5,<8
 coveralls>=3.3.1
 # python-magic-bin>=0.4.14 #if run on Windows un-comment the following line
 # python-magic>=0.4.27  # else other platforms un-comment the following line
