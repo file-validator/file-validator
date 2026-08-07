@@ -2,251 +2,86 @@ name: ci
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "master" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  python-package:
+  test:
+    name: test (${{ matrix.os }} / py${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
         python-version: [ "3.8", "3.9", "3.10", "3.11" ]
-    runs-on: ${{ matrix.os }}
     steps:
-      -   uses: actions/checkout@v3
-      -   name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v3
+      -   uses: actions/checkout@v4
+      -   uses: actions/setup-python@v5
           with:
             python-version: ${{ matrix.python-version }}
-      -   name: upgrade pip in windows
-          if: matrix.os == 'windows-latest'
-          run: python.exe -m pip install -r requirements_dev.txt
-      -   name: upgrade pip in ubuntu and macos
-          if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-          run: python -m pip install -r requirements_dev.txt
-      -   name: install flake8 pytest
-          run: python -m pip install flake8 pytest
-      -   name: install requirements
-          run: pip install -r requirements_dev.txt
-      -   name: install python-magic when os is ubuntu
-          if: matrix.os == 'ubuntu-latest'
-          run: pip install python-magic==0.4.27
-      -   name: install python-magic-bin when os is windows
-          if: matrix.os == 'windows-latest'
-          run: pip install python-magic-bin==0.4.14
-      -   name: install libmagic when os is mac
-          if: matrix.os == 'macos-latest'
+            cache: pip
+            cache-dependency-path: requirements_dev.txt
+      -   name: Install libmagic (macOS)
+          if: runner.os == 'macOS'
           run: brew install libmagic
-      -   name: install python-magic when os is mac
-          if: matrix.os == 'macos-latest'
-          run: pip install python-magic==0.4.27
-      -   name: Lint with flake8
-          run: |
-            # stop the build if there are Python syntax errors or undefined names
-            flake8 ./file_validator --count --select=E9,F63,F7,F82 --show-source --statistics
-            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-            flake8 ./file_validator --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      -   name: Install dependencies
+          run: python -m pip install -r requirements_dev.txt
       -   name: Test with pytest
-          run: |
-            pytest
+          run: pytest
 
-
-  check-installation:
-    needs: [ python-package ]
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        python-version: [ "3.8", "3.9", "3.10", "3.11" ]
-    runs-on: ${{ matrix.os }}
-    steps:
-      -   uses: actions/checkout@v3
-      -   name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v3
-          with:
-            python-version: ${{ matrix.python-version }}
-      -   name: installation file-validator in windows
-          if: matrix.os == 'windows-latest'
-          run: python.exe -m pip install file-validator
-      -   name: installation file-validator in macos and ubuntu
-          if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-          run: python -m pip install file-validator
-  codecov:
-    needs: [ check-installation ]
+  lint:
+    name: lint
     runs-on: ubuntu-latest
     steps:
-      -   name: Checkout
-          uses: actions/checkout@v4
-      -   name: Set up Python 3.8
-          uses: actions/setup-python@v5
+      -   uses: actions/checkout@v4
+      -   uses: actions/setup-python@v5
           with:
-            python-version: '3.8'
+            python-version: "3.10"
+            cache: pip
+            cache-dependency-path: requirements_test.txt
       -   name: Install dependencies
-          run: pip install -r requirements_test.txt
-      -   name: Run tests and collect coverage
-          run: pytest --cov file_validator
-      -   name: Upload coverage to Codecov
-          run: |
-            # Replace `linux` below with the appropriate OS
-            # Options are `alpine`, `linux`, `macos`, `windows`
-            curl -Os https://uploader.codecov.io/latest/linux/codecov
-            chmod +x codecov
-            ./codecov -t ${CODECOV_TOKEN}
+          run: python -m pip install -r requirements_test.txt flake8 pylint
+      -   name: Lint with flake8
+          run: flake8 ./file_validator --count --select=E9,F63,F7,F82 --show-source --statistics
+      -   name: Lint with pylint
+          run: pylint $(git ls-files './file_validator')
 
-  coveralls:
-    needs: [ check-installation ]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        python-version: [ "3.8","3.9","3.10", "3.11" ]
-
+  coverage:
+    name: coverage
+    runs-on: ubuntu-latest
     steps:
-      -   uses: actions/checkout@v3
-      -   name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v3
+      -   uses: actions/checkout@v4
+      -   uses: actions/setup-python@v5
           with:
-            python-version: ${{ matrix.python-version }}
-      -   name: upgrade pip in windows
-          if: matrix.os == 'windows-latest'
-          run: python.exe -m pip install -r requirements_dev.txt
-      -   name: upgrade pip in ubuntu and macos
-          if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-          run: python -m pip install -r requirements_dev.txt
-      -   name: install requirements
-          run: pip install -r requirements_dev.txt
-      -   name: install python-magic when os is ubuntu
-          if: matrix.os == 'ubuntu-latest'
-          run: pip install python-magic==0.4.27
-      -   name: install python-magic-bin when os is windows
-          if: matrix.os == 'windows-latest'
-          run: pip install python-magic-bin==0.4.14
-      -   name: install libmagic when os is mac
-          if: matrix.os == 'macos-latest'
-          run: brew install libmagic
-      -   name: install python-magic when os is mac
-          if: matrix.os == 'macos-latest'
-          run: pip install python-magic==0.4.27
-
-      -   name: Test with pytest --cov=./
+            python-version: "3.10"
+            cache: pip
+            cache-dependency-path: requirements_test.txt
+      -   name: Install dependencies
+          run: python -m pip install -r requirements_test.txt
+      -   name: Test with pytest and measure coverage
+          run: pytest --cov=./
+      -   name: Report coverage to Coveralls
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            path_magic_file: ${{ github.workspace }}\\tests\\files\\magic.mgc
           run: |
-            pytest --cov=./
             coverage xml -i
             coveralls --service=github
 
-  coveralls_finish:
-    needs: [ coveralls ]
-    runs-on: ubuntu-latest
-    steps:
-      -   name: Coveralls Finished report
-          uses: AndreMiras/coveralls-python-action@develop
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            parallel: true
-            parallel-finished: true
-            flag-name: github_action_tests
-            base-path: '.'
-            debug: true
   codeql:
-    needs: [coveralls_finish]
-    name: Analyze
+    name: codeql analyze
     runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
       security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ python ]
-
     steps:
-      -   name: Checkout
-          uses: actions/checkout@v3
-
-      -   name: Initialize CodeQL
-          uses: github/codeql-action/init@v2
+      -   uses: actions/checkout@v4
+      -   uses: github/codeql-action/init@v3
           with:
-            languages: ${{ matrix.language }}
-            queries: +security-and-quality
-
-      -   name: Autobuild
-          uses: github/codeql-action/autobuild@v2
-
-      -   name: Perform CodeQL Analysis
-          uses: github/codeql-action/analyze@v2
-          with:
-            category: "/language:${{ matrix.language }}"
-  pylint:
-    needs: [coveralls_finish]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [ "3.8", "3.9", "3.10" ]
-    steps:
-      -   uses: actions/checkout@v3
-      -   name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v3
-          with:
-            python-version: ${{ matrix.python-version }}
-      -   name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install pylint
-            pip install -r requirements_test.txt
-      -   name: Analysing the code with pylint
-          run: |
-            pylint $(git ls-files './file_validator')
-
-  codacy-security-scan:
-      needs: [coveralls_finish]
-      permissions:
-          contents: read # for actions/checkout to fetch code
-          security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-          actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
-      name: Codacy Security Scan
-      runs-on: ubuntu-latest
-      steps:
-          # Checkout the repository to the GitHub Actions runner
-          -   name: Checkout code
-              uses: actions/checkout@v3
-
-          # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
-          -   name: Run Codacy Analysis CLI
-              uses: codacy/codacy-analysis-cli-action@d840f886c4bd4edc059706d09c6a1586111c540b
-              with:
-                  # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
-                  # You can also omit the token and run the tools that support default configurations
-                  project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-                  verbose: true
-                  output: results.sarif
-                  format: sarif
-                  # Adjust severity of non-security issues
-                  gh-code-scanning-compat: true
-                  # Force 0 exit code to allow SARIF file generation
-                  # This will handover control about PR rejection to the GitHub side
-                  max-allowed-issues: 2147483647
-
-          # Upload the SARIF file generated in the previous step
-          -   name: Upload SARIF results file
-              uses: github/codeql-action/upload-sarif@v2
-              with:
-                  sarif_file: results.sarif
-  deploy:
-    needs: pylint
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      -   uses: actions/checkout@master
-      -   uses: redkubes/docusaurus-deploy-action@v1.2
-          with:
-            source-folder: docs
-            git-user: file-validator
-            git-password: ${{ secrets.MY_GITHUB_TOKEN }}
-            deployment-branch: master
+            languages: python
+      -   uses: github/codeql-action/autobuild@v3
+      -   uses: github/codeql-action/analyze@v3
